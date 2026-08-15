@@ -69,7 +69,7 @@
               <input
                 id="search"
                 type="search"
-                placeholder="Search organisations, programmes…"
+                placeholder="Search name · type · cluster"
                 autocomplete="off"
               />
               <div
@@ -101,87 +101,101 @@
 
             <div class="how-to-read" aria-label="How to read the Atlas">
               <span class="panel-title">How to read</span>
-              <span class="lg"
-                ><svg width="14" height="14" aria-hidden="true">
-                  <circle cx="7" cy="7" r="5" fill="var(--color-muted)"></circle>
-                </svg>
-                organisation</span
-              >
-              <span class="lg"
-                ><svg width="24" height="14" aria-hidden="true">
-                  <rect
-                    x="1"
-                    y="3"
-                    width="22"
-                    height="8"
-                    fill="var(--color-panel)"
-                    stroke="var(--color-ink)"
-                  ></rect>
-                </svg>
-                programme</span
-              >
-              <span class="lg"
-                ><svg width="14" height="14" aria-hidden="true">
-                  <circle
-                    cx="7"
-                    cy="7"
-                    r="4.5"
-                    fill="var(--color-panel)"
-                    stroke="var(--color-muted)"
-                    stroke-width="2"
-                  ></circle>
-                </svg>
-                international</span
-              >
-              <span class="lg"
-                ><svg width="30" height="7" aria-hidden="true">
-                  <line x1="1" y1="3.5" x2="29" y2="3.5" stroke="var(--color-ink)"></line>
-                </svg>
-                direct</span
-              >
-              <span class="lg"
-                ><svg width="30" height="7" aria-hidden="true">
-                  <line
-                    x1="1"
-                    y1="3.5"
-                    x2="29"
-                    y2="3.5"
-                    stroke="var(--color-ink)"
-                    stroke-dasharray="5 3"
-                  ></line>
-                </svg>
-                programme</span
-              >
-              <span class="lg"
-                ><svg width="30" height="7" aria-hidden="true">
-                  <line
-                    x1="1"
-                    y1="3.5"
-                    x2="29"
-                    y2="3.5"
-                    stroke="var(--color-ink)"
-                    stroke-dasharray="1.5 3"
-                  ></line>
-                </svg>
-                contextual</span
-              >
-              <span class="lg"
-                ><svg width="30" height="7" aria-hidden="true">
-                  <line
-                    x1="1"
-                    y1="3.5"
-                    x2="29"
-                    y2="3.5"
-                    stroke="var(--color-muted)"
-                    stroke-opacity="0.5"
-                  ></line>
-                </svg>
-                muted = inferred</span
-              >
-              <span class="chan"
-                ><b>colour</b> type · <b>shape</b> entity · <b>line</b> pathway ·
-                <b>opacity</b> evidence · <b>position</b> layer</span
-              >
+              <div class="lg-group">
+                <span class="lg"
+                  ><svg width="14" height="14" aria-hidden="true">
+                    <circle cx="7" cy="7" r="5" fill="var(--color-muted)"></circle>
+                  </svg>
+                  organisation</span
+                >
+                <span class="lg"
+                  ><svg width="24" height="14" aria-hidden="true">
+                    <rect
+                      x="1"
+                      y="3"
+                      width="22"
+                      height="8"
+                      fill="var(--color-panel)"
+                      stroke="var(--color-ink)"
+                    ></rect>
+                  </svg>
+                  programme</span
+                >
+                <span class="lg"
+                  ><svg width="14" height="14" aria-hidden="true">
+                    <circle
+                      cx="7"
+                      cy="7"
+                      r="4.5"
+                      fill="var(--color-panel)"
+                      stroke="var(--color-muted)"
+                      stroke-width="2"
+                    ></circle>
+                  </svg>
+                  international</span
+                >
+              </div>
+              <div class="lg-group">
+                <span class="lg"
+                  ><svg width="30" height="7" aria-hidden="true">
+                    <line x1="1" y1="3.5" x2="29" y2="3.5" stroke="var(--color-ink)"></line>
+                  </svg>
+                  direct</span
+                >
+                <span class="lg"
+                  ><svg width="30" height="7" aria-hidden="true">
+                    <line
+                      x1="1"
+                      y1="3.5"
+                      x2="29"
+                      y2="3.5"
+                      stroke="var(--color-ink)"
+                      stroke-dasharray="5 3"
+                    ></line>
+                  </svg>
+                  programme</span
+                >
+                <span class="lg"
+                  ><svg width="30" height="7" aria-hidden="true">
+                    <line
+                      x1="1"
+                      y1="3.5"
+                      x2="29"
+                      y2="3.5"
+                      stroke="var(--color-ink)"
+                      stroke-dasharray="1.5 3"
+                    ></line>
+                  </svg>
+                  contextual</span
+                >
+              </div>
+              <div class="lg-group">
+                <span class="lg"
+                  ><svg width="30" height="7" aria-hidden="true">
+                    <line
+                      x1="1"
+                      y1="3.5"
+                      x2="29"
+                      y2="3.5"
+                      stroke="var(--color-muted)"
+                      stroke-opacity="0.5"
+                    ></line>
+                  </svg>
+                  muted = inferred</span
+                >
+                <dl class="chan">
+                  <dt>colour</dt>
+                  <dd>type</dd>
+                  <dt>shape</dt>
+                  <dd>entity</dd>
+                  <dt>line</dt>
+                  <dd>pathway</dd>
+                  <dt>opacity</dt>
+                  <dd>evidence</dd>
+                  <dt>position</dt>
+                  <dd>layer</dd>
+                </dl>
+              </div>
             </div>
           </aside>
 

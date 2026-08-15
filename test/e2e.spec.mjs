@@ -21,6 +21,27 @@ test('focus flow: select a node → inspector populates → clear', async ({ pag
   await expect(page.locator('#readouts')).toBeVisible();
 });
 
+test('clear control is an icon that never overlaps the title (any wrap depth)', async ({
+  page,
+}) => {
+  // longest entity name → worst-case multi-line title wrap
+  await page.goto('/?node=sutd');
+  await expect(page.locator('.inspector-title')).toHaveText(
+    'Singapore University of Technology and Design'
+  );
+  const clear = page.locator('.inspector-clear');
+  // an icon-only control must still carry an accessible name
+  await expect(clear).toHaveAttribute('aria-label', 'Clear selection');
+  await expect(clear).toHaveText('');
+  await expect(clear.locator('svg')).toBeVisible();
+  // invariant: the button rect never intersects the title's full bounding rect
+  const a = await clear.boundingBox();
+  const b = await page.locator('.inspector-title').boundingBox();
+  const overlap =
+    a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
+  expect(overlap).toBe(false);
+});
+
 test('deep link restores focus + inferred state', async ({ page }) => {
   await page.goto('/?node=speqtral&inferred=1');
   await expect(page.locator('.inspector-title')).toHaveText('SpeQtral');

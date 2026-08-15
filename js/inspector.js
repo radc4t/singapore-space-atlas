@@ -6,6 +6,7 @@
 import { CLUSTER_LABELS, CONFIDENCE, PATHWAYS, TYPE_LABELS } from './config.js';
 import { EDGES, NODES } from './data/ecosystem.js';
 import { SOURCES } from './data/sources.js';
+import { icon } from './icons.js';
 import { setState, state, subscribe } from './state.js';
 
 const nodeById = new Map(NODES.map((n) => [n.id, n]));
@@ -75,9 +76,16 @@ export function initInspector(mount) {
       ]),
     ]);
 
-    const clear = el('button', { class: 'inspector-clear', type: 'button' }, [
-      document.createTextNode('Clear'),
-    ]);
+    const clear = el(
+      'button',
+      {
+        class: 'inspector-clear',
+        type: 'button',
+        'aria-label': 'Clear selection',
+        title: 'Clear selection',
+      },
+      [icon('close', { size: 14 })]
+    );
     clear.addEventListener('click', () => setState({ selection: null }));
     head.append(clear);
     mount.append(head);
@@ -102,11 +110,12 @@ export function initInspector(mount) {
       const rows = rels.map((e) => {
         const otherId = e.source === id ? e.target : e.source;
         const other = nodeById.get(otherId);
-        const dir = e.source === id ? '→' : '←';
+        // No direction arrow: the relation verb (in .rel-meta) carries direction, and an arrow would
+        // imply a source/target order that doesn't exist for symmetric relations (e.g. partners-with).
         const item = el('li', { class: `rel conf-${e.confidence}` }, [
           el('div', { class: 'rel-head' }, [
             el('button', { class: 'rel-target', type: 'button', 'data-id': otherId }, [
-              document.createTextNode(`${dir} ${other ? other.name : otherId}`),
+              document.createTextNode(other ? other.name : otherId),
             ]),
             el('span', { class: 'rel-meta', text: `${e.relation} · ${e.pathway}` }),
             confidenceBadge(e.confidence),
