@@ -3,56 +3,73 @@
 **A visual, evidence-backed systems map of Singapore's space ecosystem.**
 _Government · Research · Industry · International_
 
+🛰 **Live:** https://radc4t.github.io/singapore-space-atlas/ · **Edition:** 2026 · research snapshot 15 Aug 2026
+
+![Singapore Space Atlas — the Explore plate (light)](docs/hero-light.png)
+
 NSAS (the National Space Agency of Singapore, established 1 April 2026) has an ecosystem-building
 mandate, but there is no single visual overview of how its parts connect. People cannot participate
 in a system they cannot see. The Atlas makes the relationships between the agency, government bodies,
 universities, ~70 companies, national programmes and international partners legible in one view — and
-does so **honestly**, showing what is documented, what is inferred, and how each relationship is
-known.
+does so **honestly**, showing what is documented, what is inferred, and how each relationship is known.
 
-> **Editorial thesis.** This map shows the publicly documented relationships and structural roles
+> **Editorial thesis.** This maps the publicly documented relationships and structural roles
 > connecting Singapore's space institutions, research community, companies, programmes and supporting
 > ecosystem — _not_ an exhaustive representation of every company or every relationship.
 
-## What makes it different
+## What it is
 
-It is a **research-grade information system that happens to have a visualization**, not the reverse:
+A **"scientific / mission-control instrument"**: a large, centred constellation on a technical
+canvas, in two matched themes — a light _archival instrument_ and a dark _night operations room_
+(same instrument, two temperatures). It is a research-grade information system that happens to have a
+visualization, not the reverse. Aesthetic hierarchy: **map → evidence → instrument chrome**. The
+instrument metaphor is expressive, not literal — no fictional telemetry or spatial claims.
 
-- **Every relationship carries its own evidence.** Edges are separate from nodes and cite their own
-  sources, with two independent labels — `confidence` (documented vs inferred) and `pathway` (direct,
-  programme-mediated, contextual). Documented links show by default; inferred links are opt-in.
-- **A locked five-channel visual grammar** so meaning never rests on colour alone: colour = type ·
-  shape = ontology (+ international outline) · line style = pathway · line opacity = confidence ·
-  position = structural layer.
-- **Honest coverage.** The map draws the featured anchors; the full corpus lives in the catalogue and
-  search. Counts are derived from the data; only the "~70 companies" denominator is a cited estimate.
-  Absence of an edge is never a claim that no relationship exists.
-- **A first-class Catalogue** (semantic HTML) that doubles as the accessible representation — assistive
-  tech never has to depend on the SVG.
-- **Auditable curation.** The `research/` ledger records sources (with retrieval locations,
-  first-party vs secondary), editorial decisions, and honest omissions.
+## The six-channel visual grammar
 
-## Features
+Meaning never rests on colour alone:
 
-- Curated concentric **systems map** (SVG) — click a node for focus mode + a research-grade inspector
-  (role · why it's here · relationships with "why shown" + cited sources).
-- **Search** as a command surface (name · type · cluster · role · aliases), with a "not in this
-  snapshot" state that makes the methodology visible.
-- **Legend filters**, a **"show inferred relationships"** toggle, and **reset**.
-- **Guided story mode** — a stepped reading of the layers (Explore the Atlas).
-- **Shareable deep links** — selection + filters live in the URL (e.g. `?node=speqtral&inferred=1`).
-- **Light/dark** parity, keyboard navigation, reduced-motion, print and no-JS fallback.
+| channel  | encodes                                                                                |
+| -------- | -------------------------------------------------------------------------------------- |
+| colour   | stakeholder **type** (on nodes; edges stay neutral)                                    |
+| shape    | ontology — organisation circle · programme plaque · international outline · sector arc |
+| stroke   | **pathway** — solid direct · dashed programme-mediated · dotted contextual             |
+| opacity  | **confidence** — documented crisp · inferred muted (off by default)                    |
+| position | structural **layer** — concentric ring, inner → outer                                  |
+| size     | **editorial prominence** (declared, non-quantitative)                                  |
+
+## Using it
+
+Three views (real view switches; state is deep-linkable):
+
+- **Explore** — the instrument. Click a node → focus mode; the right module switches from **Readouts**
+  (derived counts) to an **Inspector** field-note with the relationship's evidence and cited sources.
+  Search (name · type · cluster · alias), filter by type, toggle inferred links, or take the guided tour.
+- **Catalogue** — the card-index of the full corpus, and the accessible representation of the data.
+- **Methodology** — the intellectual contract: what the Atlas does, what it does not claim, what
+  counts as evidence.
+
+Shareable deep links carry the exact state, e.g. `?node=speqtral&inferred=1` or `?view=catalogue`.
+Light/dark follow your system preference (toggle in the top bar). Desktop-first, with a mobile
+companion (intelligent simplification, not forced parity).
+
+## Honesty model
+
+Every relationship carries its **own** sources and two independent labels — `confidence`
+(documented vs inferred) and `pathway` (direct, programme-mediated, contextual). An edge exists only
+when a specific source substantiates that specific relationship; **absence of an edge is not a claim
+that no relationship exists.** Counts are derived from the data; only the "~70 companies" denominator
+is a cited editorial estimate. The `research/` ledger records sources (with retrieval locations,
+first-party vs secondary) and the editorial decisions behind the corpus.
 
 ## Run
 
-Build-free dev server (no build step needed to view source):
-
 ```bash
 npm install
-npm run dev      # serves at http://127.0.0.1:8000
+npm run dev      # http://127.0.0.1:8000 (build-free static server)
 ```
 
-Production build (bundled + minified, self-contained static output):
+Production build (self-contained static output, no runtime dependencies):
 
 ```bash
 npm run build && npm run preview
@@ -62,10 +79,10 @@ npm run build && npm run preview
 
 ```bash
 npm run validate   # data-contract integrity, ontology + evidence rules
-npm test           # node --test: validator caught-violations + data cleanliness
-npm run stress     # layout crossing/collision report (Phase C.5 decision aid)
-npm run lint
-npm run format
+npm test           # node --test: validator provably catches contract violations
+npm run stress     # layout crossing/collision report
+npm run test:e2e   # Playwright: interaction, deep links, axe a11y, visual regression
+npm run lint && npm run format
 ```
 
 ## Architecture
@@ -75,41 +92,26 @@ force simulation, no UI framework, no runtime external dependencies. Strict modu
 
 ```
 js/
-  data/ecosystem.js   NODES + EDGES (clean publication dataset)
-  data/sources.js     source registry (nodes/edges cite ids, never raw URLs)
-  config.js           controlled vocabularies + visual taxonomy (single source of truth)
-  layout.js           GEOMETRY ONLY → rich IR {nodePositions, ringBounds, sectorArcs, edgePaths}
-  render.js           SVG RENDERING ONLY (declarative from the IR)
-  interaction.js      node focus / hover / keyboard state
-  filters.js          visibility · search · evidence controls
-  inspector.js        selected-node info + generated citations
-  catalogue.js        semantic-HTML catalogue (also the a11y representation)
-  router.js           URL/History deep links
-  story.js            guided story mode (thin layer over the shared store)
-  state.js            the shared observable store
-  theme.js            light/dark toggle
-scripts/
-  validate-data.mjs   the data contract (run in CI)
-  layout-stress.mjs   layout stress test
-  build.mjs           esbuild → dist/
-research/             evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv)
+  data/{ecosystem,sources}.js   corpus + source registry (single source of truth)
+  config.js                     controlled vocabularies + visual taxonomy
+  layout.js  render.js          geometry → rich IR → declarative SVG
+  interaction.js filters.js     focus/hover/keyboard · visibility/search/evidence
+  readouts.js inspector.js      right panel: Readouts ↔ Inspector (one module, two modes)
+  catalogue.js views.js         the card-index · Explore/Catalogue/Methodology switching
+  router.js state.js theme.js story.js
+scripts/  validate-data.mjs · layout-stress.mjs · build.mjs
+research/ evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv, references.md)
+design.md the design constitution
 ```
 
-## Data & method
+## Versioning & editions
 
-Research snapshot **15 August 2026** — a dated snapshot of a fast-moving ecosystem, not a permanent
-registry. Primary/official sources include the **Singapore Space Industry Directory 2025/2026**
-(AAIS with OSTIn/CAAS/ESG/MPA), MTI's NSAS establishment release, `space.gov.sg`, and university
-sources; full provenance is in [`research/sources.md`](research/sources.md). The cardinal rule: **an
-edge exists only when its relation, pathway and confidence can be justified independently from a
-source that substantiates that specific relationship.** When the evidence and the desired picture
-disagree, change the picture.
+Two independent axes:
 
-## Extensions (not in v1)
-
-Atlas snapshot counts; an "evidence lens"; dated snapshot comparison (the data model already carries
-`since`/`status` and dated sources); a compare-two-entities mode. See the project plan for the full
-backlog.
+- **Software (SemVer):** git-tagged releases. `v1.0.0` is the first public release. Patch = fixes;
+  minor = new features or a data refresh within schema 1.0; major = a schema break or identity overhaul.
+- **Editorial edition:** the content version, shown in-product — **2026 Edition · research snapshot
+  15 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
 
 ## Licence
 
