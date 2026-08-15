@@ -70,6 +70,26 @@ test('custom checkbox stays keyboard-operable', async ({ page }) => {
   await expect(page.locator('#evidence-toggle')).toBeChecked();
 });
 
+test('reset restores the canonical resting state', async ({ page }) => {
+  await page.goto('/?inferred=1');
+  await expect(page.locator('#evidence-toggle')).toBeChecked();
+  await page.getByRole('button', { name: 'Reset' }).click();
+  await expect(page.locator('#evidence-toggle')).not.toBeChecked();
+  // covers the reported symptom directly: inferred edges are no longer shown
+  // (`.show-inferred` is toggled on the atlas <svg> in interaction.js).
+  await expect(page.locator('.show-inferred')).toHaveCount(0);
+  const url = new URL(page.url());
+  expect(url.pathname).toBe('/');
+  expect(url.search).toBe('');
+});
+
+test('unknown ?node= falls back to canonical explore', async ({ page }) => {
+  await page.goto('/?node=bogus-does-not-exist');
+  await expect(page.locator('#op-state')).toHaveText(/EXPLORE/);
+  await expect(page.locator('#readouts')).toBeVisible();
+  await expect(page.locator('#inspector')).toBeHidden();
+});
+
 test('accessibility: no serious/critical axe violations', async ({ page }) => {
   await page.goto('/');
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
