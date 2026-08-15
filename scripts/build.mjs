@@ -23,7 +23,7 @@ async function main() {
   await rm(dist, { recursive: true, force: true });
   await mkdir(dist, { recursive: true });
 
-  // 1. JS bundle (entry js/app.js pulls in every module; d3-shape is bundled in).
+  // 1. JS bundle (entry js/app.js pulls in every module; all geometry is hand-authored SVG).
   await build({
     entryPoints: [resolve(root, 'js/app.js')],
     bundle: true,
