@@ -4,6 +4,9 @@
 
 import { LAYERS } from './config.js';
 import { setState } from './state.js';
+import { icon } from './icons.js';
+
+const txt = (s) => document.createTextNode(s);
 
 const STEPS = [
   {
@@ -36,6 +39,10 @@ const STEPS = [
 export function initStory({ startBtn, panel, caption, prevBtn, nextBtn, exitBtn, svg }) {
   let step = -1;
 
+  // Static control content: the words carry the accessible name; icons are decorative.
+  startBtn.replaceChildren(txt('Guided tour'), icon('play'));
+  prevBtn.replaceChildren(icon('arrow-left'), txt('Back'));
+
   function apply() {
     const active = step >= 0;
     panel.hidden = !active;
@@ -57,7 +64,8 @@ export function initStory({ startBtn, panel, caption, prevBtn, nextBtn, exitBtn,
     if (s.ring === 0) setState({ selection: 'nsas', story: step });
     else setState({ selection: null, story: step });
     prevBtn.disabled = step === 0;
-    nextBtn.textContent = step === STEPS.length - 1 ? 'Finish' : 'Next →';
+    if (step === STEPS.length - 1) nextBtn.replaceChildren(txt('Finish'));
+    else nextBtn.replaceChildren(txt('Next'), icon('arrow-right'));
   }
 
   startBtn.addEventListener('click', () => {

@@ -32,6 +32,7 @@
   --bloom: #5faeaa;
   --bloom-opacity: 0; /* dark only */
 
+  --s0: 2px;
   --s1: 4px;
   --s2: 8px;
   --s3: 12px;
@@ -42,6 +43,31 @@
   --serif: 'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  /* Type scale — semantic roles. The crowded 0.55–0.9rem chrome cluster collapses onto a few
+   * label/body steps; genuinely distinct display sizes are kept as their own tokens (not merged).
+   */
+  --fs-micro: 0.5625rem; /* 9px  — badges */
+  --fs-label: 0.625rem; /* 10px — mono UI labels: panel titles, meta, chips, buttons, statusbar */
+  --fs-label-lg: 0.6875rem; /* 11px — section headings (methodology h3, story h4) */
+  --fs-body-xs: 0.75rem; /* 12px — inspector fine print (why / rationale / source) */
+  --fs-body-sm: 0.8125rem; /* 13px — secondary prose, meta, result/list text */
+  --fs-body: 0.875rem; /* 14px — body text & inputs */
+  --fs-body-lg: 0.9375rem; /* 15px — catalogue entry titles */
+  --fs-title: 1.25rem; /* inspector title (serif) */
+  --fs-numeral: 1.5rem; /* readout numerals (serif) */
+  --fs-heading: 1.6rem; /* catalogue / methodology h2 (serif) */
+  --fs-wordmark: 1.15rem; /* topbar wordmark (serif) */
+
+  /* Tracking — 4 roles + one wordmark exception (letter-spacing is perceptually sensitive at
+   * small uppercase sizes, so each value is mapped to the nearest existing role, not averaged).
+   */
+  --track-wordmark: 0.01em;
+  --track-tight: 0.04em;
+  --track-caps: 0.06em;
+  --track-wide: 0.12em;
+  --track-wider: 0.16em;
+
   --topbar-h: 46px;
   --statusbar-h: 32px;
 }
@@ -110,7 +136,7 @@ body {
   color: var(--color-muted);
 }
 .small {
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
 }
 .visually-hidden {
   position: absolute;
@@ -143,17 +169,39 @@ a {
 .btn {
   font: inherit;
   font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s1);
   padding: var(--s1) var(--s2);
   border: 1px solid var(--color-hairline);
   background: transparent;
   color: var(--color-ink);
   cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
 }
 .btn:hover {
   border-color: var(--color-focus);
+}
+.btn:active {
+  background: var(--color-panel-alt);
+}
+.btn:disabled {
+  color: var(--color-muted);
+  border-color: var(--color-hairline);
+  cursor: default;
+}
+.btn:disabled:hover {
+  border-color: var(--color-hairline);
+}
+.btn svg {
+  flex: none;
 }
 
 /* ---- thin top bar ----------------------------------------------------------------------- */
@@ -173,14 +221,14 @@ a {
 .wordmark h1 {
   font-family: var(--serif);
   font-weight: 500;
-  font-size: 1.15rem;
+  font-size: var(--fs-wordmark);
   margin: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: var(--track-wordmark);
 }
 .edition {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wider);
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -189,8 +237,8 @@ a {
   gap: var(--s4);
   margin-left: auto;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
 }
 .nav a {
@@ -213,7 +261,7 @@ a {
 }
 .icon-btn {
   width: 1.9rem;
-  text-align: center;
+  padding-inline: 0; /* let the 16px icon optically centre in the square (flex from .btn) */
 }
 .seal {
   width: 34px;
@@ -280,8 +328,8 @@ a {
 .panel-title {
   display: block;
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wider);
   text-transform: uppercase;
   color: var(--color-muted);
   margin-bottom: var(--s2);
@@ -294,7 +342,7 @@ a {
   border: 0;
   border-bottom: 1px solid var(--color-hairline);
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
   color: var(--color-ink);
   padding: var(--s1) 2px;
 }
@@ -308,7 +356,7 @@ a {
 .result-list {
   list-style: none;
   margin: 0;
-  padding: 2px;
+  padding: var(--s0);
 }
 .result {
   width: 100%;
@@ -328,19 +376,19 @@ a {
 }
 .result-name {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
 }
 .result-meta {
   margin-left: auto;
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-tight);
   color: var(--color-muted);
 }
 .no-hit {
   margin: 0;
   padding: var(--s2);
-  font-size: 0.8rem;
+  font-size: var(--fs-body-sm);
   color: var(--color-muted);
 }
 
@@ -351,12 +399,12 @@ a {
   gap: 2px var(--s2);
   align-items: baseline;
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: var(--fs-label);
   margin-bottom: var(--s2);
 }
 .layer-name {
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--track-caps);
   color: var(--color-ink);
 }
 .layer-num {
@@ -385,10 +433,10 @@ a {
   gap: 4px;
   font: inherit;
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-tight);
   text-transform: uppercase;
-  padding: 1px 5px;
+  padding: var(--s0) var(--s1);
   border: 1px solid var(--color-hairline);
   background: transparent;
   color: var(--color-muted);
@@ -408,13 +456,50 @@ a {
 .evidence {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--s2);
   margin-top: var(--s2);
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-tight);
   text-transform: uppercase;
   color: var(--color-muted);
+}
+/* bespoke checkbox — the one native widget in an otherwise hand-authored panel. appearance:none
+ * keeps the real <input> (keyboard + :focus-visible intact); the check is drawn CSS-first. */
+.evidence input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-hairline);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+.evidence input[type='checkbox']:hover,
+.evidence input[type='checkbox']:checked {
+  border-color: var(--color-focus);
+}
+.evidence input[type='checkbox']::after {
+  content: '';
+  width: 3px;
+  height: 7px;
+  border: solid var(--color-focus);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.evidence input[type='checkbox']:checked::after {
+  opacity: 1;
 }
 .control-row {
   display: flex;
@@ -426,10 +511,10 @@ a {
 .how-to-read {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--s1);
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.03em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-tight);
   color: var(--color-muted);
   border-top: 1px solid var(--color-hairline);
   padding-top: var(--s2);
@@ -440,7 +525,7 @@ a {
   gap: var(--s2);
 }
 .how-to-read .chan {
-  margin-top: 2px;
+  margin-top: var(--s0);
   line-height: 1.5;
 }
 .how-to-read .chan b {
@@ -481,7 +566,7 @@ a {
   height: 0.55rem;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 6px;
+  margin-right: var(--s1);
   vertical-align: -1px;
 }
 
@@ -494,22 +579,22 @@ a {
 }
 .readout-val {
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: var(--fs-numeral);
   line-height: 1;
   min-width: 2.2ch;
 }
 .readout-lab {
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
   color: var(--color-muted);
 }
 .readout-snap {
   margin: var(--s2) 0 0;
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
   color: var(--color-muted);
   border-top: 1px solid var(--color-hairline);
   padding-top: var(--s2);
@@ -522,14 +607,14 @@ a {
 .inspector-head {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--s0);
   position: relative;
 }
 .inspector-type {
   margin: 0;
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -537,10 +622,10 @@ a {
   display: none;
 }
 .inspector-title {
-  margin: 2px 0 0;
+  margin: var(--s0) 0 0;
   font-family: var(--serif);
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--fs-title);
   line-height: 1.12;
 }
 .inspector-clear {
@@ -548,18 +633,18 @@ a {
   top: 0;
   right: 0;
   font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.08em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
   border: 1px solid var(--color-hairline);
   background: transparent;
   color: var(--color-muted);
-  padding: 1px 6px;
+  padding: var(--s0) var(--s1);
   cursor: pointer;
 }
 .inspector-role {
   margin: var(--s3) 0 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-body);
 }
 .inspector-sec {
   margin-top: var(--s3);
@@ -569,8 +654,8 @@ a {
 .inspector-sec h4 {
   margin: 0 0 var(--s2);
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -609,14 +694,14 @@ a {
 }
 .rel-meta {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: var(--fs-label);
   color: var(--color-muted);
 }
 .rel-why,
 .rel-rationale,
 .rel-src {
-  margin: 3px 0 0;
-  font-size: 0.76rem;
+  margin: var(--s0) 0 0;
+  font-size: var(--fs-body-xs);
   color: var(--color-muted);
 }
 .rel-rationale {
@@ -624,9 +709,9 @@ a {
 }
 .badge {
   font-family: var(--mono);
-  font-size: 0.55rem;
+  font-size: var(--fs-micro);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--track-caps);
   padding: 0 4px;
   border: 1px solid var(--color-hairline);
   color: var(--color-muted);
@@ -638,7 +723,7 @@ a {
   border-color: var(--color-government);
 }
 .src-link {
-  font-size: 0.76rem;
+  font-size: var(--fs-body-xs);
   color: var(--color-ink);
 }
 
@@ -657,13 +742,13 @@ a {
 .story-caption h4 {
   margin: 0 0 4px;
   font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  font-size: var(--fs-label-lg);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
 }
 .story-caption p {
   margin: 0 0 var(--s2);
-  font-size: 0.85rem;
+  font-size: var(--fs-body-sm);
   color: var(--color-muted);
 }
 .story-nav {
@@ -681,8 +766,8 @@ a {
   padding: 0 var(--s5);
   border-top: 1px solid var(--color-hairline);
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -917,13 +1002,13 @@ a {
 .methodology h2 {
   font-family: var(--serif);
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: var(--fs-heading);
   margin: 0 0 var(--s2);
 }
 .snapshot {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
   color: var(--color-muted);
   margin: 0 0 var(--s2);
 }
@@ -949,7 +1034,7 @@ a {
 .cat-item .link-btn {
   font: inherit;
   font-weight: 600;
-  font-size: 0.98rem;
+  font-size: var(--fs-body-lg);
   border: 0;
   background: none;
   color: var(--color-ink);
@@ -962,14 +1047,14 @@ a {
 }
 .cat-meta {
   font-family: var(--mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.05em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-tight);
   text-transform: uppercase;
   color: var(--color-muted);
   margin: 4px 0 0;
 }
 .cat-role {
-  font-size: 0.82rem;
+  font-size: var(--fs-body-sm);
   color: var(--color-muted);
   margin: 4px 0 0;
 }
@@ -977,8 +1062,8 @@ a {
 /* ---- METHODOLOGY view ------------------------------------------------------------------ */
 .methodology h3 {
   font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-size: var(--fs-label-lg);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
   color: var(--color-muted);
   margin: var(--s5) 0 var(--s1);
