@@ -196,4 +196,4 @@ architecture dependency-free and the existing visual language intact.
 
 ## License
 
-Released under the **MIT License** (see the `license` field in [`package.json`](package.json)).
+Released under the [MIT License](LICENSE) — Copyright (c) 2026 radc4t.
