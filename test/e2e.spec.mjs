@@ -8,7 +8,7 @@ test('focus flow: select a node → inspector populates → clear', async ({ pag
   await page.goto('/');
   await expect(page.locator('.atlas-svg')).toBeVisible();
 
-  await page.locator('.node[data-id="nsas"]').click();
+  await page.locator('.node[data-id="nsas"] .node-shape').click();
   await expect(page.locator('.inspector-title')).toHaveText('National Space Agency of Singapore');
   await expect(page.locator('#status')).toContainText('National Space Agency');
   // focus mode dims the rest

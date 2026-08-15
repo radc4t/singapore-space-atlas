@@ -8,16 +8,17 @@
 // No DOM, no rendering — pure functions of the data. Only FEATURED nodes are placed on the map;
 // catalogued entities live in the Catalogue, not the rings.
 
-import { CLUSTERS, LAYERS } from './config.js';
+import { CLUSTER_SHORT, CLUSTERS, LAYERS } from './config.js';
 import { EDGES, NODES } from './data/ecosystem.js';
 
 const TAU = Math.PI * 2;
 
-// Ring radii (px, from centre). Index = structural layer 0..4.
-const RING_R = [0, 150, 270, 400, 495];
-const SECTOR_INNER = 530;
-const SECTOR_OUTER = 585;
-const EXTENT = 700; // half-size of the square viewBox
+// Ring radii (px, from centre). Index = structural layer 0..4. Editorial proportions with generous
+// spacing so the plate breathes, labels have room, and the network reads as the figure.
+const RING_R = [0, 140, 228, 320, 404];
+const SECTOR_INNER = 430;
+const SECTOR_OUTER = 456;
+const EXTENT = 560; // half-size of the square viewBox
 
 /** Structural layer (ring index) for a node, or null for ambient sectors. */
 export function ringOf(n) {
@@ -141,13 +142,38 @@ export function computeLayout(opts = {}) {
     subtitle: layer.subtitle,
   }));
 
+  // Capability clusters — group ring-3 companies by cluster for faint envelopes + labels + counts.
+  const clusterOrder = new Map();
+  ring3.forEach((n) => {
+    if (!n.cluster) return;
+    if (!clusterOrder.has(n.cluster)) clusterOrder.set(n.cluster, []);
+    clusterOrder.get(n.cluster).push(angleOf.get(n.id));
+  });
+  const clusters = [];
+  for (const [cluster, angs] of clusterOrder) {
+    const a0 = Math.min(...angs) - 0.14;
+    const a1 = Math.max(...angs) + 0.14;
+    const mid = (a0 + a1) / 2;
+    clusters.push({
+      cluster,
+      label: CLUSTER_SHORT[cluster] ?? cluster,
+      count: angs.length,
+      startAngle: a0,
+      endAngle: a1,
+      midAngle: mid,
+      innerR: RING_R[3] - 22,
+      outerR: RING_R[3] + 22,
+      labelR: RING_R[3] + 30,
+    });
+  }
+
   // Sector arcs — ambient outer band, one quadrant each (context, not actors).
   const sectorArcs = [];
   sectors.forEach((n, i) => {
     const start = (i / sectors.length) * TAU - Math.PI / 2;
     const end = ((i + 1) / sectors.length) * TAU - Math.PI / 2;
     const mid = (start + end) / 2;
-    const midR = (SECTOR_INNER + SECTOR_OUTER) / 2;
+    const midR = EXTENT - 34; // push sector labels out into the clear margin (no collisions)
     sectorArcs.push({
       id: n.id,
       node: n,
@@ -194,6 +220,7 @@ export function computeLayout(opts = {}) {
     nodePositions: pos,
     ringBounds,
     sectorArcs,
+    clusters,
     edgePaths,
     center: { x: 0, y: 0 },
     viewBox: `${-EXTENT} ${-EXTENT} ${EXTENT * 2} ${EXTENT * 2}`,

@@ -103,3 +103,14 @@ export const CLUSTER_LABELS = {
   launch: 'Launch & access',
   downstream: 'Downstream applications',
 };
+
+// Short cluster labels for the map plate (breathing room; full names live in catalogue/inspector).
+export const CLUSTER_SHORT = {
+  'satellite-mfg': 'Satellite systems',
+  propulsion: 'Propulsion',
+  'comms-ground': 'Communications',
+  geospatial: 'Geospatial',
+  quantum: 'Quantum',
+  launch: 'Launch & access',
+  downstream: 'Downstream',
+};

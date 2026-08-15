@@ -11,19 +11,31 @@ import { initCatalogue } from './catalogue.js';
 import { initStory } from './story.js';
 import { initTheme } from './theme.js';
 import { initRouter } from './router.js';
+import { EDGES, NODES } from './data/ecosystem.js';
 
 const $ = (id) => document.getElementById(id);
+
+/** Snapshot bar — counts derived from the data at runtime (never hard-coded). */
+function renderSnapshot(mount) {
+  if (!mount) return;
+  const orgs = NODES.filter((n) => n.kind === 'organisation').length;
+  const programmes = NODES.filter((n) => n.kind === 'programme').length;
+  const documented = EDGES.filter((e) => e.confidence === 'documented').length;
+  const inferred = EDGES.filter((e) => e.confidence === 'inferred').length;
+  mount.textContent =
+    `Atlas snapshot · 15 Aug 2026 · ${orgs} organisations · ${programmes} programmes · ` +
+    `${documented} documented + ${inferred} inferred relationships`;
+}
 
 function init() {
   initTheme($('theme-toggle'));
 
-  // --- map ---------------------------------------------------------------------------------
   const atlasMount = $('atlas');
   const ir = computeLayout();
   const { svg, nodeEls, edgeEls } = renderAtlas(atlasMount, ir);
   atlasMount.hidden = false;
 
-  initInteraction({ svg, nodeEls, edgeEls, ir });
+  initInteraction({ svg, nodeEls, edgeEls });
   initInspector($('inspector'));
   initFilters({
     legend: $('legend'),
@@ -44,12 +56,9 @@ function init() {
     exitBtn: $('story-exit'),
     svg,
   });
+  renderSnapshot($('snapshot'));
 
-  // --- About dialog ------------------------------------------------------------------------
-  const about = $('about');
-  $('about-btn').addEventListener('click', () => about.showModal());
-
-  // --- deep links (last, so all subscribers exist before URL state is applied) -------------
+  // deep links last, so all subscribers exist before URL state is applied
   initRouter();
 }
 

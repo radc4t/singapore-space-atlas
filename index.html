@@ -15,80 +15,178 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#atlas">Skip to the map</a>
 
     <header class="site-header">
-      <div class="wordmark">
-        <h1>Singapore Space Atlas</h1>
-        <p class="subtitle">A visual map of Singapore&rsquo;s space ecosystem</p>
+      <div class="masthead-top">
+        <div class="wordmark">
+          <h1>Singapore Space Atlas</h1>
+          <p class="subtitle">A visual map of Singapore&rsquo;s space ecosystem</p>
+        </div>
+        <div class="header-actions">
+          <nav class="nav" aria-label="Sections">
+            <a class="active" href="#atlas">Explore</a>
+            <a href="#catalogue">Catalogue</a>
+            <a href="#methodology">Methodology</a>
+          </nav>
+          <button
+            id="theme-toggle"
+            class="btn icon-btn"
+            type="button"
+            aria-pressed="false"
+            title="Toggle theme"
+          >
+            ☾
+          </button>
+        </div>
       </div>
-      <div class="header-actions">
-        <p class="layers" aria-label="Ecosystem layers, read as layers not stages">
-          Institutional context <span aria-hidden="true">·</span> Capability
-          <span aria-hidden="true">·</span> Industry <span aria-hidden="true">·</span> International
-        </p>
-        <button id="about-btn" class="btn" type="button" aria-haspopup="dialog">
-          About &amp; method
-        </button>
-        <button
-          id="theme-toggle"
-          class="btn icon-btn"
-          type="button"
-          aria-pressed="false"
-          title="Toggle theme"
-        >
-          ☀
-        </button>
-      </div>
+      <p class="edition">2026 Edition · Research snapshot 15 August 2026</p>
+      <p class="layerline"><b>Institutional context</b> · Capability · Industry · International</p>
     </header>
+    <div class="header-rule"><div></div></div>
 
     <nav class="toolbar" aria-label="Map controls">
-      <div class="search-wrap">
-        <label class="visually-hidden" for="search">Search the ecosystem</label>
-        <input
-          id="search"
-          class="search"
-          type="search"
-          placeholder="Search — name, type, cluster, programme…"
-          autocomplete="off"
-        />
-        <div
-          id="search-results"
-          class="search-results"
-          role="region"
-          aria-label="Search results"
-          hidden
-        ></div>
-      </div>
-      <div id="legend" class="legend" role="group" aria-label="Filter by stakeholder type"></div>
+      <div id="legend" class="filters" role="group" aria-label="Filter by stakeholder type"></div>
       <label class="evidence">
         <input id="evidence-toggle" type="checkbox" />
-        Show inferred relationships
+        Show inferred
       </label>
-      <button id="story-start" class="btn" type="button">Explore the Atlas ▶</button>
+      <button id="story-start" class="btn" type="button">Explore the Atlas ▸</button>
       <button id="reset" class="btn" type="button">Reset view</button>
     </nav>
-
     <p id="status" class="status" role="status" aria-live="polite" hidden></p>
 
     <main id="main">
-      <div class="atlas-grid">
-        <section class="atlas-col" aria-label="Ecosystem map">
-          <div id="atlas" class="atlas" hidden></div>
-          <p class="how-to-read">
-            <strong>How to read this map:</strong> position = ecosystem layer · shape = entity type
-            (circle = organisation, pill = programme, outlined = international) · line style =
-            connection pathway · muted lines = inferred. Rings are layers, not stages.
-          </p>
+      <div class="stage">
+        <div class="mapcol">
+          <div class="explore">
+            Explore the Atlas
+            <label class="visually-hidden" for="search"
+              >Search organisations, programmes, capabilities</label
+            >
+            <input
+              id="search"
+              type="search"
+              placeholder="Search organisations, programmes, capabilities…"
+              autocomplete="off"
+            />
+            <div
+              id="search-results"
+              class="search-results"
+              role="region"
+              aria-label="Search results"
+              hidden
+            ></div>
+          </div>
+
+          <aside class="layer-key" aria-label="Ecosystem layers, inner to outer">
+            Layers
+            <ol>
+              <li>Institutional context <span class="ix">01</span></li>
+              <li>Capability <span class="ix">02</span></li>
+              <li>Industry <span class="ix">03</span></li>
+              <li>International <span class="ix">04</span></li>
+            </ol>
+          </aside>
+
+          <section id="atlas" class="atlas" aria-label="Ecosystem map" hidden></section>
+
+          <div class="how-to-read" aria-label="How to read the Atlas">
+            <span class="legend-title">How to read</span>
+            <span class="lg"
+              ><svg width="16" height="16" aria-hidden="true">
+                <circle cx="8" cy="8" r="5.5" fill="var(--muted)"></circle>
+              </svg>
+              organisation</span
+            >
+            <span class="lg"
+              ><svg width="26" height="16" aria-hidden="true">
+                <rect
+                  x="2"
+                  y="4"
+                  width="22"
+                  height="9"
+                  rx="1.5"
+                  fill="var(--surface)"
+                  stroke="var(--ink)"
+                ></rect>
+              </svg>
+              programme</span
+            >
+            <span class="lg"
+              ><svg width="16" height="16" aria-hidden="true">
+                <circle
+                  cx="8"
+                  cy="8"
+                  r="5"
+                  fill="var(--surface)"
+                  stroke="var(--muted)"
+                  stroke-width="2"
+                ></circle>
+              </svg>
+              international</span
+            >
+            <span class="lg"
+              ><svg width="34" height="8" aria-hidden="true">
+                <line x1="1" y1="4" x2="33" y2="4" stroke="var(--edge-strong)"></line>
+              </svg>
+              direct</span
+            >
+            <span class="lg"
+              ><svg width="34" height="8" aria-hidden="true">
+                <line
+                  x1="1"
+                  y1="4"
+                  x2="33"
+                  y2="4"
+                  stroke="var(--edge-strong)"
+                  stroke-dasharray="6 4"
+                ></line>
+              </svg>
+              programme-mediated</span
+            >
+            <span class="lg"
+              ><svg width="34" height="8" aria-hidden="true">
+                <line
+                  x1="1"
+                  y1="4"
+                  x2="33"
+                  y2="4"
+                  stroke="var(--edge-strong)"
+                  stroke-dasharray="1.5 4"
+                ></line>
+              </svg>
+              contextual</span
+            >
+            <span class="lg"
+              ><svg width="34" height="8" aria-hidden="true">
+                <line
+                  x1="1"
+                  y1="4"
+                  x2="33"
+                  y2="4"
+                  stroke="var(--faint)"
+                  stroke-opacity="0.5"
+                ></line>
+              </svg>
+              muted = inferred</span
+            >
+            <span class="chan"
+              ><b>colour</b> stakeholder · <b>shape</b> entity · <b>line</b> pathway ·
+              <b>opacity</b> evidence · <b>position</b> layer</span
+            >
+          </div>
+
           <div id="story-panel" class="story-panel" role="region" aria-label="Guided tour" hidden>
             <div id="story-caption" class="story-caption"></div>
             <div class="story-nav">
               <button id="story-prev" class="btn" type="button">← Back</button>
-              <button id="story-next" class="btn btn-primary" type="button">Next →</button>
+              <button id="story-next" class="btn" type="button">Next →</button>
               <button id="story-exit" class="btn" type="button">Exit tour</button>
             </div>
           </div>
-        </section>
+        </div>
+
         <aside
           id="inspector"
           class="inspector"
@@ -96,6 +194,8 @@
           aria-live="polite"
         ></aside>
       </div>
+
+      <p id="snapshot" class="snapshot-bar"></p>
 
       <noscript>
         <div class="fallback">
@@ -107,53 +207,50 @@
       </noscript>
 
       <section id="catalogue" class="catalogue" aria-label="Ecosystem catalogue"></section>
+
+      <section id="methodology" class="methodology" aria-label="Methodology">
+        <h2>Methodology</h2>
+        <p class="muted">
+          The Atlas maps the publicly documented structures and relationships of Singapore&rsquo;s
+          space ecosystem. It is a dated research snapshot, not a permanent or exhaustive registry.
+        </p>
+
+        <h3>What the Atlas does</h3>
+        <p>
+          Maps publicly documented structural roles and relationships, from a chosen editorial
+          perspective.
+        </p>
+
+        <h3>What the Atlas does not do</h3>
+        <p>
+          It does not claim to be exhaustive, and absence of an edge is <strong>not</strong> a claim
+          that no relationship exists. A visible node does not imply a direct NSAS relationship.
+        </p>
+
+        <h3>What counts as evidence</h3>
+        <p>
+          Every relationship carries its own sources and two independent labels —
+          <em>confidence</em> (documented vs inferred) and <em>pathway</em> (direct,
+          programme-mediated, contextual). An edge exists only when a specific source substantiates
+          that specific relationship.
+        </p>
+
+        <h3>When evidence is weak</h3>
+        <p>The relationship is marked inferred (muted, hidden by default), or excluded entirely.</p>
+
+        <h3>Why some entities are featured</h3>
+        <p>
+          Editorial selection of strategically significant, well-documented anchors — not a
+          quantitative ranking. Node size encodes editorial prominence, never degree or count.
+        </p>
+      </section>
     </main>
 
-    <dialog id="about" class="about">
-      <form method="dialog" class="about-close-form">
-        <button class="btn about-close" aria-label="Close">✕</button>
-      </form>
-      <h2>About the Atlas &amp; its method</h2>
-
-      <h3>What this map is</h3>
-      <p>
-        This map shows the publicly documented relationships and structural roles connecting
-        Singapore&rsquo;s space institutions, research community, companies, programmes and
-        supporting ecosystem — <em>not</em> an exhaustive representation of every company or every
-        relationship.
-      </p>
-
-      <h3>What is shown</h3>
-      <p>
-        The map draws the <strong>featured</strong> anchors; the full <strong>catalogued</strong>
-        set (featured + others) lives in the catalogue and search. Exact counts are shown in the
-        catalogue and are derived from the data; only the &ldquo;~70 companies&rdquo; denominator is
-        a cited editorial estimate (OSTIn, 2025/26 Space Industry Directory).
-      </p>
-
-      <h3>How relationships are evidenced</h3>
-      <p>
-        Every relationship carries its own sources and two independent labels:
-        <strong>confidence</strong> — documented (explicit public evidence) vs inferred (reasonable
-        interpretation, hidden by default); and <strong>pathway</strong> — direct,
-        programme-mediated or contextual. Line <em>style</em> encodes pathway; line
-        <em>opacity</em> encodes confidence. Shapes encode entity type; colour encodes stakeholder
-        type; position encodes structural layer.
-      </p>
-
-      <h3>What is not claimed</h3>
-      <ul>
-        <li>No exhaustive inventory of companies or relationships.</li>
-        <li>Absence of an edge is <strong>not</strong> a claim that no relationship exists.</li>
-        <li>A visible node does not imply a direct NSAS relationship.</li>
-      </ul>
-
-      <p class="about-snapshot">
-        Research snapshot: <strong>15 August 2026</strong>. A dated snapshot of a fast-moving
-        ecosystem, not a permanent registry. Full source notes live in the project&rsquo;s research
-        ledger.
-      </p>
-    </dialog>
+    <footer class="footer">
+      <span>Singapore Space Atlas · 2026 Edition</span>
+      <span>Research snapshot 15 Aug 2026</span>
+      <span>SG / 01</span>
+    </footer>
 
     <script type="module" src="js/app.js"></script>
   </body>
