@@ -59,3 +59,23 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
 - 22 company nodes shown (of ~70 identified in public materials): 15 domestic + 7 international MNCs
   with a Singapore presence. Featured = the strategically significant / best-documented anchors;
   catalogued = included in the dataset but not necessarily drawn on the default map.
+
+## Phase C.5 — layout stress test (evidence over prediction)
+
+Ran the real corpus through three geometries (`npm run stress`; ring counts 1/11/6/22/3):
+
+| strategy                                        | edge-crossings | label-collisions |
+| ----------------------------------------------- | -------------- | ---------------- |
+| A concentric (angle = index)                    | 29             | 0                |
+| B radial-sector (angle = cluster wedge, packed) | **17**         | 13               |
+| C hybrid (barycentre reorder)                   | 35             | 0                |
+
+**Finding (surprised the prediction):** with only 22 edges over 47 nodes the graph is sparse, so
+crossings are modest in every layout — **label collisions are the real risk.** Packing companies
+into tight cluster wedges (B) minimises crossings but collides labels in crowded clusters
+(satellite-mfg). A naive one-sweep barycentre reorder (C) destroys the cluster semantics and adds
+crossings. **Decision:** production layout is a _refined hybrid_ — ring = structural layer, angle =
+cluster wedge for companies **but spread evenly within the ring** (crowded clusters get wider arcs,
+so no collisions), and inner-ring nodes (agencies, academia, programmes, international) ordered to
+sit angularly near the nodes/clusters they connect to (reduces crossings without sacrificing the
+"where in the ecosystem / what capability" readability). The chosen geometry is deterministic.
