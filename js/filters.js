@@ -63,7 +63,14 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
   // --- reset view --------------------------------------------------------------------------
   reset.addEventListener('click', () => {
     search.value = '';
-    setState({ view: 'explore', selection: null, query: '', hiddenTypes: new Set(), story: null });
+    setState({
+      view: 'explore',
+      selection: null,
+      query: '',
+      hiddenTypes: new Set(),
+      story: null,
+      showInferred: false,
+    });
   });
 
   function renderResults() {
@@ -134,6 +141,9 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
       }
     }
     evidenceToggle.checked = state.showInferred;
+    // keep the search box in sync with restored/cleared query state (e.g. ?q= deep links),
+    // but never clobber what the user is actively typing.
+    if (document.activeElement !== search) search.value = state.query;
   }
 
   subscribe(() => {

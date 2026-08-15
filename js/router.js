@@ -4,15 +4,17 @@
 
 import { setState, state, subscribe } from './state.js';
 import { TYPES } from './config.js';
+import { NODES } from './data/ecosystem.js';
 
 const validType = new Set(TYPES);
 const validView = new Set(['explore', 'catalogue', 'methodology']);
+const validNodeIds = new Set(NODES.map((n) => n.id));
 
 export function readURL() {
   const p = new URLSearchParams(location.search);
   const patch = {};
   if (validView.has(p.get('view'))) patch.view = p.get('view');
-  if (p.has('node')) patch.selection = p.get('node') || null;
+  if (p.has('node') && validNodeIds.has(p.get('node'))) patch.selection = p.get('node');
   if (p.has('q')) patch.query = p.get('q') || '';
   if (p.get('inferred') === '1') patch.showInferred = true;
   if (p.has('hide')) {
