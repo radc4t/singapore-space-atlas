@@ -10,12 +10,15 @@ test('focus flow: select a node → inspector populates → clear', async ({ pag
 
   await page.locator('.node[data-id="nsas"] .node-shape').click();
   await expect(page.locator('.inspector-title')).toHaveText('National Space Agency of Singapore');
-  await expect(page.locator('#status')).toContainText('National Space Agency');
+  // right panel switches Readouts → Inspector; operating-state label derives from state
+  await expect(page.locator('#readouts')).toBeHidden();
+  await expect(page.locator('#op-state')).toContainText('INSPECT');
   // focus mode dims the rest
   await expect(page.locator('.atlas-svg')).toHaveClass(/has-focus/);
 
   await page.locator('.inspector-clear').click();
-  await expect(page.locator('.inspector-empty')).toBeVisible();
+  await expect(page.locator('#inspector')).toBeHidden();
+  await expect(page.locator('#readouts')).toBeVisible();
 });
 
 test('deep link restores focus + inferred state', async ({ page }) => {

@@ -84,7 +84,7 @@ export function initCatalogue(mount) {
       'data-id': n.id,
       text: n.name,
     });
-    nameBtn.addEventListener('click', () => setState({ selection: n.id }));
+    nameBtn.addEventListener('click', () => setState({ view: 'explore', selection: n.id }));
     const metaParts = [
       TYPE_LABELS[n.type] ?? n.type,
       n.cluster ? (CLUSTER_LABELS[n.cluster] ?? n.cluster) : null,

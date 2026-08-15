@@ -60,6 +60,23 @@ export function renderAtlas(mount, ir) {
       "Systems map of Singapore's space ecosystem: NSAS at the centre, surrounded by institutional, capability, industry and international layers.",
   });
 
+  // Soft NSAS bloom (dark-only; CSS hides it in light). A surface effect BEHIND the anchor —
+  // desaturated blue-green, huge/soft/low-opacity, no pulse. Blur via an SVG filter.
+  const defs = el('defs');
+  const blur = el('filter', {
+    id: 'nsas-bloom',
+    x: '-80%',
+    y: '-80%',
+    width: '260%',
+    height: '260%',
+  });
+  blur.append(el('feGaussianBlur', { in: 'SourceGraphic', stdDeviation: '26' }));
+  defs.append(blur);
+  svg.append(defs);
+  svg.append(
+    el('circle', { cx: 0, cy: 0, r: 84, class: 'nsas-bloom', filter: 'url(#nsas-bloom)' })
+  );
+
   const gConstruct = el('g', { class: 'layer-construction', 'aria-hidden': 'true' });
   const gSectors = el('g', { class: 'layer-sectors', 'aria-hidden': 'true' });
   const gClusters = el('g', { class: 'layer-clusters', 'aria-hidden': 'true' });

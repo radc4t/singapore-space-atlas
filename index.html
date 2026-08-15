@@ -17,216 +17,223 @@
   <body>
     <a class="skip-link" href="#atlas">Skip to the map</a>
 
-    <header class="site-header">
-      <div class="masthead-top">
-        <div class="wordmark">
-          <h1>Singapore Space Atlas</h1>
-          <p class="subtitle">A visual map of Singapore&rsquo;s space ecosystem</p>
-        </div>
-        <div class="header-actions">
-          <nav class="nav" aria-label="Sections">
-            <a class="active" href="#atlas">Explore</a>
-            <a href="#catalogue">Catalogue</a>
-            <a href="#methodology">Methodology</a>
-          </nav>
-          <button
-            id="theme-toggle"
-            class="btn icon-btn"
-            type="button"
-            aria-pressed="false"
-            title="Toggle theme"
-          >
-            ☾
-          </button>
-        </div>
+    <!-- thin top bar -->
+    <header class="topbar">
+      <div class="wordmark">
+        <h1>Singapore Space Atlas</h1>
+        <span class="edition">2026 Edition</span>
       </div>
-      <p class="edition">2026 Edition · Research snapshot 15 August 2026</p>
-      <p class="layerline"><b>Institutional context</b> · Capability · Industry · International</p>
+      <nav class="nav" aria-label="Views">
+        <a href="?" data-view="explore" class="active">Explore</a>
+        <a href="?view=catalogue" data-view="catalogue">Catalogue</a>
+        <a href="?view=methodology" data-view="methodology">Methodology</a>
+      </nav>
+      <div class="topbar-right">
+        <button
+          id="theme-toggle"
+          class="btn icon-btn"
+          type="button"
+          aria-pressed="false"
+          title="Toggle theme"
+        >
+          ☾
+        </button>
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <path id="seal-path" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" />
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" />
+          <text class="seal-text">
+            <textPath href="#seal-path" startOffset="0">
+              SINGAPORE SPACE ATLAS · 2026 EDITION ·&nbsp;
+            </textPath>
+          </text>
+          <line x1="50" y1="44" x2="50" y2="56" stroke="currentColor" stroke-width="1" />
+          <line x1="44" y1="50" x2="56" y2="50" stroke="currentColor" stroke-width="1" />
+        </svg>
+      </div>
     </header>
-    <div class="header-rule"><div></div></div>
-
-    <nav class="toolbar" aria-label="Map controls">
-      <div id="legend" class="filters" role="group" aria-label="Filter by stakeholder type"></div>
-      <label class="evidence">
-        <input id="evidence-toggle" type="checkbox" />
-        Show inferred
-      </label>
-      <button id="story-start" class="btn" type="button">Explore the Atlas ▸</button>
-      <button id="reset" class="btn" type="button">Reset view</button>
-    </nav>
-    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
 
     <main id="main">
-      <div class="stage">
-        <div class="mapcol">
-          <div class="explore">
-            Explore the Atlas
-            <label class="visually-hidden" for="search"
-              >Search organisations, programmes, capabilities</label
-            >
-            <input
-              id="search"
-              type="search"
-              placeholder="Search organisations, programmes, capabilities…"
-              autocomplete="off"
-            />
-            <div
-              id="search-results"
-              class="search-results"
-              role="region"
-              aria-label="Search results"
-              hidden
-            ></div>
-          </div>
-
-          <aside class="layer-key" aria-label="Ecosystem layers, inner to outer">
-            Layers
-            <ol>
-              <li>Institutional context <span class="ix">01</span></li>
-              <li>Capability <span class="ix">02</span></li>
-              <li>Industry <span class="ix">03</span></li>
-              <li>International <span class="ix">04</span></li>
-            </ol>
-          </aside>
-
+      <!-- EXPLORE view: the instrument -->
+      <section id="explore-view" class="view">
+        <div class="stage">
           <section id="atlas" class="atlas" aria-label="Ecosystem map" hidden></section>
 
-          <div class="how-to-read" aria-label="How to read the Atlas">
-            <span class="legend-title">How to read</span>
-            <span class="lg"
-              ><svg width="16" height="16" aria-hidden="true">
-                <circle cx="8" cy="8" r="5.5" fill="var(--muted)"></circle>
-              </svg>
-              organisation</span
-            >
-            <span class="lg"
-              ><svg width="26" height="16" aria-hidden="true">
-                <rect
-                  x="2"
-                  y="4"
-                  width="22"
-                  height="9"
-                  rx="1.5"
-                  fill="var(--surface)"
-                  stroke="var(--ink)"
-                ></rect>
-              </svg>
-              programme</span
-            >
-            <span class="lg"
-              ><svg width="16" height="16" aria-hidden="true">
-                <circle
-                  cx="8"
-                  cy="8"
-                  r="5"
-                  fill="var(--surface)"
-                  stroke="var(--muted)"
-                  stroke-width="2"
-                ></circle>
-              </svg>
-              international</span
-            >
-            <span class="lg"
-              ><svg width="34" height="8" aria-hidden="true">
-                <line x1="1" y1="4" x2="33" y2="4" stroke="var(--edge-strong)"></line>
-              </svg>
-              direct</span
-            >
-            <span class="lg"
-              ><svg width="34" height="8" aria-hidden="true">
-                <line
-                  x1="1"
-                  y1="4"
-                  x2="33"
-                  y2="4"
-                  stroke="var(--edge-strong)"
-                  stroke-dasharray="6 4"
-                ></line>
-              </svg>
-              programme-mediated</span
-            >
-            <span class="lg"
-              ><svg width="34" height="8" aria-hidden="true">
-                <line
-                  x1="1"
-                  y1="4"
-                  x2="33"
-                  y2="4"
-                  stroke="var(--edge-strong)"
-                  stroke-dasharray="1.5 4"
-                ></line>
-              </svg>
-              contextual</span
-            >
-            <span class="lg"
-              ><svg width="34" height="8" aria-hidden="true">
-                <line
-                  x1="1"
-                  y1="4"
-                  x2="33"
-                  y2="4"
-                  stroke="var(--faint)"
-                  stroke-opacity="0.5"
-                ></line>
-              </svg>
-              muted = inferred</span
-            >
-            <span class="chan"
-              ><b>colour</b> stakeholder · <b>shape</b> entity · <b>line</b> pathway ·
-              <b>opacity</b> evidence · <b>position</b> layer</span
-            >
-          </div>
+          <!-- left instrument module -->
+          <aside class="panel panel-left" aria-label="Controls and orientation">
+            <div class="explore">
+              <label class="panel-title" for="search">Explore the Atlas</label>
+              <input
+                id="search"
+                type="search"
+                placeholder="Search organisations, programmes…"
+                autocomplete="off"
+              />
+              <div
+                id="search-results"
+                class="search-results"
+                role="region"
+                aria-label="Search results"
+                hidden
+              ></div>
+            </div>
 
+            <div id="layers-readout" class="layers-readout" aria-label="Structural layers"></div>
+
+            <div class="controls">
+              <div
+                id="legend"
+                class="filters"
+                role="group"
+                aria-label="Filter by stakeholder type"
+              ></div>
+              <label class="evidence"
+                ><input id="evidence-toggle" type="checkbox" /> Show inferred</label
+              >
+              <div class="control-row">
+                <button id="story-start" class="btn" type="button">Guided tour ▸</button>
+                <button id="reset" class="btn" type="button">Reset</button>
+              </div>
+            </div>
+
+            <div class="how-to-read" aria-label="How to read the Atlas">
+              <span class="panel-title">How to read</span>
+              <span class="lg"
+                ><svg width="14" height="14" aria-hidden="true">
+                  <circle cx="7" cy="7" r="5" fill="var(--color-muted)"></circle>
+                </svg>
+                organisation</span
+              >
+              <span class="lg"
+                ><svg width="24" height="14" aria-hidden="true">
+                  <rect
+                    x="1"
+                    y="3"
+                    width="22"
+                    height="8"
+                    fill="var(--color-panel)"
+                    stroke="var(--color-ink)"
+                  ></rect>
+                </svg>
+                programme</span
+              >
+              <span class="lg"
+                ><svg width="14" height="14" aria-hidden="true">
+                  <circle
+                    cx="7"
+                    cy="7"
+                    r="4.5"
+                    fill="var(--color-panel)"
+                    stroke="var(--color-muted)"
+                    stroke-width="2"
+                  ></circle>
+                </svg>
+                international</span
+              >
+              <span class="lg"
+                ><svg width="30" height="7" aria-hidden="true">
+                  <line x1="1" y1="3.5" x2="29" y2="3.5" stroke="var(--color-ink)"></line>
+                </svg>
+                direct</span
+              >
+              <span class="lg"
+                ><svg width="30" height="7" aria-hidden="true">
+                  <line
+                    x1="1"
+                    y1="3.5"
+                    x2="29"
+                    y2="3.5"
+                    stroke="var(--color-ink)"
+                    stroke-dasharray="5 3"
+                  ></line>
+                </svg>
+                programme</span
+              >
+              <span class="lg"
+                ><svg width="30" height="7" aria-hidden="true">
+                  <line
+                    x1="1"
+                    y1="3.5"
+                    x2="29"
+                    y2="3.5"
+                    stroke="var(--color-ink)"
+                    stroke-dasharray="1.5 3"
+                  ></line>
+                </svg>
+                contextual</span
+              >
+              <span class="lg"
+                ><svg width="30" height="7" aria-hidden="true">
+                  <line
+                    x1="1"
+                    y1="3.5"
+                    x2="29"
+                    y2="3.5"
+                    stroke="var(--color-muted)"
+                    stroke-opacity="0.5"
+                  ></line>
+                </svg>
+                muted = inferred</span
+              >
+              <span class="chan"
+                ><b>colour</b> type · <b>shape</b> entity · <b>line</b> pathway ·
+                <b>opacity</b> evidence · <b>position</b> layer</span
+              >
+            </div>
+          </aside>
+
+          <!-- right instrument module: readouts ↔ inspector -->
+          <aside class="panel panel-right" aria-label="Readouts and inspector" aria-live="polite">
+            <div id="readouts" class="readouts"></div>
+            <div id="inspector" class="inspector" hidden></div>
+          </aside>
+
+          <!-- guided tour -->
           <div id="story-panel" class="story-panel" role="region" aria-label="Guided tour" hidden>
             <div id="story-caption" class="story-caption"></div>
             <div class="story-nav">
               <button id="story-prev" class="btn" type="button">← Back</button>
               <button id="story-next" class="btn" type="button">Next →</button>
-              <button id="story-exit" class="btn" type="button">Exit tour</button>
+              <button id="story-exit" class="btn" type="button">Exit</button>
             </div>
           </div>
         </div>
 
-        <aside
-          id="inspector"
-          class="inspector"
-          aria-label="Selected node details"
-          aria-live="polite"
-        ></aside>
-      </div>
-
-      <p id="snapshot" class="snapshot-bar"></p>
-
-      <noscript>
-        <div class="fallback">
-          <p>
-            <strong>Singapore Space Atlas</strong> — the interactive map needs JavaScript. The
-            ecosystem catalogue below is the text-based view of the same data.
-          </p>
+        <!-- bottom status bar -->
+        <div class="statusbar">
+          <span id="op-state" class="op-state">EXPLORE</span>
+          <span class="status-meta"
+            >ATLAS / 2026 · RESEARCH SNAPSHOT / 15 AUG 2026 · PLATE / ECOSYSTEM · SG / 01</span
+          >
         </div>
-      </noscript>
+      </section>
 
-      <section id="catalogue" class="catalogue" aria-label="Ecosystem catalogue"></section>
+      <!-- CATALOGUE view -->
+      <section
+        id="catalogue"
+        class="view catalogue"
+        aria-label="Ecosystem catalogue"
+        hidden
+      ></section>
 
-      <section id="methodology" class="methodology" aria-label="Methodology">
+      <!-- METHODOLOGY view -->
+      <section id="methodology" class="view methodology" aria-label="Methodology" hidden>
         <h2>Methodology</h2>
         <p class="muted">
           The Atlas maps the publicly documented structures and relationships of Singapore&rsquo;s
           space ecosystem. It is a dated research snapshot, not a permanent or exhaustive registry.
         </p>
-
         <h3>What the Atlas does</h3>
         <p>
           Maps publicly documented structural roles and relationships, from a chosen editorial
           perspective.
         </p>
-
         <h3>What the Atlas does not do</h3>
         <p>
           It does not claim to be exhaustive, and absence of an edge is <strong>not</strong> a claim
           that no relationship exists. A visible node does not imply a direct NSAS relationship.
         </p>
-
         <h3>What counts as evidence</h3>
         <p>
           Every relationship carries its own sources and two independent labels —
@@ -234,23 +241,26 @@
           programme-mediated, contextual). An edge exists only when a specific source substantiates
           that specific relationship.
         </p>
-
         <h3>When evidence is weak</h3>
         <p>The relationship is marked inferred (muted, hidden by default), or excluded entirely.</p>
-
         <h3>Why some entities are featured</h3>
         <p>
           Editorial selection of strategically significant, well-documented anchors — not a
           quantitative ranking. Node size encodes editorial prominence, never degree or count.
         </p>
+        <p class="muted small">
+          The instrument metaphor is expressive, not literal: it supplies hierarchy, typography and
+          state language, never fictional telemetry, spatial claims or measurement scales.
+        </p>
       </section>
-    </main>
 
-    <footer class="footer">
-      <span>Singapore Space Atlas · 2026 Edition</span>
-      <span>Research snapshot 15 Aug 2026</span>
-      <span>SG / 01</span>
-    </footer>
+      <noscript>
+        <div class="fallback">
+          <strong>Singapore Space Atlas</strong> — the interactive map needs JavaScript. Switch to
+          the Catalogue view for the text-based index of the same data.
+        </div>
+      </noscript>
+    </main>
 
     <script type="module" src="js/app.js"></script>
   </body>

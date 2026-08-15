@@ -6,10 +6,12 @@ import { setState, state, subscribe } from './state.js';
 import { TYPES } from './config.js';
 
 const validType = new Set(TYPES);
+const validView = new Set(['explore', 'catalogue', 'methodology']);
 
 export function readURL() {
   const p = new URLSearchParams(location.search);
   const patch = {};
+  if (validView.has(p.get('view'))) patch.view = p.get('view');
   if (p.has('node')) patch.selection = p.get('node') || null;
   if (p.has('q')) patch.query = p.get('q') || '';
   if (p.get('inferred') === '1') patch.showInferred = true;
@@ -27,6 +29,7 @@ export function readURL() {
 
 function writeURL() {
   const p = new URLSearchParams();
+  if (state.view && state.view !== 'explore') p.set('view', state.view); // canonical / = explore
   if (state.selection) p.set('node', state.selection);
   if (state.query) p.set('q', state.query);
   if (state.showInferred) p.set('inferred', '1');

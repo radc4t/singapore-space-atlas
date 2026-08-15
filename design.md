@@ -2,15 +2,31 @@
 
 > **Precision over spectacle. Hierarchy over density. Evidence over completeness.**
 > Every visual decision should make the ecosystem easier to understand, not merely more impressive
-> to look at.
+> to look at. Aesthetic hierarchy: **map → evidence → instrument chrome.**
+
+> **The instrument metaphor is expressive, not literal.** It supplies hierarchy, typography, line
+> discipline and state language — it must never introduce fictional telemetry, spatial claims,
+> measurement scales, mission status, or technical meaning unsupported by the Atlas data.
 
 ## What it is
 
-An interactive large-format **editorial graphic** wrapped in a quiet research interface — _a digital
-atlas whose central map happens to be interactive_, not a dashboard. The aesthetic is **editorial
-cartography × aerospace systems diagram × premium institutional report**: calm, precise, slightly
-futuristic, distinctly Singaporean. The space feeling comes from **geometry and precision, not space
-imagery** (no starfields, glow, planets, or orbit decoration).
+An interactive large-format **instrument** — _a digital atlas whose central map IS the instrument_,
+not a dashboard. The map is a full-bleed **centred hero**; controls, readouts and the inspector float
+around it as instrument modules (~85% map · 15% chrome). One identity in **two temperatures**: a
+light **"archival / scientific instrument"** (paper + ink, red reads printed) and a dark **"night
+operations room"** (blue-green charcoal, nodes lit by the room). The space feeling comes from
+**geometry and precision, not space imagery** — no starfields, glow, planets, or orbit decoration
+(one optional, very soft blue-green bloom behind NSAS in dark only).
+
+## Product & views
+
+Desktop-first flagship with a mobile companion (intentional simplification, not parity). Nav =
+real view switches: **Explore** (the instrument) · **Catalogue** (the card index / accessible
+representation) · **Methodology** (the intellectual contract). `view` is orthogonal to `selection`
+in the store; canonical `/` = Explore resting plate. The right panel is one module in two modes:
+**Readouts** (sparse derived counts) by default, **Inspector** (field-note + evidence) on selection.
+Operating-state label derives purely from state (`EXPLORE` · `INSPECT · <ENTITY>` · `CATALOGUE` ·
+`METHODOLOGY`).
 
 ## Product model (five layers)
 

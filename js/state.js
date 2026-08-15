@@ -7,7 +7,8 @@ import { TYPES } from './config.js';
 const listeners = new Set();
 
 export const state = {
-  selection: null, // node id in focus, or null
+  view: 'explore', // 'explore' | 'catalogue' | 'methodology' — orthogonal to selection
+  selection: null, // node id in focus, or null (persists globally; each view decides to render it)
   hovered: null, // node id hovered, or null
   showInferred: false, // reveal inferred-confidence edges
   query: '', // search text

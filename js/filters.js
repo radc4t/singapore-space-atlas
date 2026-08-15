@@ -63,7 +63,7 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
   // --- reset view --------------------------------------------------------------------------
   reset.addEventListener('click', () => {
     search.value = '';
-    setState({ selection: null, query: '', hiddenTypes: new Set(), story: null });
+    setState({ view: 'explore', selection: null, query: '', hiddenTypes: new Set(), story: null });
   });
 
   function renderResults() {
@@ -100,7 +100,7 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
             (onMap ? '' : ' · catalogue'),
         }),
       ]);
-      btn.addEventListener('click', () => setState({ selection: n.id }));
+      btn.addEventListener('click', () => setState({ view: 'explore', selection: n.id }));
       list.append(h('li', {}, [btn]));
     }
     results.append(list);

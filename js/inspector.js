@@ -51,18 +51,12 @@ export function initInspector(mount) {
     mount.replaceChildren();
     const id = state.selection;
 
+    // No selection → the Readouts panel shows instead; the inspector hides entirely.
     if (!id) {
-      mount.append(
-        el('div', { class: 'inspector-empty' }, [
-          el('p', {
-            class: 'muted',
-            text: 'Select any node to see its role, connections, and the evidence behind each relationship.',
-          }),
-        ])
-      );
-      mount.setAttribute('aria-hidden', 'false');
+      mount.hidden = true;
       return;
     }
+    mount.hidden = false;
 
     const n = nodeById.get(id);
     if (!n) return;

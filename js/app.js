@@ -1,30 +1,56 @@
-// app.js — bootstrap / controller. Wires the data-driven modules together on top of the shared
-// store. Strict module boundaries: this file only orchestrates; geometry, rendering, interaction,
-// filtering, inspection, cataloguing, routing and story mode each live in their own module.
+// app.js — bootstrap / controller. Orchestrates the data-driven modules on the shared store.
+// Strict module boundaries: geometry, rendering, interaction, filtering, inspection, readouts,
+// cataloguing, views, routing and story each live in their own module.
 
-import { computeLayout } from './layout.js';
+import { computeLayout, ringOf } from './layout.js';
 import { renderAtlas } from './render.js';
 import { initInteraction } from './interaction.js';
 import { initInspector } from './inspector.js';
+import { initReadouts } from './readouts.js';
 import { initFilters } from './filters.js';
 import { initCatalogue } from './catalogue.js';
 import { initStory } from './story.js';
+import { initViews } from './views.js';
 import { initTheme } from './theme.js';
 import { initRouter } from './router.js';
-import { EDGES, NODES } from './data/ecosystem.js';
+import { LAYERS } from './config.js';
+import { NODES } from './data/ecosystem.js';
 
 const $ = (id) => document.getElementById(id);
 
-/** Snapshot bar — counts derived from the data at runtime (never hard-coded). */
-function renderSnapshot(mount) {
+/** Left-panel "Structural layers" readout — count = entities in layer, bar = count / max (a plain
+ *  occupancy calibration mark, never a share-of-100% or "importance" chart). */
+function renderLayers(mount) {
   if (!mount) return;
-  const orgs = NODES.filter((n) => n.kind === 'organisation').length;
-  const programmes = NODES.filter((n) => n.kind === 'programme').length;
-  const documented = EDGES.filter((e) => e.confidence === 'documented').length;
-  const inferred = EDGES.filter((e) => e.confidence === 'inferred').length;
-  mount.textContent =
-    `Atlas snapshot · 15 Aug 2026 · ${orgs} organisations · ${programmes} programmes · ` +
-    `${documented} documented + ${inferred} inferred relationships`;
+  const counts = [0, 0, 0, 0, 0];
+  for (const n of NODES) {
+    if (n.coverage !== 'featured') continue;
+    const r = ringOf(n);
+    if (r != null && r >= 1 && r <= 4) counts[r] += 1;
+  }
+  const max = Math.max(1, ...counts.slice(1));
+  mount.replaceChildren();
+  const title = document.createElement('span');
+  title.className = 'panel-title';
+  title.textContent = 'Structural layers';
+  mount.append(title);
+  for (let r = 1; r <= 4; r++) {
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    const name = document.createElement('span');
+    name.className = 'layer-name';
+    name.textContent = LAYERS[r].label;
+    const num = document.createElement('span');
+    num.className = 'layer-num';
+    num.textContent = String(counts[r]).padStart(2, '0');
+    const bar = document.createElement('span');
+    bar.className = 'layer-bar';
+    const fill = document.createElement('i');
+    fill.style.width = `${(counts[r] / max) * 100}%`;
+    bar.append(fill);
+    row.append(name, num, bar);
+    mount.append(row);
+  }
 }
 
 function init() {
@@ -36,6 +62,7 @@ function init() {
   atlasMount.hidden = false;
 
   initInteraction({ svg, nodeEls, edgeEls });
+  initReadouts($('readouts'));
   initInspector($('inspector'));
   initFilters({
     legend: $('legend'),
@@ -43,9 +70,10 @@ function init() {
     results: $('search-results'),
     evidenceToggle: $('evidence-toggle'),
     reset: $('reset'),
-    status: $('status'),
+    status: null, // operating-state label (views.js) replaces the old status line
     nodeEls,
   });
+  renderLayers($('layers-readout'));
   initCatalogue($('catalogue'));
   initStory({
     startBtn: $('story-start'),
@@ -56,10 +84,17 @@ function init() {
     exitBtn: $('story-exit'),
     svg,
   });
-  renderSnapshot($('snapshot'));
+  initViews({
+    navLinks: document.querySelectorAll('.nav a[data-view]'),
+    sections: {
+      explore: $('explore-view'),
+      catalogue: $('catalogue'),
+      methodology: $('methodology'),
+    },
+    label: $('op-state'),
+  });
 
-  // deep links last, so all subscribers exist before URL state is applied
-  initRouter();
+  initRouter(); // last, so all subscribers exist before URL state is applied
 }
 
 if (document.readyState === 'loading') {
