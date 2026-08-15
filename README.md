@@ -3,7 +3,12 @@
 **A visual, evidence-backed systems map of Singapore's space ecosystem.**
 _Government · Research · Industry · International_
 
-🛰 **Live:** https://radc4t.github.io/singapore-space-atlas/ · **Edition:** 2026 · research snapshot 15 Aug 2026
+[![Live demo](https://img.shields.io/badge/demo-live-2ea44f?logo=github)](https://radc4t.github.io/singapore-space-atlas/)
+[![CI](https://github.com/radc4t/singapore-space-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/radc4t/singapore-space-atlas/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![Runtime dependencies: 0](https://img.shields.io/badge/runtime%20deps-0-blue.svg)](#tech-stack)
+
+> **Live:** <https://radc4t.github.io/singapore-space-atlas/> — 2026 Edition · research snapshot 15 Aug 2026
 
 ![Singapore Space Atlas — the Explore plate (light)](docs/hero-light.png)
 
@@ -17,13 +22,37 @@ does so **honestly**, showing what is documented, what is inferred, and how each
 > connecting Singapore's space institutions, research community, companies, programmes and supporting
 > ecosystem — _not_ an exhaustive representation of every company or every relationship.
 
-## What it is
+## Table of contents
+
+- [Overview](#overview)
+- [The six-channel visual grammar](#the-six-channel-visual-grammar)
+- [Usage](#usage)
+- [Evidence & honesty model](#evidence--honesty-model)
+- [Getting started](#getting-started)
+- [Development](#development)
+- [Project structure](#project-structure)
+- [Tech stack](#tech-stack)
+- [Accessibility](#accessibility)
+- [Versioning & editions](#versioning--editions)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
 
 A **"scientific / mission-control instrument"**: a large, centred constellation on a technical
 canvas, in two matched themes — a light _archival instrument_ and a dark _night operations room_
 (same instrument, two temperatures). It is a research-grade information system that happens to have a
 visualization, not the reverse. Aesthetic hierarchy: **map → evidence → instrument chrome**. The
 instrument metaphor is expressive, not literal — no fictional telemetry or spatial claims.
+
+**Highlights**
+
+- **Evidence-first.** Every relationship carries its own sources and two independent labels.
+- **Six-channel visual grammar** — meaning never rests on colour alone.
+- **Three deep-linkable views** — Explore, Catalogue, Methodology — with shareable URL state.
+- **Dual-theme** light/dark that follows system preference.
+- **Accessible** — keyboard-operable, axe-clean in CI, with a fully semantic text representation.
+- **Zero runtime dependencies** — a self-contained static site under a strict CSP.
 
 ## The six-channel visual grammar
 
@@ -38,7 +67,7 @@ Meaning never rests on colour alone:
 | position | structural **layer** — concentric ring, inner → outer                                  |
 | size     | **editorial prominence** (declared, non-quantitative)                                  |
 
-## Using it
+## Usage
 
 Three views (real view switches; state is deep-linkable):
 
@@ -49,11 +78,19 @@ Three views (real view switches; state is deep-linkable):
 - **Methodology** — the intellectual contract: what the Atlas does, what it does not claim, what
   counts as evidence.
 
-Shareable deep links carry the exact state, e.g. `?node=speqtral&inferred=1` or `?view=catalogue`.
+Shareable deep links carry the exact state, for example:
+
+| URL                         | Opens                                 |
+| --------------------------- | ------------------------------------- |
+| `?node=speqtral`            | Explore, focused on SpeQtral          |
+| `?node=speqtral&inferred=1` | …with inferred relationships revealed |
+| `?view=catalogue`           | The Catalogue index                   |
+| `?q=quantum`                | Explore, pre-filtered to a search     |
+
 Light/dark follow your system preference (toggle in the top bar). Desktop-first, with a mobile
 companion (intelligent simplification, not forced parity).
 
-## Honesty model
+## Evidence & honesty model
 
 Every relationship carries its **own** sources and two independent labels — `confidence`
 (documented vs inferred) and `pathway` (direct, programme-mediated, contextual). An edge exists only
@@ -62,35 +99,43 @@ that no relationship exists.** Counts are derived from the data; only the "~70 c
 is a cited editorial estimate. The `research/` ledger records sources (with retrieval locations,
 first-party vs secondary) and the editorial decisions behind the corpus.
 
-## Run
+## Getting started
+
+**Prerequisites:** [Node.js](https://nodejs.org/) 22+ and npm.
 
 ```bash
+git clone https://github.com/radc4t/singapore-space-atlas.git
+cd singapore-space-atlas
 npm install
 npm run dev      # http://127.0.0.1:8000 (build-free static server)
 ```
 
-Production build (self-contained static output, no runtime dependencies):
+Production build — a self-contained static site with no runtime dependencies:
 
 ```bash
 npm run build && npm run preview
 ```
 
-## Develop
+## Development
 
-```bash
-npm run validate   # data-contract integrity, ontology + evidence rules
-npm test           # node --test: validator provably catches contract violations
-npm run stress     # layout crossing/collision report
-npm run test:e2e   # Playwright: interaction, deep links, axe a11y, visual regression
-npm run lint && npm run format
-```
+| Command            | What it does                                                           |
+| ------------------ | ---------------------------------------------------------------------- |
+| `npm run dev`      | Build-free static server at <http://127.0.0.1:8000>                    |
+| `npm run build`    | Bundle + minify into `dist/` (self-contained)                          |
+| `npm run preview`  | Build, then serve `dist/`                                              |
+| `npm run validate` | Data-contract integrity: ontology + evidence rules                     |
+| `npm test`         | Unit tests (`node --test`) — the validator provably catches violations |
+| `npm run stress`   | Layout crossing/collision report                                       |
+| `npm run test:e2e` | Playwright: interaction, deep links, axe a11y, visual regression       |
+| `npm run lint`     | ESLint                                                                 |
+| `npm run format`   | Prettier (write) · `npm run format:check` to verify                    |
 
-## Architecture
+CI (GitHub Actions) runs lint, format, validate, build, and the unit tests on every push and pull
+request; a separate workflow deploys `main` to GitHub Pages.
 
-Vanilla ES modules; **D3 (`d3-shape`) for geometry only**, bundled via esbuild. No graph library, no
-force simulation, no UI framework, no runtime external dependencies. Strict module boundaries:
+## Project structure
 
-```
+```text
 js/
   data/{ecosystem,sources}.js   corpus + source registry (single source of truth)
   config.js                     controlled vocabularies + visual taxonomy
@@ -98,11 +143,35 @@ js/
   interaction.js filters.js     focus/hover/keyboard · visibility/search/evidence
   readouts.js inspector.js      right panel: Readouts ↔ Inspector (one module, two modes)
   catalogue.js views.js         the card-index · Explore/Catalogue/Methodology switching
-  router.js state.js theme.js story.js
+  icons.js                      tiny inline-SVG icon set (Iconoir geometry, 1.5px stroke)
+  router.js state.js            deep-link state ↔ shared store
+  theme.js story.js app.js      theming · guided tour · bootstrap/controller
 scripts/  validate-data.mjs · layout-stress.mjs · build.mjs
 research/ evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv, references.md)
+test/     data.test.mjs (node --test) · e2e.spec.mjs (Playwright)
 design.md the design constitution
 ```
+
+## Tech stack
+
+Vanilla ES modules. The visualization geometry is **hand-authored SVG path math** — no graph library,
+no force simulation, no D3 or UI framework at runtime. Icons are a small inline-SVG set drawn on the
+map's own stroke grammar. The app is bundled and minified with [esbuild](https://esbuild.github.io/)
+into a **self-contained static site with zero runtime dependencies**, served under a strict
+Content-Security-Policy (`connect-src 'none'`, no external hosts). Typography uses system font stacks.
+Testing is `node --test` plus [Playwright](https://playwright.dev/) (interaction, accessibility via
+[axe-core](https://github.com/dequelabs/axe-core), and visual regression).
+
+## Accessibility
+
+Accessibility is a first-class constraint, not an afterthought:
+
+- SVG nodes are keyboard-focusable and operable (Enter / Space); a single neutral `:focus-visible`
+  treatment is used throughout.
+- Colour is never the only channel — type, shape, stroke and opacity all carry meaning.
+- `prefers-reduced-motion` is respected; the Catalogue is a fully semantic, screen-reader-friendly
+  representation of the same corpus.
+- Every commit is checked against axe (WCAG 2.1 A/AA, no serious/critical violations) in CI.
 
 ## Versioning & editions
 
@@ -113,6 +182,18 @@ Two independent axes:
 - **Editorial edition:** the content version, shown in-product — **2026 Edition · research snapshot
   15 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
 
-## Licence
+## Contributing
 
-MIT.
+Issues and pull requests are welcome. Before opening a PR, please make sure the full gate is green:
+
+```bash
+npm run validate && npm test && npm run lint && npm run format:check && npm run build
+```
+
+New or changed data must satisfy the data contract (`npm run validate`) and carry its sources; visual
+changes should be reviewed against the Playwright baselines before snapshots are regenerated. Keep the
+architecture dependency-free and the existing visual language intact.
+
+## License
+
+Released under the **MIT License** (see the `license` field in [`package.json`](package.json)).
