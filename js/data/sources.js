@@ -1,13 +1,140 @@
 // sources.js — the source registry. Nodes and edges reference these by `id`, never by raw URL.
 //
-// Each entry:
-//   { id, title, publisher, url, published?, updated?, accessed, kind }
-//     - id:        stable kebab-case key referenced by node.sources / edge.sources
-//     - published/updated: CONTENT dates (an accessed-today page may be years old) — distinct
-//                  from `accessed`. Surfaced in the inspector/About, never as a visual channel.
-//     - kind:      primary-live | primary-archived | secondary  (see SOURCE_KINDS in config.js)
+// Each entry: { id, title, publisher, url, published?, updated?, accessed, kind }
+//   published/updated: CONTENT dates (distinct from `accessed`). kind: SOURCE_KINDS in config.js.
 //
-// Populated during Phase B (the cited research pass). Empty until then so the toolchain runs green.
+// Authored in Phase B (research snapshot 2026-08-15). The messy reasoning — candidate claims,
+// supporting passages, retrieval locations, accept/reject decisions — lives in research/, not here.
 
 /** @type {Array<{id:string,title:string,publisher:string,url:string,published?:string,updated?:string,accessed:string,kind:string}>} */
-export const SOURCES = [];
+export const SOURCES = [
+  {
+    id: 'dir-2025',
+    title: 'Singapore Space Industry Directory 2025/2026',
+    publisher: 'Association of Aerospace Industries (Singapore), with OSTIn, CAAS, ESG & MPA',
+    url: 'https://isomer-user-content.by.gov.sg/301/42d28cd6-28e9-4717-a73c-d29274032f7a/Singapore_Space_Industry_Directory_2025_2026_Web_Version.pdf',
+    published: '2025',
+    updated: '2024-12-31',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'nsas-establishment',
+    title: 'Establishment of the National Space Agency of Singapore (press release)',
+    publisher: 'Ministry of Trade and Industry (MTI)',
+    url: 'https://isomer-user-content.by.gov.sg/166/dee00025-1a8a-4db3-a98b-aeb59512f66a/Press%20Release%20on%20Establishment%20of%20NSAS.pdf',
+    published: '2026-02-02',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'nsas-wiki',
+    title: 'National Space Agency of Singapore',
+    publisher: 'Wikipedia',
+    url: 'https://en.wikipedia.org/wiki/National_Space_Agency_of_Singapore',
+    updated: '2026',
+    accessed: '2026-08-15',
+    kind: 'secondary',
+  },
+  {
+    id: 'stdp-nsas',
+    title: 'Space Technology Development Programme (STDP)',
+    publisher: 'National Space Agency of Singapore (space.gov.sg)',
+    url: 'https://www.space.gov.sg/resources/stdp/',
+    updated: '2026',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'edb-nextbound',
+    title:
+      "Singapore's national space office announces new initiatives to drive the next bound of development",
+    publisher: 'Economic Development Board (EDB) / OSTIn',
+    url: 'https://www.edb.gov.sg/en/about-edb/media-releases-publications/singapore-space-office-unveils-new-industry-initiatives.html',
+    published: '2025-02',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'imda-spectrum',
+    title: 'IMDA Spectrum Requirements (Singapore Space Ecosystem)',
+    publisher: 'National Space Agency of Singapore (space.gov.sg)',
+    url: 'https://www.space.gov.sg/singapore-space-ecosystem/imda-spectrum-requirements/',
+    updated: '2026',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'gstc-2024',
+    title: 'Global Space and Technology Convention (GSTC) 2024',
+    publisher: 'National Space Agency of Singapore (space.gov.sg)',
+    url: 'https://www.space.gov.sg/resources/gstc-2024/',
+    published: '2024',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'sginnovate-2026',
+    title: "From satellites to startups, Singapore's space sector is pushing new frontiers",
+    publisher: 'SGInnovate',
+    url: 'https://www.sginnovate.com/blog/satellites-startups-singapores-space-sector-pushing-new-frontiers',
+    published: '2026-01-13',
+    accessed: '2026-08-15',
+    kind: 'secondary',
+  },
+  {
+    id: 'ntu-sarc',
+    title: 'About Us — Satellite Research Centre (SaRC)',
+    publisher: 'Nanyang Technological University (NTU)',
+    url: 'https://www.ntu.edu.sg/sarc/about-us',
+    updated: '2026',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'nus-star',
+    title: 'Satellite Technology and Research (STAR) Centre',
+    publisher: 'National University of Singapore (NUS)',
+    url: 'https://www.ece.nus.edu.sg/star/',
+    updated: '2026',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'ntu-3sats-2023',
+    title: 'NTU Singapore launches three new satellites (A*STAR ARTC 3D-printed parts)',
+    publisher: 'NTU Singapore / EurekAlert (AAAS)',
+    url: 'https://www.eurekalert.org/news-releases/997181',
+    published: '2023',
+    accessed: '2026-08-15',
+    kind: 'secondary',
+  },
+  {
+    id: 'ntu-aliena-2022',
+    title:
+      'NTU Singapore startup Aliena deploys compact and fuel-efficient satellite engine into space',
+    publisher: 'Nanyang Technological University (NTU)',
+    url: 'https://www.ntu.edu.sg/news/detail/ntu-singapore-startup-aliena-deploys-compact-and-fuel-efficient-satellite-engine-into-space',
+    published: '2022-01-14',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'ntu-zes-2020',
+    title: 'NTU spin-off Zero-Error Systems launches new radiation-protection chips for satellites',
+    publisher: 'Nanyang Technological University (NTU)',
+    url: 'https://www.ntu.edu.sg/news/detail/ntu-spin-off-zero-error-systems-launches-new-radiation-protection-chips-for-satellites-and-autonomous-vehicles',
+    published: '2020-10',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+  {
+    id: 'edb-speqtral-2024',
+    title: 'Singapore startup aims for quantum cryptography satellite launch',
+    publisher: 'Economic Development Board (EDB)',
+    url: 'https://www.edb.gov.sg/en/business-insights/insights/singapore-startup-aims-for-quantum-cryptography-satellite-launch-in-2025.html',
+    published: '2024',
+    accessed: '2026-08-15',
+    kind: 'primary-live',
+  },
+];
