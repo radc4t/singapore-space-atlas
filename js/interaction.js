@@ -17,11 +17,11 @@ export function initInteraction({ svg, nodeEls, edgeEls }) {
     ensure(t).edges.push(key);
   }
 
-  // wire node events
+  // wire node events on the interactive shape (the focusable control)
   for (const [id, refs] of nodeEls) {
-    const g = refs.group;
-    g.addEventListener('click', () => selectToggle(id));
-    g.addEventListener('keydown', (e) => {
+    const target = refs.shape;
+    target.addEventListener('click', () => selectToggle(id));
+    target.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         selectToggle(id);
@@ -29,8 +29,8 @@ export function initInteraction({ svg, nodeEls, edgeEls }) {
         setState({ selection: null });
       }
     });
-    g.addEventListener('mouseenter', () => setState({ hovered: id }));
-    g.addEventListener('mouseleave', () => setState({ hovered: null }));
+    refs.group.addEventListener('mouseenter', () => setState({ hovered: id }));
+    refs.group.addEventListener('mouseleave', () => setState({ hovered: null }));
   }
 
   // clicking empty SVG space clears focus
@@ -54,8 +54,8 @@ export function initInteraction({ svg, nodeEls, edgeEls }) {
       refs.group.classList.toggle('is-selected', id === sel);
       refs.group.classList.toggle('is-connected', connected.has(id));
       // visibility filter (type toggles + search) is applied in filters.js via .is-hidden
-      if (id === sel) refs.group.setAttribute('aria-current', 'true');
-      else refs.group.removeAttribute('aria-current');
+      if (id === sel) refs.shape.setAttribute('aria-current', 'true');
+      else refs.shape.removeAttribute('aria-current');
     }
     for (const [key, pathEl] of edgeEls) {
       pathEl.classList.toggle('is-active', activeEdges.has(key));

@@ -15,7 +15,7 @@
   --border: #d8dee6;
   --text: #1a2028;
   --text-muted: #5a6472;
-  --text-faint: #8a94a3;
+  --text-faint: #5f6875; /* ≥4.5:1 on white (WCAG AA) */
   --focus: #0b63d6;
 
   --c-agency: #d4462b;
@@ -650,13 +650,12 @@ main {
   padding: 0.05rem 0.4rem;
   border-radius: 999px;
   border: 1px solid var(--border);
+  color: var(--text-muted); /* AA-safe text; colour semantics carried by the border */
 }
 .badge.conf-documented {
-  color: var(--c-company);
   border-color: var(--c-company);
 }
 .badge.conf-inferred {
-  color: var(--c-international);
   border-color: var(--c-international);
 }
 .src-link {

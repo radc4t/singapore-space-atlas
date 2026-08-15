@@ -131,25 +131,25 @@ export function renderAtlas(mount, ir) {
       'data-id': n.id,
       'data-ring': String(p.ring),
       'data-type': n.type,
-      tabindex: '0',
-      role: 'button',
-      'aria-label': `${n.name}. ${n.role}. Activate to focus.`,
     });
 
+    // The interactive control is the SHAPE. It is keyboard-focusable and named; we intentionally
+    // do NOT put role="button" on an SVG shape (assistive-tech mapping is uneven and it trips
+    // false nested-interactive flags) — the semantic HTML Catalogue is the canonical accessible
+    // representation of the same data. `img` role + aria-label gives the shape an accessible name.
+    const shapeAttrs = {
+      class: 'node-shape',
+      tabindex: '0',
+      role: 'img',
+      'aria-label': `${n.name}. ${n.role}.`,
+    };
     let shape;
     if (n.kind === 'programme') {
       const w = 34;
       const h = 20;
-      shape = el('rect', {
-        x: -w / 2,
-        y: -h / 2,
-        width: w,
-        height: h,
-        rx: h / 2,
-        class: 'node-shape',
-      });
+      shape = el('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, ...shapeAttrs });
     } else {
-      shape = el('circle', { cx: 0, cy: 0, r: radiusFor(n), class: 'node-shape' });
+      shape = el('circle', { cx: 0, cy: 0, r: radiusFor(n), ...shapeAttrs });
     }
     g.append(shape);
 
