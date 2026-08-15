@@ -48,6 +48,28 @@ test('legend filter hides a type', async ({ page }) => {
   await expect(company).toHaveClass(/is-hidden/);
 });
 
+test('chrome affordances have action-describing accessible names', async ({ page }) => {
+  // theme toggle: explicit scheme (Playwright defaults to light) — assert name AND dynamic update
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Switch to light theme' })).toBeVisible();
+  await page.getByRole('button', { name: 'Switch to light theme' }).click();
+  await expect(page.getByRole('button', { name: 'Switch to dark theme' })).toBeVisible();
+
+  // tour controls: names are the words alone (icons are aria-hidden)
+  await page.getByRole('button', { name: 'Guided tour' }).click();
+  await expect(page.getByRole('button', { name: 'Back' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Next' })).toBeVisible();
+});
+
+test('custom checkbox stays keyboard-operable', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#evidence-toggle').focus();
+  await expect(page.locator('#evidence-toggle')).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(page.locator('#evidence-toggle')).toBeChecked();
+});
+
 test('accessibility: no serious/critical axe violations', async ({ page }) => {
   await page.goto('/');
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();

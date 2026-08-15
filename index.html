@@ -34,10 +34,8 @@
           class="btn icon-btn"
           type="button"
           aria-pressed="false"
-          title="Toggle theme"
-        >
-          ☾
-        </button>
+          aria-label="Toggle theme"
+        ></button>
         <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
           <defs>
             <path id="seal-path" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" />
@@ -92,7 +90,7 @@
                 ><input id="evidence-toggle" type="checkbox" /> Show inferred</label
               >
               <div class="control-row">
-                <button id="story-start" class="btn" type="button">Guided tour ▸</button>
+                <button id="story-start" class="btn" type="button">Guided tour</button>
                 <button id="reset" class="btn" type="button">Reset</button>
               </div>
             </div>
@@ -193,8 +191,8 @@
           <div id="story-panel" class="story-panel" role="region" aria-label="Guided tour" hidden>
             <div id="story-caption" class="story-caption"></div>
             <div class="story-nav">
-              <button id="story-prev" class="btn" type="button">← Back</button>
-              <button id="story-next" class="btn" type="button">Next →</button>
+              <button id="story-prev" class="btn" type="button">Back</button>
+              <button id="story-next" class="btn" type="button">Next</button>
               <button id="story-exit" class="btn" type="button">Exit</button>
             </div>
           </div>
