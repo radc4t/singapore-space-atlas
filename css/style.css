@@ -1,0 +1,182 @@
+/* Singapore Space Atlas — design tokens + base styles.
+ *
+ * Theming: light is the primary palette on bare :root; the dark palette redefines only the tokens
+ * under prefers-color-scheme AND an explicit [data-theme] override so a future toggle wins both ways.
+ * The category colours (keyed by the visual-taxonomy `type`) live here as the single source of
+ * truth — config.js references types by name, this file gives them colour.
+ */
+
+:root {
+  /* neutrals */
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --border: #d8dee6;
+  --text: #1a2028;
+  --text-muted: #5a6472;
+  --text-faint: #8a94a3;
+  --focus: #0b63d6;
+
+  /* type = colour (the one place category colours are defined) */
+  --c-agency: #d4462b; /* NSAS — the anchor */
+  --c-government: #2f6db3;
+  --c-academia: #6b3fa0;
+  --c-company: #1f9e6e;
+  --c-international: #c47b12;
+  --c-sector: #7a8594;
+  --c-programme: #b0357d;
+
+  /* edges */
+  --edge: #9aa4b2;
+  --edge-strong: #4a5563;
+
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 4px 16px rgba(16, 24, 40, 0.08);
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Menlo, monospace;
+  --maxw: 1200px;
+}
+
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    --bg: #0e1116;
+    --surface: #161b22;
+    --surface-2: #1d232c;
+    --border: #2a323d;
+    --text: #e6eaf0;
+    --text-muted: #a3adbb;
+    --text-faint: #6b7583;
+    --focus: #5aa0ff;
+
+    --c-agency: #ff6a4d;
+    --c-government: #5aa0ff;
+    --c-academia: #b58bff;
+    --c-company: #43c98d;
+    --c-international: #e6a52e;
+    --c-sector: #8a95a4;
+    --c-programme: #e86bb0;
+
+    --edge: #4a5563;
+    --edge-strong: #97a2b0;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1116;
+  --surface: #161b22;
+  --surface-2: #1d232c;
+  --border: #2a323d;
+  --text: #e6eaf0;
+  --text-muted: #a3adbb;
+  --text-faint: #6b7583;
+  --focus: #5aa0ff;
+
+  --c-agency: #ff6a4d;
+  --c-government: #5aa0ff;
+  --c-academia: #b58bff;
+  --c-company: #43c98d;
+  --c-international: #e6a52e;
+  --c-sector: #8a95a4;
+  --c-programme: #e86bb0;
+
+  --edge: #4a5563;
+  --edge-strong: #97a2b0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--focus);
+  border-radius: var(--radius);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.site-header {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+.wordmark h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  letter-spacing: -0.01em;
+}
+.subtitle {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+.layers {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.layers span {
+  color: var(--text-faint);
+  padding: 0 0.15rem;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1rem 1.25rem 4rem;
+}
+
+.fallback,
+.catalogue {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+.fallback {
+  margin-bottom: 1rem;
+}
+
+.atlas {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
