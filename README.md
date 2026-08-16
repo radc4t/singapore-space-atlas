@@ -49,7 +49,7 @@ instrument metaphor is expressive, not literal — no fictional telemetry or spa
 
 - **Evidence-first.** Every relationship carries its own sources and two independent labels.
 - **Six-channel visual grammar** — meaning never rests on colour alone.
-- **Three deep-linkable views** — Explore, Catalogue, Methodology — with shareable URL state.
+- **Three deep-linkable views** — Explore, Directory, Methodology — with shareable URL state.
 - **Dual-theme** light/dark that follows system preference.
 - **Accessible** — keyboard-operable, axe-clean in CI, with a fully semantic text representation.
 - **Zero runtime dependencies** — a self-contained static site under a strict CSP.
@@ -74,7 +74,9 @@ Three views (real view switches; state is deep-linkable):
 - **Explore** — the instrument. Click a node → focus mode; the right module switches from **Readouts**
   (derived counts) to an **Inspector** field-note with the relationship's evidence and cited sources.
   Search (name · type · cluster · alias), filter by type, toggle inferred links, or take the guided tour.
-- **Catalogue** — the card-index of the full corpus, and the accessible representation of the data.
+- **Directory** — the card-index of the full corpus (grouped by stakeholder type), and the accessible
+  representation of the data. Entity names link to their official website (new tab) where the corpus
+  provides one.
 - **Methodology** — the intellectual contract: what the Atlas does, what it does not claim, what
   counts as evidence.
 
@@ -84,7 +86,7 @@ Shareable deep links carry the exact state, for example:
 | --------------------------- | ------------------------------------- |
 | `?node=speqtral`            | Explore, focused on SpeQtral          |
 | `?node=speqtral&inferred=1` | …with inferred relationships revealed |
-| `?view=catalogue`           | The Catalogue index                   |
+| `?view=catalogue`           | The Directory (index of the corpus)   |
 | `?q=quantum`                | Explore, pre-filtered to a search     |
 
 Light/dark follow your system preference (toggle in the top bar). Desktop-first, with a mobile
@@ -142,7 +144,7 @@ js/
   layout.js  render.js          geometry → rich IR → declarative SVG
   interaction.js filters.js     focus/hover/keyboard · visibility/search/evidence
   readouts.js inspector.js      right panel: Readouts ↔ Inspector (one module, two modes)
-  catalogue.js views.js         the card-index · Explore/Catalogue/Methodology switching
+  catalogue.js views.js         the Directory card-index · Explore/Directory/Methodology switching
   icons.js                      tiny inline-SVG icon set (Iconoir geometry, 1.5px stroke)
   router.js state.js            deep-link state ↔ shared store
   theme.js story.js app.js      theming · guided tour · bootstrap/controller
@@ -169,7 +171,7 @@ Accessibility is a first-class constraint, not an afterthought:
 - SVG nodes are keyboard-focusable and operable (Enter / Space); a single neutral `:focus-visible`
   treatment is used throughout.
 - Colour is never the only channel — type, shape, stroke and opacity all carry meaning.
-- `prefers-reduced-motion` is respected; the Catalogue is a fully semantic, screen-reader-friendly
+- `prefers-reduced-motion` is respected; the Directory is a fully semantic, screen-reader-friendly
   representation of the same corpus.
 - Every commit is checked against axe (WCAG 2.1 A/AA, no serious/critical violations) in CI.
 

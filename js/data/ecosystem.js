@@ -50,6 +50,7 @@ export const NODES = [
     status: 'active',
     role: 'Parent ministry of NSAS',
     featuredReason: 'The ministry NSAS reports to — the ecosystem’s policy apex.',
+    url: 'https://www.mti.gov.sg/',
     sources: ['nsas-establishment'],
   },
   {
@@ -63,6 +64,7 @@ export const NODES = [
     status: 'active',
     role: 'Established OSTIn (2013); investment & industry development',
     featuredReason: 'Founded the national space office and anchors industry investment.',
+    url: 'https://www.edb.gov.sg/',
     sources: ['dir-2025', 'edb-nextbound'],
   },
   {
@@ -92,6 +94,7 @@ export const NODES = [
     status: 'active',
     role: 'Applies satellites in air navigation (SATCOM, space-based ADS-B)',
     featuredReason: 'A government space user and co-author of the national ecosystem effort.',
+    url: 'https://www.caas.gov.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -105,6 +108,7 @@ export const NODES = [
     status: 'active',
     role: 'Uses satellites for maritime connectivity & safety (Satellite AIS, VDES)',
     featuredReason: 'A government space user and co-author of the national ecosystem effort.',
+    url: 'https://www.mpa.gov.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -118,6 +122,7 @@ export const NODES = [
     status: 'active',
     role: 'Supports space start-ups & SMEs (incl. Seeds Capital)',
     featuredReason: 'Channels enterprise financing and SME support into the sector.',
+    url: 'https://www.enterprisesg.gov.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -131,6 +136,7 @@ export const NODES = [
     status: 'active',
     role: 'Regulates radio spectrum, satellite comms stations & orbital-slot filings',
     featuredReason: 'The regulator every satellite operator in Singapore must clear.',
+    url: 'https://www.imda.gov.sg/',
     sources: ['imda-spectrum'],
   },
 
@@ -148,6 +154,7 @@ export const NODES = [
     roleLong:
       "NTU's Satellite Research Centre is the birthplace of Singapore-designed satellites (since XSAT, 2011). It is also the origin of key spin-offs and hosts joint labs with industry.",
     featuredReason: 'Builds Singapore-designed satellites and seeds much of the industry.',
+    url: 'https://www.ntu.edu.sg/',
     sources: ['ntu-sarc', 'dir-2025'],
   },
   {
@@ -161,6 +168,7 @@ export const NODES = [
     status: 'active',
     role: 'Satellite Technology & Research Centre (STAR, with DSO) and CRISP remote-sensing centre',
     featuredReason: 'A core research base for satellites, remote sensing and quantum.',
+    url: 'https://www.nus.edu.sg/',
     sources: ['nus-star', 'dir-2025'],
   },
   {
@@ -174,6 +182,7 @@ export const NODES = [
     status: 'active',
     role: 'Advanced Remanufacturing & Technology Centre (ARTC) 3D-prints satellite parts',
     featuredReason: 'Brings advanced-manufacturing R&D into satellite production.',
+    url: 'https://www.a-star.edu.sg/',
     sources: ['ntu-3sats-2023', 'dir-2025'],
   },
   {
@@ -187,6 +196,7 @@ export const NODES = [
     status: 'active',
     role: 'National defence R&D lab; co-founded NUS STAR; built X-SAT',
     featuredReason: 'A founding technical partner of Singapore’s satellite programme.',
+    url: 'https://www.dso.org.sg/',
     sources: ['nus-star', 'dir-2025'],
   },
   {
@@ -199,6 +209,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'University active in the space ecosystem',
+    url: 'https://www.sutd.edu.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -211,6 +222,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'NTU research institute using EO/remote sensing for geohazards',
+    url: 'https://earthobservatory.sg/',
     sources: ['dir-2025'],
   },
 
@@ -228,6 +240,7 @@ export const NODES = [
     roleLong:
       'The primary funding mechanism for space R&D. Three archetypes — Technology Development, Validation & Experimentation, and the Space Access Programme. Overseen by NSAS from 1 Apr 2026.',
     featuredReason: 'The main funding channel connecting government to research and industry.',
+    url: 'https://www.space.gov.sg/resources/stdp/',
     sources: ['stdp-nsas', 'edb-nextbound', 'dir-2025'],
   },
   {
@@ -241,6 +254,7 @@ export const NODES = [
     status: 'active',
     role: 'STDP archetype for testing technologies in space to achieve space heritage',
     featuredReason: 'The route local technologies take to reach orbit and prove themselves.',
+    url: 'https://www.space.gov.sg/resources/stdp/',
     sources: ['stdp-nsas'],
   },
   {
@@ -254,6 +268,7 @@ export const NODES = [
     status: 'active',
     role: 'Annual space convention (organised by Singapore Space & Technology Ltd)',
     featuredReason: 'The ecosystem’s main annual convening point and international shopfront.',
+    url: 'https://www.space.org.sg/gstce/',
     sources: ['gstc-2024'],
   },
   {
@@ -266,6 +281,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'AAIS platform connecting aerospace firms, space players & agencies',
+    url: 'https://aais.org.sg/category/space-community/',
     sources: ['dir-2025'],
   },
 
@@ -282,6 +298,7 @@ export const NODES = [
     status: 'active',
     role: 'Designs & manufactures small satellites and payloads',
     featuredReason: 'Singapore’s largest home-grown satellite manufacturer.',
+    url: 'https://www.stengg.com/',
     sources: ['dir-2025', 'sginnovate-2026'],
   },
   {
@@ -296,6 +313,7 @@ export const NODES = [
     status: 'active',
     role: 'Inter-Satellite Data Relay System (IDRS) for real-time satellite connectivity',
     featuredReason: 'Its IDRS was selected by US firm Vast for the Haven-1 space station.',
+    url: 'https://www.addvaluetech.com/',
     sources: ['dir-2025', 'sginnovate-2026'],
   },
   {
@@ -310,6 +328,7 @@ export const NODES = [
     status: 'active',
     role: 'Compact, fuel-efficient Hall-effect thrusters for small satellites',
     featuredReason: 'NTU spin-off; deployed its satellite engine to space in 2022.',
+    url: 'https://www.aliena.sg/',
     sources: ['ntu-aliena-2022', 'dir-2025'],
   },
   {
@@ -324,6 +343,7 @@ export const NODES = [
     status: 'active',
     role: 'Nanosatellites and a satellite IoT network for the equatorial belt',
     featuredReason: 'Home-grown nanosatellite and space-IoT developer.',
+    url: 'https://nuspace.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -338,6 +358,7 @@ export const NODES = [
     status: 'active',
     role: 'Free-space optical (laser) communications and inter-satellite links',
     featuredReason: 'Preparing Singapore’s first inter-satellite laser-comms mission (2026).',
+    url: 'https://transcelestial.com/',
     sources: ['sginnovate-2026', 'dir-2025'],
   },
   {
@@ -352,6 +373,7 @@ export const NODES = [
     status: 'active',
     role: 'Quantum-secure (QKD) satellite communications',
     featuredReason: 'NUS/CQT spin-off pioneering quantum-secure satellite links.',
+    url: 'https://speqtralquantum.com/',
     sources: ['edb-speqtral-2024', 'sginnovate-2026', 'dir-2025'],
   },
   {
@@ -366,6 +388,7 @@ export const NODES = [
     status: 'active',
     role: 'Hybrid rocket propulsion and small-launch technology',
     featuredReason: 'Singapore’s home-grown launch-access aspirant.',
+    url: 'https://www.equatorialspace.com/',
     sources: ['dir-2025'],
   },
   {
@@ -380,6 +403,7 @@ export const NODES = [
     status: 'active',
     role: 'Radiation-hardened semiconductors enabling COTS electronics in space',
     featuredReason: 'NTU spin-off commercialising rad-hard (LDAP) chip technology.',
+    url: 'https://zero-errorsystems.com/',
     sources: ['ntu-zes-2020', 'dir-2025'],
   },
   {
@@ -394,6 +418,7 @@ export const NODES = [
     status: 'active',
     role: 'Spacecraft development for space-exploration missions',
     featuredReason: 'A well-funded Singapore spacecraft developer (Space Exploration segment).',
+    url: 'https://qosmosys.com/',
     sources: ['dir-2025'],
   },
   {
@@ -408,6 +433,7 @@ export const NODES = [
     status: 'active',
     role: 'Optical payloads and satellite cameras',
     featuredReason: 'First local SME to develop a space camera for a Singapore satellite.',
+    url: 'https://lighthaus.com.sg/',
     sources: ['dir-2025'],
   },
   {
@@ -422,6 +448,7 @@ export const NODES = [
     status: 'active',
     role: 'Geospatial analytics turning satellite imagery into intelligence',
     featuredReason: 'A leading local geospatial-analytics provider.',
+    url: 'https://www.stengg.com/',
     sources: ['dir-2025'],
   },
   {
@@ -435,6 +462,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'On-demand satellite tasking / Earth-observation data',
+    url: 'https://eartheye.space/',
     sources: ['dir-2025'],
   },
   {
@@ -448,6 +476,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Geospatial intelligence solutions',
+    url: 'https://www.aetosky.com/',
     sources: ['dir-2025'],
   },
   {
@@ -474,6 +503,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Small-satellite systems',
+    url: 'https://micro-space.org/',
     sources: ['dir-2025'],
   },
 
@@ -490,6 +520,7 @@ export const NODES = [
     status: 'active',
     role: 'Global space manufacturer; runs the S4TIN joint lab with NTU',
     featuredReason: 'Anchors an international-academia satellite-tech collaboration in Singapore.',
+    url: 'https://www.thalesgroup.com/',
     sources: ['dir-2025'],
   },
   {
@@ -504,6 +535,7 @@ export const NODES = [
     status: 'active',
     role: 'US commercial space-station developer (Haven-1)',
     featuredReason: 'International customer for a Singapore-made subsystem (Addvalue IDRS).',
+    url: 'https://www.vastspace.com/',
     sources: ['dir-2025', 'sginnovate-2026'],
   },
   {
@@ -517,6 +549,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Global satellite manufacturer with a Singapore space-systems presence',
+    url: 'https://www.airbus.com/',
     sources: ['dir-2025'],
   },
   {
@@ -530,6 +563,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Daily global satellite imagery and geospatial solutions',
+    url: 'https://www.planet.com/',
     sources: ['dir-2025'],
   },
   {
@@ -543,6 +577,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Nanosatellite-constellation data (weather, maritime, aviation)',
+    url: 'https://spire.com/',
     sources: ['dir-2025'],
   },
   {
@@ -556,6 +591,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Broadband satellite operator for the Asia-Pacific',
+    url: 'https://kacific.com/',
     sources: ['dir-2025'],
   },
   {
@@ -569,6 +605,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'High-resolution Earth-imagery and space-infrastructure provider',
+    url: 'https://www.maxar.com/',
     sources: ['dir-2025'],
   },
 
@@ -584,6 +621,7 @@ export const NODES = [
     status: 'active',
     role: 'French space agency; bilateral MoU with OSTIn (renewed 2022)',
     featuredReason: 'Singapore’s flagship bilateral space-agency partnership.',
+    url: 'https://www.cnes.fr/',
     sources: ['gstc-2024'],
   },
   {
@@ -597,6 +635,7 @@ export const NODES = [
     status: 'active',
     role: 'Signed a letter of intent with OSTIn on business incubation',
     featuredReason: 'A major international agency link into the local start-up pipeline.',
+    url: 'https://www.esa.int/',
     sources: ['sginnovate-2026'],
   },
   {
@@ -610,6 +649,7 @@ export const NODES = [
     status: 'active',
     role: 'UN body; Singapore participates in COPUOS',
     featuredReason: 'Singapore’s formal seat in global space governance.',
+    url: 'https://www.unoosa.org/',
     sources: ['sginnovate-2026'],
   },
 

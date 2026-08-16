@@ -1057,6 +1057,31 @@ a {
   font-weight: 600;
   margin: 0 0 var(--s2);
 }
+/* stakeholder-type sections — recomposed from existing swatch + mono-label grammar, not a new box */
+.cat-group {
+  margin-top: var(--s5);
+}
+.cat-group:first-of-type {
+  margin-top: 0;
+}
+.cat-group-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0;
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--color-hairline);
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.cat-group-count {
+  margin-left: auto; /* type label left · quiet cardinality right */
+  color: var(--color-muted);
+}
 .cat-list {
   list-style: none;
   margin: var(--s4) 0 0;
@@ -1072,18 +1097,19 @@ a {
 .cat-item.is-active {
   border-top-color: var(--color-agency);
 }
-.cat-item .link-btn {
-  font: inherit;
+/* the entity name — identical hierarchy whether it links out (<a>) or is inert text (<span>) */
+.cat-name {
   font-weight: 600;
   font-size: var(--fs-body-lg);
-  border: 0;
-  background: none;
   color: var(--color-ink);
-  cursor: pointer;
-  padding: 0;
-  text-align: left;
 }
-.cat-item .link-btn:hover {
+/* link affordance only on the anchor (official website, new tab); plain names show none */
+a.cat-name {
+  text-decoration: underline;
+  text-decoration-color: var(--color-hairline);
+  cursor: pointer;
+}
+a.cat-name:hover {
   color: var(--color-agency);
 }
 .cat-meta {

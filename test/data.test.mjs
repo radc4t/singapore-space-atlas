@@ -162,3 +162,23 @@ test('catches syntactically invalid source URL', () => {
   const data = base({ sources: [{ ...src('s1'), url: 'not a url' }] });
   assert.match(errText(data), /syntactically invalid url/);
 });
+
+test('node url must be an absolute http(s) URL when present', () => {
+  // a valid https url is accepted
+  assert.deepEqual(
+    validateData(base({ nodes: [org('a', { url: 'https://example.org/' })] })).errors,
+    []
+  );
+  // a parseable-but-non-http scheme is rejected (new URL() alone would accept mailto:/javascript:)
+  assert.match(
+    errText(base({ nodes: [org('a', { url: 'mailto:hi@example.org' })] })),
+    /url must be http\(s\)/
+  );
+  // an empty string is rejected (absent = no site; present must be a real URL)
+  assert.match(errText(base({ nodes: [org('a', { url: '' })] })), /url must be a non-empty string/);
+  // garbage is rejected
+  assert.match(
+    errText(base({ nodes: [org('a', { url: 'not a url' })] })),
+    /syntactically invalid url/
+  );
+});

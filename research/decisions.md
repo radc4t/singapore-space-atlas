@@ -79,3 +79,35 @@ cluster wedge for companies **but spread evenly within the ring** (crowded clust
 so no collisions), and inner-ring nodes (agencies, academia, programmes, international) ordered to
 sit angularly near the nodes/clusters they connect to (reduces crossings without sacrificing the
 "where in the ecosystem / what capability" readability). The chosen geometry is deterministic.
+
+## Entity website links (`node.url`) — Directory
+
+Added 2026-08-16. Each linkable node carries a `url` = its **official first-party homepage** (canonical,
+post-redirect, no tracking params), shown as an external link in the Directory. Rule: the URL is the
+entity's own site, or the official parent's page **explicitly representing** it. Singapore branches of
+global firms link to the **global official** site. **41 / 47 linked; 6 intentionally inert.**
+
+Intentional **shared** destinations (not accidental duplicates):
+
+- `st-satsys` + `st-geoinsights` → `stengg.com` — both are ST Engineering business units.
+- `sap` → `space.gov.sg/resources/stdp/` — the Space Access Programme is an **STDP archetype** with no
+  standalone site; the STDP page is its canonical description (same URL as `stdp`).
+- `stdp` uses the entity-specific STDP page (not the NSAS homepage), because the entity is STDP.
+
+Programme / community pages (parent page explicitly representing the entity): `gstc` →
+`space.org.sg/gstce/` (the official GSTCE site, run by Singapore Space & Technology Ltd — `gstc-2024`);
+`ssc` → `aais.org.sg/category/space-community/` (AAIS's Singapore Space Community).
+
+**Inert (no `url`) and why:**
+
+- `sec-aerospace`, `sec-microelectronics`, `sec-ai`, `sec-quantum` — _supporting-sector groupings, not
+  organisations; no official website exists._
+- `ostin` — _defunct: its mandate & functions were subsumed by NSAS on 1 Apr 2026 (`nsas-establishment`);
+  its site is now NSAS's `space.gov.sg`, so a separate link would duplicate/mislead._
+- `satoro` — _no identifiable official website found (only LinkedIn / business-directory listings); left
+  inert rather than link a non-first-party page._
+
+Verified each linked URL resolves (2xx, http(s)) and is the correct entity on 2026-08-16. A malformed or
+non-http node `url` now fails `npm run validate` (`test/data.test.mjs` covers the rule). `url` is an
+ancillary presentation field — it does not change any node/edge/analytical value, so the dataset snapshot
+and edition are unchanged.

@@ -104,7 +104,7 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
           text:
             (TYPE_LABELS[n.type] ?? n.type) +
             (n.cluster ? ` · ${CLUSTER_LABELS[n.cluster] ?? n.cluster}` : '') +
-            (onMap ? '' : ' · catalogue'),
+            (onMap ? '' : ' · directory'),
         }),
       ]);
       btn.addEventListener('click', () => setState({ view: 'explore', selection: n.id }));

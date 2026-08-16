@@ -1,9 +1,11 @@
-// catalogue.js — the evidence surface: a calm editorial INDEX of the atlas (card-list, not a
-// spreadsheet) AND the accessible representation of the corpus. Linked to the map via the shared
-// store: selecting a map node marks its catalogue card; selecting a card selects the node (which the
-// map halos even if currently dimmed). Rendered via DOM APIs only (no untrusted innerHTML).
+// catalogue.js — the Directory: the evidence surface, a calm editorial INDEX of the atlas (card-list,
+// not a spreadsheet) AND the accessible representation of the corpus. Referential, not a second way
+// into Explore: each entity name links to its official website (new tab) where the corpus provides
+// one, else it is inert text. Linked to the map one-way via the shared store — selecting a map node
+// marks its Directory card active. Rendered via DOM APIs only (no untrusted innerHTML).
+// (The internal view id / route stays `catalogue`; the visible label is "Directory".)
 
-import { CLUSTER_LABELS, TYPE_LABELS } from './config.js';
+import { CLUSTER_LABELS, TYPE_LABELS, TYPES } from './config.js';
 import {
   CATALOGUE_UNIVERSE_ESTIMATE,
   DATA_SNAPSHOT,
@@ -11,7 +13,7 @@ import {
   NODES,
   SCHEMA_VERSION,
 } from './data/ecosystem.js';
-import { setState, state, subscribe } from './state.js';
+import { state, subscribe } from './state.js';
 
 function h(tag, props = {}, children = []) {
   const node = document.createElement(tag);
@@ -55,7 +57,7 @@ export function initCatalogue(mount) {
   const documented = EDGES.filter((e) => e.confidence === 'documented').length;
   const inferred = EDGES.filter((e) => e.confidence === 'inferred').length;
 
-  mount.append(h('h2', { text: 'Catalogue' }));
+  mount.append(h('h2', { text: 'Directory' }));
   mount.append(
     h('p', {
       class: 'snapshot',
@@ -75,32 +77,50 @@ export function initCatalogue(mount) {
     })
   );
 
-  const list = h('ul', { class: 'cat-list' });
   const cardById = new Map();
-  for (const n of [...NODES].sort((a, b) => a.name.localeCompare(b.name))) {
-    const nameBtn = h('button', {
-      class: 'link-btn',
-      type: 'button',
-      'data-id': n.id,
-      text: n.name,
-    });
-    nameBtn.addEventListener('click', () => setState({ view: 'explore', selection: n.id }));
+
+  // One directory card: name → meta → role. Type is NOT in the card — its stakeholder-type section
+  // header is the sole type indicator (dot colour + label), so nothing strands. The name links to the
+  // entity's official website (new tab) when one exists; otherwise it is inert text — the Directory is
+  // referential, not a second way into Explore (map selection remains the reverse-highlight mechanism).
+  const makeCard = (n) => {
+    const name = n.url
+      ? h('a', {
+          class: 'cat-name',
+          href: n.url,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          text: n.name,
+        })
+      : h('span', { class: 'cat-name', text: n.name });
     const metaParts = [
-      TYPE_LABELS[n.type] ?? n.type,
       n.cluster ? (CLUSTER_LABELS[n.cluster] ?? n.cluster) : null,
       n.coverage,
       `${docCount.get(n.id) || 0} documented`,
       `${(n.sources || []).length} ${(n.sources || []).length === 1 ? 'source' : 'sources'}`,
     ].filter(Boolean);
     const item = h('li', { class: 'cat-item', 'data-id': n.id }, [
-      h('div', {}, [h('span', { class: `dot type-${n.type}` }), nameBtn]),
+      name,
       h('p', { class: 'cat-meta', text: metaParts.join(' · ') }),
       h('p', { class: 'cat-role', text: n.role }),
     ]);
-    list.append(item);
     cardById.set(n.id, item);
+    return item;
+  };
+
+  // Group by stakeholder type in canonical TYPES order (matches filters + map); alphabetical within.
+  // DOM order == visual order, so screen-reader users get the same hierarchy. Empty types are skipped.
+  for (const type of TYPES) {
+    const nodes = NODES.filter((n) => n.type === type).sort((a, b) => a.name.localeCompare(b.name));
+    if (!nodes.length) continue;
+    const head = h('h3', { class: 'cat-group-head' }, [
+      h('span', { class: `swatch type-${type}`, 'aria-hidden': 'true' }),
+      h('span', { text: TYPE_LABELS[type] }),
+      h('span', { class: 'cat-group-count', text: String(nodes.length).padStart(2, '0') }),
+    ]);
+    const list = h('ul', { class: 'cat-list' }, nodes.map(makeCard));
+    mount.append(h('section', { class: 'cat-group' }, [head, list]));
   }
-  mount.append(list);
 
   // linked highlighting: the selected node marks its catalogue card
   subscribe(() => {
