@@ -11,8 +11,10 @@
 ## What it is
 
 An interactive large-format **instrument** — _a digital atlas whose central map IS the instrument_,
-not a dashboard. The map is a full-bleed **centred hero**; controls, readouts and the inspector float
-around it as instrument modules (~85% map · 15% chrome). One identity in **two temperatures**: a
+not a dashboard. The map is a full-bleed **centred hero** that holds the vertical field; controls,
+readouts and the inspector flank it as slim instrument rails (the map dominates as the figure — a
+dominance of hierarchy and vertical scale, not a literal area percentage). One identity in **two
+temperatures**: a
 light **"archival / scientific instrument"** (paper + ink, red reads printed) and a dark **"night
 operations room"** (blue-green charcoal, nodes lit by the room). The space feeling comes from
 **geometry and precision, not space imagery** — no starfields, glow, planets, or orbit decoration
@@ -28,6 +30,12 @@ kept for deep-link compatibility). `view` is orthogonal to `selection` in the st
 Explore resting plate. The right panel is one module in two modes: **Readouts** (sparse derived
 counts) by default, **Inspector** (field-note + evidence) on selection. Operating-state label derives
 purely from state (`EXPLORE` · `INSPECT · <ENTITY>` · `DIRECTORY` · `METHODOLOGY`).
+
+**Discovery is deliberately editorial, not exploratory tooling.** The atlas favours overview (the
+resting plate) → details-on-demand (the inspector) → search + the Directory index, and intentionally
+omits in-map zoom/pan and faceted filtering — the plate is a published instrument to be _read_, not a
+canvas to fly around. Legend type-toggles are the one on-plate filter (they teach the colour = type
+channel); known-item lookup is served by search and the Directory. (Rationale: `research/decisions.md`.)
 
 ## Product model (five layers)
 
@@ -82,10 +90,12 @@ Six independent encoding channels, each with one job — so meaning never rests 
 Warm-paper light (archival editorial plate) and a blue-green charcoal dark (**late-night systems
 room**, not a 1:1 inversion, with lower construction contrast). Stakeholder palette: agency coral ·
 government ochre · academia deep blue · company green/teal · international violet · sector muted ·
-programme neutral (plaque). Type: editorial serif (Fraunces / Source Serif 4 stack) for the masthead
-and inspector titles; sans (Inter stack) for UI; mono (IBM Plex Mono stack) for captions, metadata
-and badges. Serif = publication, sans = interface. Spacing follows one rhythm scale
-(`4·8·12·16·24·32·48·64`).
+programme neutral (plaque). Type carries three semantic roles: **serif = publication** (editorial
+serif — Fraunces / Source Serif 4 stack — for the masthead and inspector titles); **mono = the
+instrument voice** (IBM Plex Mono stack for nav, controls/buttons, captions, metadata, badges and
+plate marks — the uppercase labelling that makes the chrome read as instrument, not web UI);
+**sans = the reading/input surface** (system-sans / Inter stack for the search field and body prose).
+Spacing follows one rhythm scale (`4·8·12·16·24·32·48·64`).
 
 ## Selection & coherence
 
