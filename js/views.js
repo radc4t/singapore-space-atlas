@@ -7,6 +7,10 @@ import { setState, state, subscribe } from './state.js';
 
 const nameById = new Map(NODES.map((n) => [n.id, n.aliases?.[0] || n.name]));
 
+// Operating-state label per view. The internal id stays `catalogue` (route/state), but its visible
+// label is "Directory" — terminology changed, routing identity did not.
+const VIEW_LABELS = { catalogue: 'DIRECTORY' };
+
 export function initViews({ navLinks, sections, label }) {
   for (const a of navLinks) {
     a.addEventListener('click', (e) => {
@@ -32,7 +36,7 @@ export function initViews({ navLinks, sections, label }) {
           ? `INSPECT · ${(nameById.get(state.selection) || state.selection).toUpperCase()}`
           : 'EXPLORE';
       } else {
-        label.textContent = view.toUpperCase();
+        label.textContent = VIEW_LABELS[view] ?? view.toUpperCase();
       }
     }
   }

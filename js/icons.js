@@ -46,6 +46,8 @@ const ICONS = {
     ],
     tf: 'translate(-0.6 0)',
   },
+  // Iconoir "xmark" — a quiet dismiss cross on the same 24-grid as the rest of the set.
+  close: { d: ['M6 6L18 18', 'M6 18L18 6'] },
 };
 
 export function icon(name, { size = 16 } = {}) {

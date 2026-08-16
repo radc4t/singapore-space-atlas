@@ -18,17 +18,23 @@ import { NODES } from './data/ecosystem.js';
 
 const $ = (id) => document.getElementById(id);
 
-/** Left-panel "Structural layers" readout — count = entities in layer, bar = count / max (a plain
- *  occupancy calibration mark, never a share-of-100% or "importance" chart). */
+/** Left-panel "Structural layers" — the named key to the map's four concentric rings (which are
+ *  deliberately unlabelled on the map). Count = featured entities in that layer; magnitude is left to
+ *  the number and to the map's own ring density (no bar — a bar only implied a false ceiling). A
+ *  footnote reconciles the four ring counts (30) with the 35 featured total: the gap is the NSAS
+ *  origin (ring 0) + the supporting-sector arcs (no ring), which sit outside rings 1–4 by design. */
 function renderLayers(mount) {
   if (!mount) return;
   const counts = [0, 0, 0, 0, 0];
+  let originFeatured = 0;
+  let sectorFeatured = 0;
   for (const n of NODES) {
     if (n.coverage !== 'featured') continue;
     const r = ringOf(n);
     if (r != null && r >= 1 && r <= 4) counts[r] += 1;
+    else if (r === 0) originFeatured += 1;
+    else sectorFeatured += 1; // ring null → supporting-sector arcs, outside the concentric rings
   }
-  const max = Math.max(1, ...counts.slice(1));
   mount.replaceChildren();
   const title = document.createElement('span');
   title.className = 'panel-title';
@@ -43,13 +49,18 @@ function renderLayers(mount) {
     const num = document.createElement('span');
     num.className = 'layer-num';
     num.textContent = String(counts[r]).padStart(2, '0');
-    const bar = document.createElement('span');
-    bar.className = 'layer-bar';
-    const fill = document.createElement('i');
-    fill.style.width = `${(counts[r] / max) * 100}%`;
-    bar.append(fill);
-    row.append(name, num, bar);
+    row.append(name, num);
     mount.append(row);
+  }
+  const parts = [];
+  if (originFeatured) parts.push('NSAS origin');
+  if (sectorFeatured)
+    parts.push(`${sectorFeatured} supporting sector${sectorFeatured === 1 ? '' : 's'}`);
+  if (parts.length) {
+    const note = document.createElement('p');
+    note.className = 'layer-note';
+    note.textContent = `+ ${parts.join(' · ')}`;
+    mount.append(note);
   }
 }
 

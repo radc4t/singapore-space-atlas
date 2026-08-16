@@ -101,6 +101,22 @@ export function validateData(data = {}) {
       E(`${at}: invalid cluster "${n.cluster}"`);
     if (n.aliases !== undefined && !Array.isArray(n.aliases)) E(`${at}: aliases must be an array`);
 
+    // Optional official-website url: absent = no site; otherwise a non-empty absolute http(s) URL.
+    // (new URL() alone is not enough — mailto:/javascript: parse fine — so allow-list the protocol.)
+    if ('url' in n) {
+      if (typeof n.url !== 'string' || n.url.trim() === '') {
+        E(`${at}: url must be a non-empty string when present`);
+      } else {
+        try {
+          const u = new URL(n.url);
+          if (!['http:', 'https:'].includes(u.protocol))
+            E(`${at}: url must be http(s), got "${n.url}"`);
+        } catch {
+          E(`${at}: syntactically invalid url "${n.url}"`);
+        }
+      }
+    }
+
     resolveSources(n.sources, `${at}.sources`);
 
     // Ontology rules ------------------------------------------------------------------------

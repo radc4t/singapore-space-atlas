@@ -21,24 +21,28 @@ operations room"** (blue-green charcoal, nodes lit by the room). The space feeli
 ## Product & views
 
 Desktop-first flagship with a mobile companion (intentional simplification, not parity). Nav =
-real view switches: **Explore** (the instrument) · **Catalogue** (the card index / accessible
-representation) · **Methodology** (the intellectual contract). `view` is orthogonal to `selection`
-in the store; canonical `/` = Explore resting plate. The right panel is one module in two modes:
-**Readouts** (sparse derived counts) by default, **Inspector** (field-note + evidence) on selection.
-Operating-state label derives purely from state (`EXPLORE` · `INSPECT · <ENTITY>` · `CATALOGUE` ·
-`METHODOLOGY`).
+real view switches: **Explore** (the instrument) · **Directory** (the card index / accessible
+representation) · **Methodology** (the intellectual contract). The **Directory** label sits on the
+internal `catalogue` view id — terminology changed, routing identity did not (`?view=catalogue` is
+kept for deep-link compatibility). `view` is orthogonal to `selection` in the store; canonical `/` =
+Explore resting plate. The right panel is one module in two modes: **Readouts** (sparse derived
+counts) by default, **Inspector** (field-note + evidence) on selection. Operating-state label derives
+purely from state (`EXPLORE` · `INSPECT · <ENTITY>` · `DIRECTORY` · `METHODOLOGY`).
 
 ## Product model (five layers)
 
 - **Hero map** — the circle diagram; the product. Dominates the page, breaks slightly out of the
   header grid.
-- **Catalogue** — the evidence surface: an editorial card-index (not a spreadsheet) that is also the
-  accessible representation of the corpus.
+- **Directory** — the evidence surface: an editorial card-index (not a spreadsheet) that is also the
+  accessible representation of the corpus. Grouped by stakeholder type; each entity name links to its
+  official website (new tab) where the corpus provides one, and is inert text otherwise. It is
+  _referential_ (index into external entities), not a second way into Explore — map selection remains
+  the reverse-highlight mechanism (a selected node marks its Directory card).
 - **Inspector** — the annotation layer: a docked field-note that never overlays the focused node.
 - **Methodology** — the trust layer: framed as method, not disclaimer.
 - **Deep links / print** — the sharing layer.
 
-Nav: `Explore · Catalogue · Methodology`. The name is _Singapore Space Atlas_; only _Atlas snapshot_
+Nav: `Explore · Directory · Methodology`. The name is _Singapore Space Atlas_; only _Atlas snapshot_
 / _Atlas methodology_ recur — no over-branding.
 
 ## The locked visual grammar
@@ -86,9 +90,11 @@ and badges. Serif = publication, sans = interface. Spacing follows one rhythm sc
 ## Selection & coherence
 
 Selection is an **annotation lock**: the node gets a fine ring, its edges sharpen, everything else
-recedes, the inspector docks, and its Catalogue card marks active. The whole page behaves as **one
-instrument** — a selection propagates to map + inspector + catalogue + URL at once, and reopening
-that URL restores the exact state. Motion is drafting, not gaming (quiet, reduced-motion aware).
+recedes, the inspector docks, and its Directory card marks active. The whole page behaves as **one
+instrument** — a selection propagates from the map to inspector + Directory highlight + URL at once,
+and reopening that URL restores the exact state. (The propagation is one-way from Explore: the
+Directory is referential, so its entity names link out to official sites rather than driving
+selection.) Motion is drafting, not gaming (quiet, reduced-motion aware).
 
 ## The Singaporean signature
 
