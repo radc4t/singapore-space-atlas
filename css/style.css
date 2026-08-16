@@ -1,7 +1,8 @@
 /* Singapore Space Atlas — "instrument family" visual system.
  *
  * Constitution: map → evidence → instrument chrome. The map IS the instrument; chrome explains it,
- * never drowns it (~85% map / 15% chrome). The metaphor is expressive, not literal — no fake
+ * never drowns it — the map holds the vertical field as the hero, chrome flanks it as slim
+ * instrument rails. The metaphor is expressive, not literal — no fake
  * telemetry, spatial claims, or measurement scales. Same instrument in two temperatures:
  * light = dry / archival / daylight · dark = humid / nocturnal / operational.
  *
@@ -817,8 +818,10 @@ a {
 }
 
 /* ---- SVG: construction ----------------------------------------------------------------- */
+/* .layer-sectors is intentionally NOT dimmed by the construction dial: its arcs get their own
+ * whisper opacity below, and its labels are informative-but-quiet ambient text that must stay
+ * legible (the 0.4/0.24 group dim crushed them to ~1.72:1). */
 .layer-construction,
-.layer-sectors,
 .layer-clusters {
   opacity: var(--construction-contrast);
 }
@@ -848,10 +851,15 @@ a {
 }
 .sector-arc {
   fill: var(--color-sector);
-  opacity: 0.05;
+  /* explicit whisper — was 0.05 × the 0.4 group dim ≈ 0.02 effective; now standalone */
+  opacity: 0.03;
 }
 .sector-label {
   fill: var(--color-muted);
+  /* Quietest text on the plate, but no longer crushed by the construction dim. aria-hidden
+   * decoration (no AA obligation); tuned to a self-imposed ~3:1 legibility floor.
+   * Measured: opacity 0.80 → 3.38:1 light / 5.14:1 dark (light is the binding case). */
+  opacity: 0.8;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.2em;

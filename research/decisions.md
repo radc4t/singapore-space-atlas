@@ -111,3 +111,15 @@ Verified each linked URL resolves (2xx, http(s)) and is the correct entity on 20
 non-http node `url` now fails `npm run validate` (`test/data.test.mjs` covers the rule). `url` is an
 ancillary presentation field — it does not change any node/edge/analytical value, so the dataset snapshot
 and edition are unchanged.
+
+## Discovery model — deliberately editorial, not a zoomable tool
+
+Added 2026-08-16 (prompted by the taste-check external-quality note that "zoom & filter" is thin). The
+atlas **deliberately favours** overview (the resting plate) → details-on-demand (the inspector) →
+search + the Directory index, and **intentionally omits** in-map zoom/pan and faceted filtering. This
+is an editorial constraint, not an implementation gap: the plate is a published instrument to be
+_read_, not a canvas to be flown around (per "motion is drafting, not gaming" and the restraint of the
+Singaporean signature). Known-item lookup is already served by the search command surface and the
+Directory (the accessible, groupable index). Legend type-toggles remain the one on-plate filter because
+they teach the colour = type channel; anything more would trade legibility of the whole for local
+exploration the Directory already handles better.
