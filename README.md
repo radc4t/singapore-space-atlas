@@ -45,6 +45,10 @@ canvas, in two matched themes — a light _archival instrument_ and a dark _nigh
 visualization, not the reverse. Aesthetic hierarchy: **map → evidence → instrument chrome**. The
 instrument metaphor is expressive, not literal — no fictional telemetry or spatial claims.
 
+![Singapore Space Atlas — the Explore plate (dark)](docs/hero-dark.png)
+
+_The same instrument in two temperatures — a dark "night operations room" that follows your system theme._
+
 **Highlights**
 
 - **Evidence-first.** Every relationship carries its own sources and two independent labels.
@@ -79,6 +83,14 @@ Three views (real view switches; state is deep-linkable):
   provides one.
 - **Methodology** — the intellectual contract: what the Atlas does, what it does not claim, what
   counts as evidence.
+
+![Explore — a focused node with the Inspector open](docs/inspector.png)
+
+_Selecting a node locks focus and opens the Inspector — the relationship, why it is shown, and its cited sources._
+
+![Directory — the card-index of the corpus](docs/directory.png)
+
+_The Directory: the same corpus as an editorial, grouped card-index — and the accessible representation of the data._
 
 Shareable deep links carry the exact state, for example:
 
