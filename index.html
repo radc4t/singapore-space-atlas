@@ -16,6 +16,45 @@
       name="description"
       content="A visual, evidence-backed systems map of Singapore's space ecosystem — agencies, universities, companies, programmes and international partners."
     />
+
+    <!-- Canonical + social preview. URLs are literals for the GitHub Pages deploy
+         (https://radc4t.github.io/singapore-space-atlas/ — no CNAME); keep them and the README in
+         lockstep if a custom domain is ever added. og:image is a crawler asset fetched out-of-band,
+         so the strict CSP (img-src 'self' data:) is unaffected. -->
+    <link rel="canonical" href="https://radc4t.github.io/singapore-space-atlas/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Singapore Space Atlas" />
+    <meta property="og:title" content="Singapore Space Atlas" />
+    <meta
+      property="og:description"
+      content="A visual, evidence-backed systems map of Singapore's space ecosystem — agencies, universities, companies, programmes and international partners."
+    />
+    <meta property="og:url" content="https://radc4t.github.io/singapore-space-atlas/" />
+    <meta
+      property="og:image"
+      content="https://radc4t.github.io/singapore-space-atlas/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="The Singapore Space Atlas — NSAS at the centre of a concentric systems map of government, research, industry and international partners."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Singapore Space Atlas" />
+    <meta
+      name="twitter:description"
+      content="A visual, evidence-backed systems map of Singapore's space ecosystem — agencies, universities, companies, programmes and international partners."
+    />
+    <meta
+      name="twitter:image"
+      content="https://radc4t.github.io/singapore-space-atlas/og-image.png"
+    />
+
+    <!-- Progressive enhancement only; media-scoped theme-color has uneven support and nothing depends on it. -->
+    <meta name="theme-color" content="#eeefea" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1113" media="(prefers-color-scheme: dark)" />
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
