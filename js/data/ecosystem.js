@@ -5,10 +5,10 @@
 // never substantiate an edge. Absence of an edge is NOT a claim that no relationship exists.
 // When the evidence and the desired picture disagree, change the picture.
 //
-// Research snapshot 2026-08-15. All dates/claims verified against the sources in sources.js.
+// Research snapshot 2026-08-17. All dates/claims verified against the sources in sources.js.
 
 export const SCHEMA_VERSION = '1.0';
-export const DATA_SNAPSHOT = '2026-08-15';
+export const DATA_SNAPSHOT = '2026-08-17';
 
 // Cited editorial denominator for coverage statements. Every other count is derived at runtime.
 // "about 70 companies and around 2,000 professionals" — OSTIn, in the 2025/26 Industry Directory.

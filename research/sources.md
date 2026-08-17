@@ -1,6 +1,6 @@
 # Research ledger — sources
 
-Research snapshot: **2026-08-15**. This is the reasoning workspace behind `js/data/`. The runtime
+Research snapshot: **2026-08-17**. This is the reasoning workspace behind `js/data/`. The runtime
 dataset is the clean publication layer; this file preserves the messy provenance — retrieval
 location, first-party vs secondary, and what each source does/does not substantiate.
 

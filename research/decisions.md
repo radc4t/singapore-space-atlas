@@ -1,6 +1,50 @@
 # Research ledger — editorial decisions
 
-Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation is auditable.
+Snapshot 2026-08-17. Records the judgement calls behind the corpus, so curation is auditable.
+
+## v1.1.0 Edition roll-up (research snapshot 2026-08-17)
+
+The **2026 Edition** advances from the v1.0.0 freeze (`2026-08-15`) to research snapshot **`2026-08-17`** —
+a data refresh **within dataset schema `1.0`** (a SemVer _minor_). Corpus at this snapshot:
+**89 nodes · 26 edges (25 documented + 1 inferred) · 22 sources**; the Directory shows **62 companies of
+~70** identified in public materials. Every relationship stays independently sourced (the cardinal rule);
+no count was padded.
+
+Dispositions of the Phase-1 data issues (#9–#13), **as actually landed** (not as planned):
+
+- **#9 — Company-coverage expansion.** Companies shown grew **22 → 62 of ~70** (two batches). Three were
+  promoted to _featured_; the rest are _catalogued_ (Directory-only, zero plate change).
+- **#10 — Relationship sourcing & disambiguation.** Promoted `ntu→stdp` to **documented**
+  (`participates`); **kept `nus→stdp` inferred** (rationale + evidence retained, not forced to documented);
+  re-based the UNOOSA link as documented `ostin→unoosa` (`partners`); added `satoro→ntu` and
+  `lighthaus→ntu` (both documented `supplier`).
+- **#11 — Omitted-entity sourcing.** Added **DSTA** (featured) with `dsta→st-satsys` (documented
+  `partners`), **MSS** (featured), and the **`nuspace→nus`** spin-off (documented `spun-from`). All three
+  cleared the evidence bar.
+- **#12 — Node URL re-verification.** Added `npm run check:links`; corrected **4 URLs** (Maxar→Vantor
+  rebrand; dead SpaceChain / NEC / Unseenlabs domains); **noted** Intelsat→SES (kept); made `beyond-earth`
+  inert; `satoro` stays inert. `url` is an ancillary presentation field — no node/edge/count change.
+- **#13 — Layout-stress & corpus-size review.** Verdict: **geometry holds at 89/26** (40 featured, 36
+  on-ring); no refinement, no demotion. Folded in the `beyond-earth` flag — **kept catalogued + inert +
+  documented** (the Directory substantiates its existence; its web presence resolves to a VC; revisit in a
+  future edition), **not reclassified**.
+
+**Recorded (not hidden) non-additions & held positions:** `beyond-earth` and `satoro` stay inert;
+`nus→stdp` stays deliberately inferred. Full history in the sections below.
+
+### v1.1.0 release notes (draft — tag deferred until #15)
+
+The `v1.1.0` tag / GitHub release is **not cut in this issue.** It is gated on **#15 — a full sanity &
+regression check** of the finished corpus/product; the tag is cut only after #15 closes. Draft notes for
+that release:
+
+> **Singapore Space Atlas v1.1.0 — 2026 Edition (research snapshot 2026-08-17).** A data refresh within
+> schema 1.0. The corpus grew from 47 nodes / 22 edges to **89 nodes / 26 edges (25 documented + 1
+> inferred)** over 22 sources; the Directory now catalogues **62 of ~70** identified companies.
+> Highlights: wider company coverage (#9); sourced & disambiguated relationships (#10); newly sourced
+> entities — DSTA, MSS, and the NuSpace→NUS spin-off (#11); a URL-liveness checker with re-verified links
+> (#12); and a layout-stress review confirming the plate reads cleanly at the larger size (#13). No schema
+> change (`SCHEMA_VERSION` stays `1.0`); no deliberate non-goals built.
 
 ## Provisional planning claims — verified in Phase B
 
