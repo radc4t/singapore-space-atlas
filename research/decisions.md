@@ -46,6 +46,58 @@ that release:
 > (#12); and a layout-stress review confirming the plate reads cleanly at the larger size (#13). No schema
 > change (`SCHEMA_VERSION` stays `1.0`); no deliberate non-goals built.
 
+## v1.1.0 release gate — full sanity & regression (#15, GitHub #29)
+
+The pre-release gate for Phase 1: prove the finished Edition satisfies every roadmap criterion, automate
+the checks that should stay true for future Editions, and record the editorial judgments that automation
+cannot honestly make. Run via **`npm run release-check`** (the durable repeatable gate). Final corpus at
+this gate: **89 nodes (40 featured / 49 catalogued) · 26 edges (25 documented + 1 inferred) · 22 sources ·
+schema 1.0**. (GitHub auto-numbered this issue **#29**; "#15" is its roadmap-sequence label — GitHub #15 is
+an unrelated Phase-2 issue.)
+
+**Automated battery — 8/8 PASS** (`validate · test · lint · format:check · build · stress ·
+check:links --strict · test:e2e`). New permanent guards added (join `npm test` → CI):
+`test/release.test.mjs` (strict CSP · zero runtime deps · product-facing snapshot/Edition sync) and
+`test/research-consistency.test.mjs` (entities.csv↔NODES & relationships.csv↔EDGES field-level parity ·
+source-id provenance in sources.md · inert/omitted disposition↔data checks); `test/e2e.spec.mjs` extended
+with rendered release-surface, grammar-carrier, and no-console-error tests. **Every new guard was
+guard-bitten** (perturb the target → confirm FAIL → revert), so each provably protects its invariant.
+
+Roadmap coverage — every Phase-1 "Done when" criterion, guiding invariant, and the release-quality bar,
+with its check and disposition (automated unless marked _manual_):
+
+| Roadmap item                                             | Check                                                       | Result   |
+| -------------------------------------------------------- | ----------------------------------------------------------- | -------- |
+| Data contract green (`validate`)                         | `scripts/validate-data.mjs` (`npm test` + battery)          | **PASS** |
+| Release-quality bar — every node/edge ≥1 source          | `validate` `resolveSources`; inferred needs rationale/note  | **PASS** |
+| Evidence ledger records every disposition                | `research-consistency` disposition↔data + _manual_ review   | **PASS** |
+| Directory denominator reflects the new counts            | `e2e` release-surfaces (62 of ~70 · 25 documented + 1 inf.) | **PASS** |
+| Edition label / snapshot bumped & rendered               | `release.test` sync + `e2e` surfaces (17 Aug/AUG 2026)      | **PASS** |
+| Unit tests · lint · format · build green                 | battery                                                     | **PASS** |
+| Zero runtime dependencies                                | `release.test` (empty `dependencies`)                       | **PASS** |
+| Strict CSP (`connect-src 'none'`, no network)            | `release.test` CSP directives                               | **PASS** |
+| Six-channel grammar intact (meaning not by colour alone) | `e2e` non-colour carriers (regression) + _manual_ semantics | **PASS** |
+| Ledger mirrors (entities/relationships CSV ↔ data)       | `research-consistency` field-level parity                   | **PASS** |
+| Layout reads cleanly at the larger corpus                | `stress` + visual regression + _manual_ plate review        | **PASS** |
+| URL liveness                                             | `check:links --strict` (0 dead)                             | **PASS** |
+
+**Human-review items (recorded, never auto-claimed PASS):**
+
+- **Source-substantiation** — spot-checked that cited sources support their specific claims (the cardinal
+  rule); the automated layer proves _presence_ of ≥1 source, not that it substantiates. **Reviewed: OK.**
+- **Six-channel grammar semantics** — the plate at 1280×720 keeps shape (legend: organisation ● /
+  programme ▢ / international ◌), line-style, label, and position channels; meaning does not rest on colour
+  alone. **Reviewed: OK** (automation detects carrier _presence_ only, not semantic clarity).
+- **`check:links` dispositions** — `79 ok · 1 redirect · 0 blocked · 0 dead`. The one redirect is
+  `intelsat-sg` → `ses.com` (SES acquired Intelsat; documented under "Entity website links" below). No
+  wrong-entity or dead links. **Reviewed: OK.**
+- **Final visual/editorial review** — plate + release surfaces (masthead `2026 Edition`, footer
+  `17 AUG 2026`, readouts `17 August 2026`, Directory `62 of ~70`) render correctly. **Reviewed: OK.**
+
+**Verdict: release-ready.** The `v1.1.0` tag / GitHub release is cut **after** this PR merges and the
+maintainer explicitly approves publication (irreversible, outward-facing) — the gate passing is not itself
+the release. Wiring these checks into CI (e2e/stress/check-links) and the stress CI guard remain **Phase 3**.
+
 ## Provisional planning claims — verified in Phase B
 
 - **NSAS launch 1 Apr 2026, under MTI, absorbing OSTIn** — CONFIRMED (`nsas-establishment`).

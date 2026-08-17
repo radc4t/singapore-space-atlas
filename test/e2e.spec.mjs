@@ -4,7 +4,13 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { TYPE_LABELS } from '../js/config.js';
-import { NODES } from '../js/data/ecosystem.js';
+import {
+  CATALOGUE_UNIVERSE_ESTIMATE,
+  DATA_SNAPSHOT,
+  EDGES,
+  NODES,
+  SCHEMA_VERSION,
+} from '../js/data/ecosystem.js';
 
 test('focus flow: select a node → inspector populates → clear', async ({ page }) => {
   await page.goto('/');
@@ -246,4 +252,100 @@ test('visual regression — desktop dark', async ({ page }) => {
     fullPage: true,
     maxDiffPixelRatio: 0.02,
   });
+});
+
+// --- #15 release-gate surfaces: the rendered Edition/snapshot/counts must be DATA-DERIVED ----------
+const MONTHS_LONG = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+const MONTHS_ABBR = MONTHS_LONG.map((m) => m.slice(0, 3));
+const [SNAP_Y, SNAP_M, SNAP_D] = DATA_SNAPSHOT.split('-').map((s) => parseInt(s, 10));
+const SNAP_LONG = `${SNAP_D} ${MONTHS_LONG[SNAP_M - 1]} ${SNAP_Y}`; // "17 August 2026"
+const SNAP_UPPER = `${SNAP_D} ${MONTHS_ABBR[SNAP_M - 1].toUpperCase()} ${SNAP_Y}`; // "17 AUG 2026"
+
+test('release surfaces render the current Edition, snapshot and counts (data-derived)', async ({
+  page,
+}) => {
+  const documented = EDGES.filter((e) => e.confidence === 'documented').length;
+  const inferred = EDGES.filter((e) => e.confidence === 'inferred').length;
+  const pad = (n) => String(n).padStart(2, '0');
+
+  await page.goto('/');
+  // masthead Edition (year of the snapshot) + footer plate metadata (uppercase date)
+  await expect(page.locator('.edition')).toHaveText(`${SNAP_Y} Edition`);
+  await expect(page.locator('.status-meta')).toContainText(`RESEARCH SNAPSHOT / ${SNAP_UPPER}`);
+  // readouts: derived snapshot label + documented/inferred counts (padded)
+  await expect(page.locator('.readout-snap')).toHaveText(`Research snapshot · ${SNAP_LONG}`);
+  const relRow = (label) =>
+    page.locator('.readout', { has: page.locator('.readout-lab', { hasText: label }) });
+  await expect(relRow('documented').locator('.readout-val')).toHaveText(pad(documented));
+  await expect(relRow('inferred').locator('.readout-val')).toHaveText(pad(inferred));
+
+  // Directory: denominator readout + catalogue snapshot line, both derived from the data.
+  await page.goto('/?view=catalogue');
+  const companies = NODES.filter(
+    (n) => n.type === 'company' || (n.type === 'international' && n.cluster)
+  ).length;
+  await expect(page.locator('.coverage')).toContainText(
+    `${companies} companies shown of ~${CATALOGUE_UNIVERSE_ESTIMATE.companies}`
+  );
+  await expect(page.locator('.coverage')).toContainText(
+    `${documented} documented + ${inferred} inferred`
+  );
+  await expect(page.locator('.snapshot')).toHaveText(
+    `Atlas snapshot · ${SNAP_LONG} · Dataset schema ${SCHEMA_VERSION}`
+  );
+
+  // navigation surfaces present.
+  await expect(page.locator('[data-view="explore"]')).toHaveText('Explore');
+  await expect(page.locator('[data-view="catalogue"]')).toHaveText('Directory');
+  await expect(page.locator('[data-view="methodology"]')).toHaveText('Methodology');
+});
+
+test('six-channel grammar: meaning has non-colour carriers (regression detection)', async ({
+  page,
+}) => {
+  // NOT a proof that meaning never rests on colour — a regression check that the non-colour channels
+  // (semantic classes, labels, aria) are present, so a refactor can't silently reduce them to colour.
+  await page.goto('/');
+  // legend rows carry a text label (not colour alone)
+  const chips = page.locator('.legend-chip');
+  expect(await chips.count()).toBeGreaterThan(0);
+  await expect(chips.first()).not.toHaveText('');
+  // nodes carry a semantic type-class + a data-type attribute (channels beyond fill colour) and an
+  // accessible name on the shape within.
+  const node = page.locator('.node.type-company').first();
+  await expect(node).toHaveAttribute('data-type', /.+/);
+  await expect(node.locator('[aria-label]').first()).toHaveAttribute('aria-label', /.+/);
+  // every edge path carries its pathway + confidence class (grammar channels beyond stroke colour)
+  const edgeCount = await page.locator('path.edge').count();
+  expect(edgeCount).toBeGreaterThan(0);
+  expect(await page.locator('path.edge[class*="pathway-"]').count()).toBe(edgeCount);
+  expect(await page.locator('path.edge[class*="confidence-"]').count()).toBe(edgeCount);
+});
+
+test('no console errors or uncaught page errors on load', async ({ page }) => {
+  const consoleErrors = [];
+  const pageErrors = [];
+  page.on('console', (m) => {
+    if (m.type() === 'error') consoleErrors.push(m.text());
+  });
+  page.on('pageerror', (e) => pageErrors.push(e.message));
+  await page.goto('/');
+  await expect(page.locator('.atlas-svg')).toBeVisible();
+  await page.goto('/?view=catalogue');
+  await expect(page.locator('.catalogue')).toBeVisible();
+  expect(pageErrors, `uncaught page errors: ${pageErrors.join('; ')}`).toEqual([]);
+  expect(consoleErrors, `console errors: ${consoleErrors.join('; ')}`).toEqual([]);
 });

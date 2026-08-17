@@ -27,8 +27,10 @@ that no relationship exists. Full identity/grammar in `design.md`.
 
 ## 2. Current state (2026-08-17)
 
-- **Software:** `v1.0.0` shipped (2026-08-15). **`v1.1.0` in progress** — Edition bookkeeping lands in
-  #14; the **tag is deferred until #15** (a full sanity & regression check) closes.
+- **Software:** `v1.0.0` shipped (2026-08-15). **`v1.1.0` in progress** — all six data tracks (#9–#14)
+  merged; the **release gate** (full sanity & regression, **GitHub #29**, roadmap-labelled "#15") is the
+  last step. The `v1.1.0` **tag is cut only after that gate passes, its PR merges, and the maintainer
+  approves publication.**
 - **Corpus:** **89 nodes · 26 edges (25 documented + 1 inferred) · 22 sources.** Schema `1.0`.
   `DATA_SNAPSHOT` = `'2026-08-17'` (bumped in #14) and the in-product Edition label reads research
   snapshot 17 Aug 2026. The Directory reads **"62 companies shown of ~70."**
@@ -40,22 +42,23 @@ that no relationship exists. Full identity/grammar in `design.md`.
 Canonical: [`ROADMAP.md`](../ROADMAP.md), mirrored to **GitHub milestones + issues**
 (`gh api repos/radc4t/singapore-space-atlas/milestones`, `gh issue list`). Three milestones:
 
-| #   | Milestone                        | Status                                                                 |
-| --- | -------------------------------- | ---------------------------------------------------------------------- |
-| 1   | **v1.1.0 — Next Edition (data)** | **5 / 6 closed** — see below (release now also gated on a new #15)     |
-| 2   | v1.2.0 — Product depth           | open (mobile depth; deep-linkable guided tour)                         |
-| 3   | Engineering hardening            | open (wire e2e/axe/visual into CI; layout-stress CI guard; a11y depth) |
+| #   | Milestone                        | Status                                                                  |
+| --- | -------------------------------- | ----------------------------------------------------------------------- |
+| 1   | **v1.1.0 — Next Edition (data)** | **6 / 6 tracks closed** — release gated on the sanity pass (GitHub #29) |
+| 2   | v1.2.0 — Product depth           | open (mobile depth; deep-linkable guided tour)                          |
+| 3   | Engineering hardening            | open (wire e2e/axe/visual into CI; layout-stress CI guard; a11y depth)  |
 
 **Milestone #1 issues:**
 
-| Issue   | Title                                      | State              | Result                                                                                                                      |
-| ------- | ------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| #9      | Company-coverage expansion                 | ✅ merged          | 22 → **62 of ~70** companies (2 batches; 3 featured, rest catalogued)                                                       |
-| #10     | Relationship sourcing & disambiguation     | ✅ merged          | promoted `ntu→stdp`; kept `nus→stdp` inferred; `nsas→unoosa`→documented `ostin→unoosa`; added `satoro→ntu`, `lighthaus→ntu` |
-| #11     | Omitted-entity sourcing                    | ✅ merged          | added **DSTA** (+`dsta→st-satsys`), **MSS**, **`nuspace→nus` spin-off**                                                     |
-| #12     | Node URL re-verification                   | ✅ merged          | added `npm run check:links`; fixed 4 URLs; Intelsat→SES noted; `beyond-earth` made inert; Satoro stays inert                |
-| #13     | Layout-stress & corpus-size review         | ✅ merged          | geometry holds at 89/26 (40 featured, 36 on-ring); no plate/data change; `beyond-earth` kept catalogued + documented (#27)  |
-| **#14** | **Edition / snapshot release bookkeeping** | **open — IN PROG** | this PR: bumps `DATA_SNAPSHOT`→`2026-08-17` + edition strings + roll-up. **No tag** (deferred to #15). see §6               |
+| Issue   | Title                                       | State              | Result                                                                                                                      |
+| ------- | ------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| #9      | Company-coverage expansion                  | ✅ merged          | 22 → **62 of ~70** companies (2 batches; 3 featured, rest catalogued)                                                       |
+| #10     | Relationship sourcing & disambiguation      | ✅ merged          | promoted `ntu→stdp`; kept `nus→stdp` inferred; `nsas→unoosa`→documented `ostin→unoosa`; added `satoro→ntu`, `lighthaus→ntu` |
+| #11     | Omitted-entity sourcing                     | ✅ merged          | added **DSTA** (+`dsta→st-satsys`), **MSS**, **`nuspace→nus` spin-off**                                                     |
+| #12     | Node URL re-verification                    | ✅ merged          | added `npm run check:links`; fixed 4 URLs; Intelsat→SES noted; `beyond-earth` made inert; Satoro stays inert                |
+| #13     | Layout-stress & corpus-size review          | ✅ merged          | geometry holds at 89/26 (40 featured, 36 on-ring); no plate/data change; `beyond-earth` kept catalogued + documented (#27)  |
+| #14     | Edition / snapshot release bookkeeping      | ✅ merged          | `DATA_SNAPSHOT`→`2026-08-17` + edition strings + roll-up; no tag (#28)                                                      |
+| **#29** | **Release gate — full sanity & regression** | **open — IN PROG** | `npm run release-check` (8/8 automated + 4 human-review); permanent guards added; **cuts `v1.1.0` after merge + approval**  |
 
 ## 4. The per-issue execution workflow (repeat this)
 
@@ -148,11 +151,23 @@ release.** The `v1.1.0` tag is deferred until **#15 (full sanity & regression ch
 - **Do NOT cut the tag here.** After #15 closes, cut the `v1.1.0` git tag / GitHub release (SemVer minor =
   a data refresh within schema 1.0).
 
-### #15 — Full sanity & regression check (do before the release; not yet filed)
+### #29 — Release gate: full sanity & regression (roadmap-labelled "#15")
 
-**Gates the `v1.1.0` tag.** An independent, end-to-end validation of the finished corpus/product (data
-contract, links, gate, e2e/axe/visual, browser sanity) — planned/filed separately by the maintainer.
-Once #15 passes, cut the `v1.1.0` tag / GitHub release.
+**Gates the `v1.1.0` tag.** (GitHub auto-numbered it **#29**; "#15" is its roadmap-sequence label — GitHub
+#15 is an unrelated Phase-2 issue.) Run via **`npm run release-check`** — the repeatable four-layer gate:
+
+- **Layer 1** existing automated checks; **Layer 2** new permanent guards (`test/release.test.mjs` — strict
+  CSP, zero runtime deps, product snapshot/Edition sync; `test/research-consistency.test.mjs` — CSV↔data
+  parity, source provenance, disposition↔data; extended `test/e2e.spec.mjs` release surfaces); **Layer 3**
+  regression-detection for judgment-laden things (grammar non-colour carriers); **Layer 4** explicit human
+  checks (source-substantiation, colour-semantics, `check:links` dispositions, final visual).
+- `check:links --strict` fails on `dead` only; redirect/blocked/wrong-entity stay human review.
+- **No data/plate change** (`js/data/*`, CSV contents, visual baselines untouched); `package.json` version
+  → `1.1.0`. Guard-bite every new test (perturb → FAIL → revert) so each provably protects its invariant.
+- Record the pass in `research/decisions.md` (§"v1.1.0 release gate"). **Publication is separate:** after
+  the PR merges **and the maintainer explicitly approves**, cut the annotated `v1.1.0` tag + GitHub release
+  (notes = the #14 release-note draft + this gate result), then set §2/§3 above to "v1.1.0 shipped".
+- **Out of scope (Phase 3):** wiring e2e/stress/check-links into CI; the layout-stress CI guard.
 
 ## 7. Mechanics, verification & gotchas
 
