@@ -8,7 +8,7 @@ _Government · Research · Industry · International_
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 [![Runtime dependencies: 0](https://img.shields.io/badge/runtime%20deps-0-blue.svg)](#tech-stack)
 
-> **Live:** <https://radc4t.github.io/singapore-space-atlas/> — 2026 Edition · research snapshot 15 Aug 2026
+> **Live:** <https://radc4t.github.io/singapore-space-atlas/> — 2026 Edition · research snapshot 17 Aug 2026
 
 ![Singapore Space Atlas — the Explore plate (light)](docs/hero-light.png)
 
@@ -196,7 +196,7 @@ Two independent axes:
 - **Software (SemVer):** git-tagged releases. `v1.0.0` is the first public release. Patch = fixes;
   minor = new features or a data refresh within schema 1.0; major = a schema break or identity overhaul.
 - **Editorial edition:** the content version, shown in-product — **2026 Edition · research snapshot
-  15 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
+  17 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
 
 ## Roadmap
 

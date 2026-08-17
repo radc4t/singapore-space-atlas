@@ -27,10 +27,11 @@ that no relationship exists. Full identity/grammar in `design.md`.
 
 ## 2. Current state (2026-08-17)
 
-- **Software:** `v1.0.0` shipped (2026-08-15). **`v1.1.0` in progress** (not yet tagged — see #14).
+- **Software:** `v1.0.0` shipped (2026-08-15). **`v1.1.0` in progress** — Edition bookkeeping lands in
+  #14; the **tag is deferred until #15** (a full sanity & regression check) closes.
 - **Corpus:** **89 nodes · 26 edges (25 documented + 1 inferred) · 22 sources.** Schema `1.0`.
-  `DATA_SNAPSHOT` still `'2026-08-15'` and the in-product Edition label still reads the old snapshot —
-  **both are bumped in #14 (last)**, not before. The Directory reads **"62 companies shown of ~70."**
+  `DATA_SNAPSHOT` = `'2026-08-17'` (bumped in #14) and the in-product Edition label reads research
+  snapshot 17 Aug 2026. The Directory reads **"62 companies shown of ~70."**
 - **Git:** work lands via short-lived `data/<topic>` (or `docs/<topic>`) branches → PR → **the human
   merges** (each merge auto-deploys Pages). `main` is CI-gated; never push to it directly.
 
@@ -41,7 +42,7 @@ Canonical: [`ROADMAP.md`](../ROADMAP.md), mirrored to **GitHub milestones + issu
 
 | #   | Milestone                        | Status                                                                 |
 | --- | -------------------------------- | ---------------------------------------------------------------------- |
-| 1   | **v1.1.0 — Next Edition (data)** | **4 / 6 closed** — see below                                           |
+| 1   | **v1.1.0 — Next Edition (data)** | **5 / 6 closed** — see below (release now also gated on a new #15)     |
 | 2   | v1.2.0 — Product depth           | open (mobile depth; deep-linkable guided tour)                         |
 | 3   | Engineering hardening            | open (wire e2e/axe/visual into CI; layout-stress CI guard; a11y depth) |
 
@@ -53,8 +54,8 @@ Canonical: [`ROADMAP.md`](../ROADMAP.md), mirrored to **GitHub milestones + issu
 | #10     | Relationship sourcing & disambiguation     | ✅ merged          | promoted `ntu→stdp`; kept `nus→stdp` inferred; `nsas→unoosa`→documented `ostin→unoosa`; added `satoro→ntu`, `lighthaus→ntu` |
 | #11     | Omitted-entity sourcing                    | ✅ merged          | added **DSTA** (+`dsta→st-satsys`), **MSS**, **`nuspace→nus` spin-off**                                                     |
 | #12     | Node URL re-verification                   | ✅ merged          | added `npm run check:links`; fixed 4 URLs; Intelsat→SES noted; `beyond-earth` made inert; Satoro stays inert                |
-| **#13** | **Layout-stress & corpus-size review**     | **open — DO NEXT** | see §6                                                                                                                      |
-| **#14** | **Edition / snapshot release bookkeeping** | **open — DO LAST** | see §6                                                                                                                      |
+| #13     | Layout-stress & corpus-size review         | ✅ merged          | geometry holds at 89/26 (40 featured, 36 on-ring); no plate/data change; `beyond-earth` kept catalogued + documented (#27)  |
+| **#14** | **Edition / snapshot release bookkeeping** | **open — IN PROG** | this PR: bumps `DATA_SNAPSHOT`→`2026-08-17` + edition strings + roll-up. **No tag** (deferred to #15). see §6               |
 
 ## 4. The per-issue execution workflow (repeat this)
 
@@ -106,7 +107,7 @@ Established across #9–#12. For each data issue:
 
 ## 6. The two remaining issues (detailed)
 
-### #13 — Layout-stress & corpus-size review (do this next)
+### #13 — Layout-stress & corpus-size review (✅ done — PR #27)
 
 **Why:** at v1.0.0 the graph was sparse (47 nodes / 22 edges) so crossings were trivial; it's now
 89 / 26, and #9–#11 added featured nodes to rings 1 (government: 7→9) and 3 (companies) plus new
@@ -129,21 +130,29 @@ plate edges. Confirm the plate still reads cleanly at the larger size.
 - Likely outcome: "geometry holds, no change needed" — a valid, recorded result. This issue may touch only
   `research/decisions.md` (no data/plate change).
 
-### #14 — Edition / research-snapshot release bookkeeping (do LAST)
+### #14 — Edition / research-snapshot release bookkeeping (bookkeeping only — NO tag)
 
-**Only after #13 closes.** This cuts the release.
+**#13 is closed.** #14 advances the Edition pointer and rolls up the decisions; it **does NOT cut the
+release.** The `v1.1.0` tag is deferred until **#15 (full sanity & regression check)** closes.
 
 **Do:**
 
-- Bump `DATA_SNAPSHOT` in `js/data/ecosystem.js` (currently `'2026-08-15'`) to the new snapshot date.
-- Bump the in-product **Edition strings in `index.html`** (there are ~3: the masthead `edition` span, the
-  plate metadata line, the research-snapshot label) to the new snapshot date/Edition.
-- `SCHEMA_VERSION` **stays `'1.0'`** (no schema break). `CATALOGUE_UNIVERSE_ESTIMATE` stays `70` (we're
-  below it).
-- Update `research/decisions.md` with the Edition roll-up (a summary of the #9–#13 changes).
-- Regenerate visual baselines (the edition label text on the plate changes) + full gate.
-- After merge: **cut the `v1.1.0` git tag / GitHub release** (SemVer minor = a data refresh within schema 1.0).
-- README's "Versioning & editions" section may need the new Edition line.
+- Bump `DATA_SNAPSHOT` in `js/data/ecosystem.js` (`'2026-08-15'` → the new snapshot date) + its header
+  comment. `SCHEMA_VERSION` **stays `'1.0'`**; `CATALOGUE_UNIVERSE_ESTIMATE.companies` stays `70`.
+- Bump the hardcoded in-product date strings: `index.html` plate metadata line, and `README.md`
+  (live banner + "Versioning & editions" line). The masthead "2026 Edition" (year) and the readouts /
+  catalogue snapshot labels (derived from `DATA_SNAPSHOT`) update on their own.
+- Update `research/decisions.md` with the Edition roll-up + a release-notes draft (the #9–#13 dispositions,
+  as actually landed). Consistency sweep: `research/sources.md` header + this file's stale state lines.
+- Regenerate visual baselines (the snapshot text renders in the `fullPage` shots) + full gate.
+- **Do NOT cut the tag here.** After #15 closes, cut the `v1.1.0` git tag / GitHub release (SemVer minor =
+  a data refresh within schema 1.0).
+
+### #15 — Full sanity & regression check (do before the release; not yet filed)
+
+**Gates the `v1.1.0` tag.** An independent, end-to-end validation of the finished corpus/product (data
+contract, links, gate, e2e/axe/visual, browser sanity) — planned/filed separately by the maintainer.
+Once #15 passes, cut the `v1.1.0` tag / GitHub release.
 
 ## 7. Mechanics, verification & gotchas
 
