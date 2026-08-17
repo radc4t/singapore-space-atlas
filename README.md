@@ -164,7 +164,8 @@ js/
 scripts/  validate-data.mjs · layout-stress.mjs · build.mjs
 research/ evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv, references.md)
 test/     data.test.mjs (node --test) · e2e.spec.mjs (Playwright)
-design.md the design constitution
+design.md  the design constitution
+ROADMAP.md the forward plan (canonical; mirrored to GitHub milestones/issues)
 ```
 
 ## Tech stack
@@ -208,7 +209,9 @@ on-map cluster labels — are recorded there as non-goals, not backlog.
 
 ## Contributing
 
-Issues and pull requests are welcome. Before opening a PR, please make sure the full gate is green:
+Issues and pull requests are welcome. Planned work is tracked in [`ROADMAP.md`](ROADMAP.md) and the
+[open milestones](https://github.com/radc4t/singapore-space-atlas/milestones) — a good place to find scoped,
+evidence-led tasks. Before opening a PR, please make sure the full gate is green:
 
 ```bash
 npm run validate && npm test && npm run lint && npm run format:check && npm run build
