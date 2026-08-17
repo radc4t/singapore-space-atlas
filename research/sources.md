@@ -45,3 +45,10 @@ carry an additional first-party primary below.
 | `cqt-atomionics-2021`  | CQT (NUS) highlight — Atomionics quantum sensors    | first-party (academia) | Atomionics builds cold-atom quantum sensors (gravity/navigation); backed by Enterprise Singapore & Cap Vista | highlight article body |
 | `nttdata-bifrost-2025` | NTT DATA insights — synthetic data for satellite AI | first-party (industry) | Bifrost's synthetic geospatial data trains satellite-imagery AI models (NTT DATA partnership)                | insights/focus article |
 | `ntu-galamad-2023`     | NTU CAS news — Galamad Aerospace satellite start-up | first-party (academia) | Galamad Aerospace designs/builds programmable, reusable small satellites (engineered in Singapore)           | news detail page       |
+
+## Relationship-batch sources (2026-08-17, issue #10)
+
+| id                  | source                                                    | first-party?            | what it substantiates                                                                                                                                        | retrieval location   |
+| ------------------- | --------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
+| `ntu-sap-2026`      | NTU news — three new Space Access Programme projects      | first-party (academia)  | NTU's SaRC leads 3 projects under the Space Access Programme (part of STDP, run by OSTIn); Satoro builds the CubeSat; LightHaus supplies the optical payload | news detail page     |
+| `ostin-unoosa-2025` | OSTIn — Partners UNOOSA on Space Law for New Space Actors | first-party (govt/NSAS) | OSTIn and UNOOSA agreed the "Space Law for New Space Actors" collaboration (29 Apr 2025), incl. a Space Law Technical Advisory Mission                       | space.gov.sg article |

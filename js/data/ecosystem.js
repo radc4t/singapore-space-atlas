@@ -1426,6 +1426,26 @@ export const EDGES = [
     pathway: 'direct',
     evidenceNote: "Addvalue's IDRS was selected by Vast for deployment on its Haven-1 station.",
   },
+  {
+    source: 'satoro',
+    target: 'ntu',
+    relation: 'supplier',
+    sources: ['ntu-sap-2026'],
+    confidence: 'documented',
+    pathway: 'direct',
+    evidenceNote:
+      "Satoro builds the 3U nanosatellite carrying NTU's Satellite Research Centre payload under the Space Access Programme.",
+  },
+  {
+    source: 'lighthaus',
+    target: 'ntu',
+    relation: 'supplier',
+    sources: ['ntu-sap-2026'],
+    confidence: 'documented',
+    pathway: 'direct',
+    evidenceNote:
+      "LightHaus Photonics provides the optical imaging payload for NTU's third Space Access Programme project.",
+  },
 
   // ---- International partnerships (documented, direct) -------------------------------------
   {
@@ -1447,6 +1467,18 @@ export const EDGES = [
     evidenceNote: 'OSTIn and ESA signed a letter of intent on business-incubation partnerships.',
   },
   {
+    source: 'ostin',
+    target: 'unoosa',
+    relation: 'partners',
+    sources: ['ostin-unoosa-2025'],
+    confidence: 'documented',
+    pathway: 'direct',
+    evidenceNote:
+      "OSTIn and UNOOSA agreed the 'Space Law for New Space Actors' collaboration (29 Apr 2025), with a Space Law Technical Advisory Mission in Singapore.",
+  },
+
+  // ---- Programme participation (documented, direct) ---------------------------------------
+  {
     source: 'nsas',
     target: 'gstc',
     relation: 'participates',
@@ -1455,20 +1487,18 @@ export const EDGES = [
     pathway: 'direct',
     evidenceNote: 'NSAS is represented at GSTC (a Chief Strategy & Policy Officer panellist).',
   },
-
-  // ---- Inferred / contextual (hidden by default; each carries rationale + evidenceNote) ----
   {
     source: 'ntu',
     target: 'stdp',
     relation: 'participates',
-    sources: ['edb-nextbound', 'stdp-nsas'],
-    confidence: 'inferred',
-    pathway: 'programme-mediated',
-    rationale:
-      'STDP explicitly funds capability-building in local IHLs/RIs and NTU is the principal satellite-building IHL, so participation is highly likely; a specific NTU award was not individually sourced in this snapshot.',
+    sources: ['ntu-sap-2026', 'stdp-nsas'],
+    confidence: 'documented',
+    pathway: 'direct',
     evidenceNote:
-      "EDB: the STDP top-up fosters capability-building in Singapore's IHLs and RIs; STDP is open to local IHLs.",
+      "NTU's Satellite Research Centre leads three projects under the Space Access Programme (part of STDP), with launches targeted for 2026–2028.",
   },
+
+  // ---- Inferred / contextual (hidden by default; each carries rationale + evidenceNote) ----
   {
     source: 'nus',
     target: 'stdp',
@@ -1477,19 +1507,7 @@ export const EDGES = [
     confidence: 'inferred',
     pathway: 'programme-mediated',
     rationale:
-      'STDP funds local IHLs/RIs and NUS is a core space research base, so participation is highly likely; a specific NUS award was not individually sourced in this snapshot.',
+      'STDP funds local IHLs/RIs and NUS is a core space research base (the NUS-DSO STAR flagship is described as STDP-supported in secondary reporting), so participation is highly likely; a specific NUS award was not individually sourced from a primary source in this snapshot.',
     evidenceNote: 'STDP eligibility explicitly includes local Institutions of Higher Learning.',
-  },
-  {
-    source: 'nsas',
-    target: 'unoosa',
-    relation: 'participates',
-    sources: ['sginnovate-2026'],
-    confidence: 'inferred',
-    pathway: 'contextual',
-    rationale:
-      'Singapore participates in UN COPUOS, but which office represents the state (NSAS/OSTIn vs the Ministry of Foreign Affairs) is not disambiguated in captured sources.',
-    evidenceNote:
-      'Singapore participates in the UN Committee on the Peaceful Uses of Outer Space (COPUOS).',
   },
 ];
