@@ -4,7 +4,9 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', 'node_modules/**'],
+    // dist/ is build output; .agents/ + skills-lock.json are locally-installed agent-skill tooling
+    // (third-party, gitignored) that must not be linted as project source.
+    ignores: ['dist/**', 'node_modules/**', '.agents/**', 'skills-lock.json'],
   },
   js.configs.recommended,
   {

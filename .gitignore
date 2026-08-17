@@ -5,5 +5,7 @@ __pycache__/
 node_modules/
 dist/
 .claude/
+.agents/
+skills-lock.json
 playwright-report/
 test-results/

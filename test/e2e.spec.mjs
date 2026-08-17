@@ -16,13 +16,16 @@ test('focus flow: select a node → inspector populates → clear', async ({ pag
   await page.goto('/');
   await expect(page.locator('.atlas-svg')).toBeVisible();
 
-  await page.locator('.node[data-id="nsas"] .node-shape').click();
+  // Interaction lives on the transparent `.node-hit` target; `.node-shape` is inert visual geometry.
+  await page.locator('.node[data-id="nsas"] .node-hit').click();
   await expect(page.locator('.inspector-title')).toHaveText('National Space Agency of Singapore');
   // right panel switches Readouts → Inspector; operating-state label derives from state
   await expect(page.locator('#readouts')).toBeHidden();
   await expect(page.locator('#op-state')).toContainText('INSPECT');
   // focus mode dims the rest
   await expect(page.locator('.atlas-svg')).toHaveClass(/has-focus/);
+  // regression: the visual node geometry is still rendered (a company node keeps its `.node-shape`)
+  await expect(page.locator('.node.type-company .node-shape').first()).toBeAttached();
 
   await page.locator('.inspector-clear').click();
   await expect(page.locator('#inspector')).toBeHidden();

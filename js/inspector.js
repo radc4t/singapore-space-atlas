@@ -63,7 +63,8 @@ export function initInspector(mount) {
     if (!n) return;
 
     const head = el('div', { class: 'inspector-head' }, [
-      el('h3', { class: 'inspector-title', text: n.name }),
+      // tabindex -1 so keyboard-driven selection can move focus here (see filters.js); not in the tab order.
+      el('h3', { class: 'inspector-title', tabindex: '-1', text: n.name }),
       el('p', { class: 'inspector-type' }, [
         el('span', { class: `dot type-${n.type}` }),
         el('span', {

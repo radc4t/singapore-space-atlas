@@ -23,6 +23,24 @@ function radiusFor(node) {
   return 7; // companies
 }
 
+// One interaction/accessibility pattern for every node: a transparent, enlarged focusable target that
+// sits on top of the (inert) visual shape and carries the tabindex / role / aria-label + all pointer
+// and keyboard interaction. The visual `.node-shape` stays ~7px (the authored geometry); the hit area
+// is enlarged here and grown further for coarse pointers via CSS (`.node-hit`), so a finger has a
+// real target without changing how the plate looks. The NSAS anchor uses the same helper (a wider r),
+// so anchor and non-anchor share exactly one a11y/interaction implementation.
+function createNodeHit(node, { anchor = false } = {}) {
+  return el('circle', {
+    cx: 0,
+    cy: 0,
+    r: anchor ? 26 : 16,
+    class: anchor ? 'node-hit node-hit-anchor' : 'node-hit',
+    tabindex: '0',
+    role: 'img',
+    'aria-label': `${node.name}. ${node.role}.`,
+  });
+}
+
 const edgeKey = (e) => `${e.source}|${e.target}|${e.edge.relation}`;
 const pol = (r, a) => [r * Math.cos(a), r * Math.sin(a)];
 
@@ -194,16 +212,8 @@ export function renderAtlas(mount, ir) {
       g.append(el('circle', { cx: 0, cy: 0, r: 24, class: 'anchor-ring' }));
       g.append(el('circle', { cx: 0, cy: 0, r: 15, class: 'anchor-ring' }));
       g.append(el('circle', { cx: 0, cy: 0, r: 6, class: 'anchor-dot' }));
-      // transparent hit target (focusable control; large enough to click the whole anchor)
-      const hit = el('circle', {
-        cx: 0,
-        cy: 0,
-        r: 26,
-        class: 'node-shape anchor-hit',
-        tabindex: '0',
-        role: 'img',
-        'aria-label': `${n.name}. ${n.role}.`,
-      });
+      // transparent, focusable hit target (shared helper — same a11y pattern as every other node)
+      const hit = createNodeHit(n, { anchor: true });
       g.append(hit);
       const name = el('text', { x: 0, y: 42, class: 'anchor-name', 'text-anchor': 'middle' });
       name.textContent = n.aliases?.[0] || 'NSAS';
@@ -213,7 +223,7 @@ export function renderAtlas(mount, ir) {
       origin.textContent = 'ORIGIN';
       g.append(name, sub, origin);
       gNodes.append(g);
-      nodeEls.set(n.id, { group: g, shape: hit, label: name });
+      nodeEls.set(n.id, { group: g, shape: hit, hit, label: name });
       labelEls.set(n.id, name);
       continue;
     }
@@ -232,19 +242,21 @@ export function renderAtlas(mount, ir) {
       'data-type': n.type,
     });
 
-    const shapeAttrs = {
-      class: 'node-shape',
-      tabindex: '0',
-      role: 'img',
-      'aria-label': `${n.name}. ${n.role}.`,
-    };
+    // Visual geometry only — inert. Interaction lives on the transparent `.node-hit` added below.
     let shape;
     if (n.kind === 'programme') {
       const w = 44;
       const h = 19;
-      shape = el('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 1.5, ...shapeAttrs });
+      shape = el('rect', {
+        x: -w / 2,
+        y: -h / 2,
+        width: w,
+        height: h,
+        rx: 1.5,
+        class: 'node-shape',
+      });
     } else {
-      shape = el('circle', { cx: 0, cy: 0, r: radiusFor(n), ...shapeAttrs });
+      shape = el('circle', { cx: 0, cy: 0, r: radiusFor(n), class: 'node-shape' });
     }
     g.append(shape);
 
@@ -269,8 +281,12 @@ export function renderAtlas(mount, ir) {
     }
     g.append(label);
 
+    // Transparent enlarged hit target on top (captures pointer + keyboard; carries the a11y name).
+    const hit = createNodeHit(n);
+    g.append(hit);
+
     gNodes.append(g);
-    nodeEls.set(n.id, { group: g, shape, label });
+    nodeEls.set(n.id, { group: g, shape, hit, label });
     labelEls.set(n.id, label);
   }
 
