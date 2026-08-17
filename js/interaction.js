@@ -17,9 +17,10 @@ export function initInteraction({ svg, nodeEls, edgeEls }) {
     ensure(t).edges.push(key);
   }
 
-  // wire node events on the interactive shape (the focusable control)
+  // wire node events on the transparent hit target (the focusable/tappable control; the visual
+  // `.node-shape` is inert). One code path for anchor and non-anchor — both expose `refs.hit`.
   for (const [id, refs] of nodeEls) {
-    const target = refs.shape;
+    const target = refs.hit;
     target.addEventListener('click', () => selectToggle(id));
     target.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -54,8 +55,8 @@ export function initInteraction({ svg, nodeEls, edgeEls }) {
       refs.group.classList.toggle('is-selected', id === sel);
       refs.group.classList.toggle('is-connected', connected.has(id));
       // visibility filter (type toggles + search) is applied in filters.js via .is-hidden
-      if (id === sel) refs.shape.setAttribute('aria-current', 'true');
-      else refs.shape.removeAttribute('aria-current');
+      if (id === sel) refs.hit.setAttribute('aria-current', 'true');
+      else refs.hit.removeAttribute('aria-current');
     }
     for (const [key, pathEl] of edgeEls) {
       pathEl.classList.toggle('is-active', activeEdges.has(key));

@@ -944,6 +944,7 @@ a {
   fill: var(--node-color);
   stroke: var(--color-canvas);
   stroke-width: 1.5;
+  pointer-events: none; /* visual geometry only; interaction lives on the transparent .node-hit */
   transition:
     opacity 0.2s ease,
     stroke 0.2s ease;
@@ -980,9 +981,20 @@ a {
   font-weight: 400;
   fill: var(--color-muted);
 }
-.anchor-hit {
+/* The transparent, enlarged interactive/focusable target on every node (see render.js createNodeHit).
+   Base r is set as an SVG attribute (16 / anchor 26); coarse pointers grow it to a ~44px finger target
+   via the CSS `r` property (overrides the attribute where supported; falls back to the attr otherwise). */
+.node-hit {
   fill: transparent;
   stroke: none;
+}
+@media (pointer: coarse) {
+  .node-hit {
+    r: 22px;
+  }
+  .node-hit-anchor {
+    r: 30px;
+  }
 }
 .anchor-ring {
   fill: none;
@@ -1015,8 +1027,7 @@ a {
   letter-spacing: 0.14em;
   opacity: var(--construction-contrast);
 }
-.node:hover .node-shape,
-.node .node-shape:focus-visible {
+.node:hover .node-shape {
   stroke: var(--color-focus);
 }
 .node.is-selected .node-shape {
@@ -1025,6 +1036,11 @@ a {
 }
 .node.is-selected.scope-international .node-shape {
   stroke-width: 3;
+}
+/* NSAS has no visual .node-shape (its figure is the anchor rings); keep its selection ring on the hit. */
+.node.anchor.is-selected .node-hit-anchor {
+  stroke: var(--color-focus);
+  stroke-width: 2;
 }
 .node.is-hidden {
   display: none;
@@ -1162,14 +1178,66 @@ a.cat-name:hover {
   }
 }
 
+/* ---- coarse-pointer (touch) hit targets ------------------------------------------------- */
+/* Every interactive control gets a ≥44px effective target on touch. In the topbar (tight, and the
+   subject of the D3 overflow fix below) the target is enlarged with a pseudo-element so the visible
+   box and layout are unchanged; panel controls have vertical room, so they grow their own box, which
+   pushes siblings apart rather than overlapping their neighbours' hit areas. */
+@media (pointer: coarse) {
+  .nav a {
+    position: relative;
+  }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 44px;
+  }
+  .icon-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .btn,
+  .legend-chip,
+  .evidence,
+  .result {
+    min-height: 44px;
+  }
+}
+
 /* ---- mobile companion: map-first, panels become bottom sheets --------------------------- */
 @media (max-width: 720px) {
   .seal {
     display: none;
   }
+  /* D3: the wordmark + nav do not fit one 375px row (was overflowing ~66px, then wrapping out of the
+     fixed-height bar). Give the topbar an auto height and two rows: title + toggle on row 1, nav on
+     row 2. `.edition` is dropped to keep row 1 to a single line. */
+  .edition {
+    display: none;
+  }
   .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    row-gap: var(--s2);
     gap: var(--s3);
-    padding: 0 var(--s3);
+    padding: var(--s2) var(--s3);
+  }
+  .wordmark {
+    flex: 1 1 auto;
+  }
+  .topbar-right {
+    order: 2;
+  }
+  .nav {
+    order: 3;
+    flex: 1 1 100%;
+    margin-left: 0;
+    gap: var(--s4);
+    letter-spacing: var(--track-caps);
   }
   .stage {
     flex-direction: column;
