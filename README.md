@@ -163,7 +163,8 @@ js/
   icons.js                      tiny inline-SVG icon set (Iconoir geometry, 1.5px stroke)
   router.js state.js            deep-link state ↔ shared store
   theme.js story.js app.js      theming · guided tour · bootstrap/controller
-scripts/  validate-data.mjs · layout-stress.mjs · check-links.mjs · release-check.mjs · build.mjs · nocache_server.py
+scripts/  validate-data.mjs · layout-stress.mjs · check-links.mjs · release-check.mjs · build.mjs · og-image.mjs · nocache_server.py
+assets/   og-image.png       the social-preview card (regenerate with scripts/og-image.mjs)
 research/ evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv, references.md)
 test/     data.test.mjs · release.test.mjs · research-consistency.test.mjs (node --test) · e2e.spec.mjs (Playwright)
 design.md  the design constitution
@@ -184,9 +185,12 @@ Testing is `node --test` plus [Playwright](https://playwright.dev/) (interaction
 
 Accessibility is a first-class constraint, not an afterthought:
 
-- SVG nodes are keyboard-focusable and operable (Enter / Space); a single neutral `:focus-visible`
-  treatment is used throughout.
-- Colour is never the only channel — type, shape, stroke and opacity all carry meaning.
+- SVG nodes are keyboard-focusable and operable (Enter / Space), with an explicit focus ring and
+  enlarged hit targets that grow further on coarse (touch) pointers.
+- Colour is never the only channel — type, shape, stroke and opacity all carry meaning; text contrast
+  meets WCAG AA (including form placeholders).
+- Focus is kept continuous through the guided tour and keyboard-driven search selection, and the
+  search announces its result count to assistive technology.
 - `prefers-reduced-motion` is respected; the Directory is a fully semantic, screen-reader-friendly
   representation of the same corpus.
 - Every commit is checked against axe (WCAG 2.1 A/AA, no serious/critical violations) in CI.
