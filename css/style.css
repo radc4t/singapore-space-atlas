@@ -192,6 +192,7 @@ a {
 }
 .btn:active {
   background: var(--color-panel-alt);
+  transform: translateY(1px);
 }
 .btn:disabled {
   color: var(--color-muted);
@@ -225,6 +226,7 @@ a {
   font-size: var(--fs-wordmark);
   margin: 0;
   letter-spacing: var(--track-wordmark);
+  text-wrap: balance;
 }
 .edition {
   font-family: var(--mono);
@@ -670,6 +672,7 @@ a {
   font-weight: 500;
   font-size: var(--fs-title);
   line-height: 1.12;
+  text-wrap: balance;
 }
 .inspector-clear {
   position: absolute;
@@ -692,6 +695,7 @@ a {
 .inspector-role {
   margin: var(--s3) 0 0;
   font-size: var(--fs-body);
+  text-wrap: pretty;
 }
 .inspector-sec {
   margin-top: var(--s3);
@@ -751,6 +755,7 @@ a {
   margin: var(--s0) 0 0;
   font-size: var(--fs-body-xs);
   color: var(--color-muted);
+  text-wrap: pretty;
 }
 .rel-rationale {
   font-style: italic;
@@ -793,6 +798,7 @@ a {
   font-size: var(--fs-label-lg);
   letter-spacing: var(--track-wide);
   text-transform: uppercase;
+  text-wrap: balance;
 }
 .story-caption p {
   margin: 0 0 var(--s2);
@@ -1059,6 +1065,7 @@ a {
   font-weight: 500;
   font-size: var(--fs-heading);
   margin: 0 0 var(--s2);
+  text-wrap: balance;
 }
 .snapshot {
   font-family: var(--mono);
@@ -1138,6 +1145,7 @@ a.cat-name:hover {
   font-size: var(--fs-body-sm);
   color: var(--color-muted);
   margin: 4px 0 0;
+  text-wrap: pretty;
 }
 
 /* ---- METHODOLOGY view ------------------------------------------------------------------ */
@@ -1148,9 +1156,11 @@ a.cat-name:hover {
   text-transform: uppercase;
   color: var(--color-muted);
   margin: var(--s5) 0 var(--s1);
+  text-wrap: balance;
 }
 .methodology p {
   max-width: 66ch;
+  text-wrap: pretty;
 }
 .fallback {
   max-width: 1080px;
@@ -1165,6 +1175,13 @@ a.cat-name:hover {
   * {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
+  }
+}
+/* Progressive interaction enhancement, gated so it never applies under reduced-motion (some
+   keyboard/navigation workflows prefer instant jumps too — the guard is the point). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
