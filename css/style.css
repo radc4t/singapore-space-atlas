@@ -285,7 +285,10 @@ a {
 /* ---- EXPLORE: full-bleed hero + floating instrument modules ----------------------------- */
 .stage {
   position: relative;
-  min-height: calc(100vh - var(--topbar-h) - var(--statusbar-h));
+  /* dvh tracks the *usable* viewport so the explore plate doesn't reserve dead space behind a
+     collapsing browser toolbar (iOS Safari / touch devices >720px, where these desktop rules apply;
+     ≤720px overrides min-height to 0 below). */
+  min-height: calc(100dvh - var(--topbar-h) - var(--statusbar-h));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -299,7 +302,10 @@ a {
 }
 .atlas-svg {
   display: block;
-  width: min(86vh, 100%);
+  /* svh (smallest usable height) so the circular plate always fits without clipping and never
+     resizes mid-scroll as the toolbar collapses — the plate is a published instrument to be read,
+     not a canvas to fly around. Slightly smaller when chrome hides is an acceptable trade. */
+  width: min(86svh, 100%);
   height: auto;
 }
 
