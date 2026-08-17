@@ -173,8 +173,8 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
     ['National space agency', '01'],
     ['Government agency', '07'],
     ['University / research', '06'],
-    ['Company', '22'],
-    ['International partner', '28'],
+    ['Company', '27'],
+    ['International partner', '38'],
     ['Supporting sector', '04'],
     ['Programme', '04'],
   ];
@@ -185,7 +185,7 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
   }
 
   // membership: each group holds exactly its cards
-  const expected = [1, 7, 6, 22, 28, 4, 4];
+  const expected = [1, 7, 6, 27, 38, 4, 4];
   const groups = page.locator('.cat-group');
   for (let i = 0; i < expected.length; i++)
     await expect(groups.nth(i).locator('.cat-item')).toHaveCount(expected[i]);

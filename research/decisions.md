@@ -56,13 +56,20 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
 
 ## Coverage
 
-- **2026-08-17 expansion (issue #9).** Company coverage grown from 22 to **47 of ~70** shown: **22
-  domestic** (`type: company`) + **25 international** MNCs with a Singapore presence
-  (`type: international` + cluster). Featured = the strategically significant / best-documented anchors;
-  catalogued = included in the dataset but not necessarily drawn on the default map. This is a data
-  refresh within schema 1.0; the in-product Edition/`DATA_SNAPSHOT` label is advanced separately at
-  release (Phase 1 track #14), so new sources carry their real `accessed` date (`2026-08-17`) while the
-  snapshot label still reads `2026-08-15` until the release cut.
+- **2026-08-17 expansion (issue #9).** Company coverage grown from 22 to **62 of ~70** shown, over two
+  batches (25 + 15 additions): **27 domestic** (`type: company`) + **35 international** MNCs with a
+  Singapore presence (`type: international` + cluster). Featured = the strategically significant /
+  best-documented anchors (16 total; only 3 of the 40 additions were featured); catalogued = included in
+  the dataset but not necessarily drawn on the default map. This is a data refresh within schema 1.0; the
+  in-product Edition/`DATA_SNAPSHOT` label is advanced separately at release (Phase 1 track #14), so new
+  sources carry their real `accessed` date (`2026-08-17`) while the snapshot label still reads
+  `2026-08-15` until the release cut. The second batch (all catalogued, so no map-geometry change) added
+  the remaining clearly-space firms — VSAT/RF and satcom hardware (Amplus, Meds Technologies, Nera),
+  space-data/analytics and infrastructure (Liberatech, SpaceChain), and space-focused MNCs (Speedcast,
+  L3Harris, Cobham SATCOM, KVH, Comtech, Mitsubishi Electric, Mitsubishi Heavy Industries, SKY Perfect
+  JSAT, ABS, Applied Satellite Technology). The remaining gap to ~70 is general-industry component/
+  materials/electronics suppliers listed under space segments (Jabil, Flex, AMD, Nvidia, Microchip, …),
+  deliberately **not** added — the atlas counts space companies, not every supplier with a space line.
 
 ### Method — how the batch was sourced
 
@@ -83,6 +90,10 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
   `atomionics` (quantum; `cqt-atomionics-2021`), `bifrost` (geospatial; `nttdata-bifrost-2025`),
   `galamad` (satellite-mfg; `ntu-galamad-2023`). The other 22 stayed catalogued — evidence the tiering
   rule holds (go wide in the catalogue, stay selective on the plate).
+- **Considered but excluded on verification (mis-segmented in the directory):** `Skycom Satellite
+Systems` — "satellite" in the CATV/MATV/IPTV building-TV sense (hotel/condo TV distribution), not a
+  space company; `Wizlogix` — a general PCB design/fabrication house (some satellite PCB work for
+  DSO/NTU/ST, but an electronics-services enabler, not a space firm). Both live-checked and left out.
 - **Considered but deferred (not added):** `THISS Technologies` — listed under Satellite Manufacturers
   but its space-specific role could not be verified beyond the directory listing; deferred rather than
   assert an unverified role. Numerous directory entries were excluded as out-of-scope: law firms
