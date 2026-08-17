@@ -171,7 +171,7 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
   // CSS-only). Hard-coded independently of TYPES so an accidental reorder is actually caught.
   const canonical = [
     ['National space agency', '01'],
-    ['Government agency', '07'],
+    ['Government agency', '09'],
     ['University / research', '06'],
     ['Company', '27'],
     ['International partner', '38'],
@@ -185,7 +185,7 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
   }
 
   // membership: each group holds exactly its cards
-  const expected = [1, 7, 6, 27, 38, 4, 4];
+  const expected = [1, 9, 6, 27, 38, 4, 4];
   const groups = page.locator('.cat-group');
   for (let i = 0; i < expected.length; i++)
     await expect(groups.nth(i).locator('.cat-item')).toHaveCount(expected[i]);

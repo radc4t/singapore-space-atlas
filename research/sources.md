@@ -52,3 +52,11 @@ carry an additional first-party primary below.
 | ------------------- | --------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
 | `ntu-sap-2026`      | NTU news — three new Space Access Programme projects      | first-party (academia)  | NTU's SaRC leads 3 projects under the Space Access Programme (part of STDP, run by OSTIn); Satoro builds the CubeSat; LightHaus supplies the optical payload | news detail page     |
 | `ostin-unoosa-2025` | OSTIn — Partners UNOOSA on Space Law for New Space Actors | first-party (govt/NSAS) | OSTIn and UNOOSA agreed the "Space Law for New Space Actors" collaboration (29 Apr 2025), incl. a Space Law Technical Advisory Mission                       | space.gov.sg article |
+
+## Omitted-entity sources (2026-08-17, issue #11)
+
+| id                 | source                                      | first-party?              | what it substantiates                                                                                                                    | retrieval location            |
+| ------------------ | ------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `dssar-2023`       | Gunter's Space Page — DS-SAR                | secondary (authoritative) | DSTA (MINDEF) and ST Engineering jointly ordered the DS-SAR radar satellite from IAI (2018); launched 30 Jul 2023; supports govt imagery | satellite record page         |
+| `mss-satellite`    | MSS (NEA) — Geostationary Satellite Imagery | first-party (govt)        | Meteorological Service Singapore receives & processes Himawari (JMA) satellite data for weather; MSS is a division under NEA             | weather.gov.sg satellite page |
+| `nuspace-nus-2018` | NuSpace — About Us                          | first-party (industry)    | NuSpace is a 2018 NUS spin-off (founders from NUS Engineering; incubated under NUS GRIP; Galassia lineage)                               | About Us page                 |

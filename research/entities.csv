@@ -86,3 +86,5 @@ id,name,kind,type,scope,cluster,coverage,status,role,sources
 "skyperfectjsat-sg","SKY Perfect JSAT (Singapore)","organisation","international","international","comms-ground","catalogued","active","Satellite operator (Asia-Pacific)","dir-2025"
 "abs-sg","ABS (Singapore)","organisation","international","international","comms-ground","catalogued","active","Satellite operator (GEO fleet)","dir-2025"
 "ast-sg","Applied Satellite Technology (Singapore)","organisation","international","international","comms-ground","catalogued","active","Satellite IoT and communications services","dir-2025"
+"dsta","Defence Science and Technology Agency","organisation","government","domestic","","featured","active","Defence procurement & systems agency; commissioned the DS-SAR radar-imaging satellite","dssar-2023"
+"mss","Meteorological Service Singapore","organisation","government","domestic","","featured","active","National weather authority (under NEA); receives & processes meteorological-satellite data (Himawari)","mss-satellite"
