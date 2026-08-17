@@ -148,10 +148,32 @@ body {
 }
 a {
   color: inherit;
+  text-underline-offset: 0.15em; /* F4: lift underlines off the baseline (browser default is auto/0) */
 }
 :focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+/* Browser surfaces themed from the palette (F2/F3) — the "built, not assembled" details the OS would
+   otherwise supply. Selection and scrollbars now read as instrument chrome, and follow the theme. */
+::selection {
+  background: var(--color-hairline);
+  color: var(--color-ink);
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hairline) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 .skip-link {
   position: absolute;
@@ -347,6 +369,12 @@ a {
   font-size: var(--fs-body);
   color: var(--color-ink);
   padding: var(--s1) 2px;
+}
+/* F1: the UA default placeholder (#757575) failed AA (4.29:1 light / 4.10:1 dark). --color-muted is
+   the AA-cleared secondary token in both themes. opacity:1 defeats the UA's default placeholder fade. */
+.explore input::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
 }
 .search-results {
   margin-top: var(--s2);
@@ -733,6 +761,7 @@ a {
   text-align: left; /* buttons default to center; keep the name flush-left like its evidence text */
   text-decoration: underline;
   text-decoration-color: var(--color-hairline);
+  text-underline-offset: 0.15em; /* F4: match the anchor underline offset (this is a <button>, not <a>) */
 }
 .rel-meta {
   font-family: var(--mono);
