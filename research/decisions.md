@@ -190,6 +190,60 @@ grew 13 → 16 (+3: `atomionics`, `bifrost`, `galamad`), so on-plate crowding is
 review (below) confirms the ring stays legible. The bulk of the batch is catalogued (Directory-only) and
 does not touch the plate.
 
+**Re-run 2026-08-17 (issue #13 — corpus-size review at 89 nodes / 26 edges)** (`npm run stress`; ring
+counts now **1/13/6/62/3**):
+
+| strategy                     | edge-crossings | label-collisions |
+| ---------------------------- | -------------- | ---------------- |
+| A concentric (angle = index) | 51             | 62               |
+| B radial-sector (packed)     | 40–68 (jitter) | 115–119 (jitter) |
+| C hybrid (barycentre)        | 13–24 (jitter) | 62               |
+
+**Reproducibility.** Only **A** is deterministic in the stress script; **B and C seed the inner rings
+(1/2/4) from `Math.random()`** (`layout-stress.mjs` `anglesRadial`), so their crossing counts vary
+run-to-run (collisions stay put because the even-spread rings have uniform spacing regardless of order).
+This randomness is a property of the **decision-aid prototype only** — the **production layout
+(`js/layout.js`) is fully deterministic** (no RNG; stable sorts with alphabetical tie-breaks). For trend
+comparison across editions, treat **A's figures (and C's stable collision count) as the reproducible
+baseline**, recorded from the same script version; interpret changes **in the context of corpus size and
+featured population**, never as a fixed pass/fail threshold.
+
+**Why label-collisions jumped 0 → 62 vs. the `1/11/6/47/3` re-run.** Pure **all-node artifact**: ring 3
+(the collision proxy counts _all_ companies) grew 47 → 62, so even index-spacing at that radius now falls
+below the 26 px proxy distance (47 cleared it; 62 do not). It is catalogue growth, **not** a plate change —
+the plate draws only the **16 featured** ring-3 companies, evenly spread. The stress numbers are therefore
+a conservative all-node upper bound, exactly as noted before; the real check is the featured plate.
+
+**The real check — production featured plate (DOM overlap at 1280×720, the Playwright baseline viewport).**
+The plate draws **40 featured** nodes: **36 on rings 1/12/4/16/3** (ring 0 NSAS · ring 1 government +
+programmes · ring 2 academia · ring 3 companies · ring 4 international) plus **4 ambient `kind:sector`
+arcs** (`sec-aerospace`, `sec-microelectronics`, `sec-ai`, `sec-quantum`; background context, not ring
+nodes), with **25 featured↔featured plate edges**. A DOM bounding-box check (`getBoundingClientRect` over
+every `svg text` label + node marker, classified by intent — intentional self-proximity excluded)
+inspected **42 labels + 36 markers** and found:
+
+- **label↔label overlaps: 0** · **marker↔marker overlaps: 0** · **label-obscures-neighbour marker: 0.**
+- **edge-curve-over-label: 8 geometric intersections, 0 material.** Every one is a faint relationship
+  curve passing _behind_ a label; the plate paints labels **after** edges (verified: all `path.edge` in
+  DOM order precede all labels, and `elementFromPoint` at the central NSAS label returns the NSAS text as
+  topmost), so the text stays fully crisp and no label is obscured. This is the inherent character of a
+  radial node-link plate and the layer order is unchanged from v1.0.0.
+
+**Decision: geometry holds at 89/26 (40 featured, 36 on-ring); no refinement, no demotion.** Ring 1 grew
+to 12 featured (9 government/agency + 3 programmes) after DSTA/MSS, and ring 3 to 16 featured companies,
+yet the even-spread hybrid keeps the plate collision-free and legible at the supported viewport. The
+production layout is **unchanged** — this issue is a research-ledger review only (no `js/data`, no
+plate, no baseline change).
+
+**`beyond-earth` classification (folded in from #12) — keep + document.** The node "Beyond Earth
+Technologies" (`type:company`, `cluster:satellite-mfg`, catalogued + already inert) is enumerated by the
+OSTIn/AAIS Directory (`dir-2025`), so its catalogued **existence is validly sourced** (a company's mere
+existence/segment may rest on `dir-2025`). A 2026-08-17 web check found its public presence resolves to
+**Beyond Earth _Ventures_ (a VC)** with no standalone satellite-company site surfacing — hence the URL was
+already made inert in #12. Disposition: **stays catalogued + inert; not reclassified** (the schema has no
+investor type, and a documented flag is more honest than forcing a category); **classification to be
+revisited in a future edition** should firmer first-party evidence appear. Zero plate/count/edge impact.
+
 ## Entity website links (`node.url`) — Directory
 
 Added 2026-08-16. Each linkable node carries a `url` = its **official first-party homepage** (canonical,
