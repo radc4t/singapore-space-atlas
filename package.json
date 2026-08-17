@@ -12,6 +12,7 @@
     "format:check": "prettier --check .",
     "validate": "node scripts/validate-data.mjs",
     "stress": "node scripts/layout-stress.mjs",
+    "check:links": "node scripts/check-links.mjs",
     "build": "node scripts/build.mjs",
     "preview": "npm run build && serve dist",
     "dev": "python3 scripts/nocache_server.py",
