@@ -29,7 +29,16 @@ function matches(n, q) {
   return hay.includes(q.toLowerCase());
 }
 
-export function initFilters({ legend, search, results, evidenceToggle, reset, status, nodeEls }) {
+export function initFilters({
+  legend,
+  search,
+  results,
+  evidenceToggle,
+  reset,
+  status,
+  plateEmpty,
+  nodeEls,
+}) {
   // --- legend chips (type toggles) ---------------------------------------------------------
   for (const type of TYPES) {
     const chip = h('button', {
@@ -140,6 +149,9 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
       chip.setAttribute('aria-pressed', String(on));
       chip.classList.toggle('is-off', !on);
     }
+    // G2: blank-plate empty state when every stakeholder type is toggled off (a static message, not a
+    // live announcement — the user deliberately caused it).
+    if (plateEmpty) plateEmpty.hidden = !TYPES.every((t) => state.hiddenTypes.has(t));
     // status line
     if (status) {
       const sel = state.selection ? nodeById.get(state.selection) : null;

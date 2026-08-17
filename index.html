@@ -214,6 +214,11 @@
               <button id="story-exit" class="btn" type="button">Exit</button>
             </div>
           </div>
+
+          <!-- empty state: every stakeholder type filtered off (no aria-live — the user caused it) -->
+          <p id="plate-empty" class="plate-empty" hidden>
+            All stakeholder types are hidden. Re-enable a type in the legend to see the plate.
+          </p>
         </div>
 
         <!-- bottom status bar -->
@@ -272,8 +277,9 @@
 
       <noscript>
         <div class="fallback">
-          <strong>Singapore Space Atlas</strong> — the interactive map needs JavaScript. Switch to
-          the Directory view for the text-based index of the same data.
+          <strong>Singapore Space Atlas</strong> — this atlas is rendered in the browser, so both
+          the map and its Directory need JavaScript enabled. Please enable JavaScript to view the
+          ecosystem and its cited evidence.
         </div>
       </noscript>
     </main>

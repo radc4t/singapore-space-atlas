@@ -82,6 +82,7 @@ function init() {
     evidenceToggle: $('evidence-toggle'),
     reset: $('reset'),
     status: null, // operating-state label (views.js) replaces the old status line
+    plateEmpty: $('plate-empty'),
     nodeEls,
   });
   renderLayers($('layers-readout'));

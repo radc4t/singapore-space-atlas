@@ -324,6 +324,25 @@ html {
   width: min(86vh, 100%);
   height: auto;
 }
+/* G2: centred empty-state message when every stakeholder type is filtered off the plate. */
+.plate-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 26ch;
+  margin: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-caps);
+  line-height: 1.6;
+  color: var(--color-muted);
+  z-index: 4;
+}
+.plate-empty[hidden] {
+  display: none;
+}
 
 .panel {
   position: absolute;
