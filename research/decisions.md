@@ -195,7 +195,8 @@ does not touch the plate.
 Added 2026-08-16. Each linkable node carries a `url` = its **official first-party homepage** (canonical,
 post-redirect, no tracking params), shown as an external link in the Directory. Rule: the URL is the
 entity's own site, or the official parent's page **explicitly representing** it. Singapore branches of
-global firms link to the **global official** site. **41 / 47 linked; 6 intentionally inert.**
+global firms link to the **global official** site. After #9/#11 grew the corpus and the 2026-08-17
+re-verification (below), the split is **82 linked / 7 intentionally inert of 89**.
 
 Intentional **shared** destinations (not accidental duplicates):
 
@@ -214,13 +215,45 @@ Programme / community pages (parent page explicitly representing the entity): `g
   organisations; no official website exists._
 - `ostin` — _defunct: its mandate & functions were subsumed by NSAS on 1 Apr 2026 (`nsas-establishment`);
   its site is now NSAS's `space.gov.sg`, so a separate link would duplicate/mislead._
-- `satoro` — _no identifiable official website found (only LinkedIn / business-directory listings); left
-  inert rather than link a non-first-party page._
+- `satoro` — _re-checked 2026-08-17: `satoro.space` fails with an SSL certificate mismatch (not a clean
+  first-party site); still no trustworthy official homepage, so left inert (per the conservative bar)._
+- `beyond-earth` — _made inert 2026-08-17: its `beyondearth.tech` redirects to **Beyond Earth Ventures**
+  (a VC), not a first-party site for a small-satellite company; the node's classification should be
+  revisited in a future edition (it may be a VC rather than a company)._
 
-Verified each linked URL resolves (2xx, http(s)) and is the correct entity on 2026-08-16. A malformed or
-non-http node `url` now fails `npm run validate` (`test/data.test.mjs` covers the rule). `url` is an
-ancillary presentation field — it does not change any node/edge/analytical value, so the dataset snapshot
-and edition are unchanged.
+The node `url` is an ancillary presentation field — it does not change any node/edge/analytical value, so
+the dataset snapshot and edition are unchanged. A malformed or non-http node `url` fails `npm run validate`;
+the rendered link's anchor attributes (`href`/`target`/`rel`) and the inert exceptions are asserted in
+`test/e2e.spec.mjs` (the catalogue test).
+
+### Re-verification 2026-08-17 (issue #12)
+
+Re-verified all node URLs with the new `npm run check:links` tool (`scripts/check-links.mjs` — a
+zero-dependency liveness checker: browser-identifying UA, HEAD→GET, follows redirects, classifies
+`ok`/`redirect`/`blocked`/`dead` with the raw status; a manual/edition tool, kept out of CI like the e2e
+suite). Of 80 distinct URLs: **79 ok**, and the corrections below. `redirect`/`blocked` were browser-reviewed,
+not auto-failed.
+
+**Corrections (`old → new`, reason):**
+
+- `spacechain`: `spacechain.com` → `spacechaininc.com` — _dead (old domain no longer resolves); current
+  official site._
+- `nec-space-sg`: `www.sg.nec.com` → `www.necspace.co.jp/en/` — _dead (SG subdomain no longer resolves);
+  the global-official NEC Space Technologies site (SG-branch → global rule; the site 403s bots but is live)._
+- `maxar-sg`: `www.maxar.com` → `vantor.com` — _rebrand: Maxar Intelligence became **Vantor** (Oct 2025).
+  Node name kept as "Maxar" for recognisability; a rename is a content decision for a future edition._
+- `unseenlabs-sg`: `unseenlabs.space` → `unseenlabs.com` — _moved to the new official domain._
+
+**Kept after review (live, not changed):**
+
+- `intelsat-sg`: `intelsat.com` kept — it resolves but redirects to `ses.com` because **SES acquired
+  Intelsat** (closed 17 Jul 2025). Kept Intelsat's own canonical domain (not repointed to `ses.com`, which
+  would duplicate `ses-sg` and conflate the entities); the merger is noted here. A future edition may merge
+  `intelsat-sg` into `ses-sg`.
+- Firewall-blocked-but-live (403/blocked to bots, live in a browser): none remained after the GET retry;
+  `necspace.co.jp` is the one WAF-heavy host, resolved via GET.
+
+Shared destinations (`stengg.com`, the STDP page) remain intentional, not duplicates.
 
 ## Discovery model — deliberately editorial, not a zoomable tool
 

@@ -636,7 +636,6 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Small-satellite development and space situational awareness',
-    url: 'https://www.beyondearth.tech/',
     sources: ['dir-2025'],
   },
 
@@ -679,7 +678,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Blockchain-based decentralised satellite infrastructure',
-    url: 'https://spacechain.com/',
+    url: 'https://spacechaininc.com/',
     sources: ['dir-2025'],
   },
   {
@@ -809,7 +808,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'High-resolution Earth-imagery and space-infrastructure provider',
-    url: 'https://www.maxar.com/',
+    url: 'https://vantor.com/',
     sources: ['dir-2025'],
   },
 
@@ -964,7 +963,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'Satellite systems and components',
-    url: 'https://www.sg.nec.com/',
+    url: 'https://www.necspace.co.jp/en/',
     sources: ['dir-2025'],
   },
   {
@@ -1034,7 +1033,7 @@ export const NODES = [
     coverage: 'catalogued',
     status: 'active',
     role: 'RF-based maritime intelligence from space',
-    url: 'https://unseenlabs.space/',
+    url: 'https://unseenlabs.com/',
     sources: ['dir-2025'],
   },
   {
