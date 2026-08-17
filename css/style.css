@@ -988,6 +988,14 @@ a {
   fill: transparent;
   stroke: none;
 }
+/* E4: an explicit drawn focus ring on the hit circle, so the keyboard indicator never depends on the
+   browser's (Safari-unreliable) `outline` rendering of SVG shapes. Stroke is SVG-native and honours
+   the theme via --color-focus. */
+.node-hit:focus-visible {
+  outline: none;
+  stroke: var(--color-focus);
+  stroke-width: 2px;
+}
 @media (pointer: coarse) {
   .node-hit {
     r: 22px;

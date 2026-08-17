@@ -68,22 +68,32 @@ export function initStory({ startBtn, panel, caption, prevBtn, nextBtn, exitBtn,
     else nextBtn.replaceChildren(txt('Next'), icon('arrow-right'));
   }
 
+  // E1: keep keyboard focus continuous. Starting the tour hides the start button (dropping focus to
+  // <body>), so move focus into the panel; ending it returns focus to the start button.
   startBtn.addEventListener('click', () => {
     step = 0;
     apply();
+    nextBtn.focus();
   });
   nextBtn.addEventListener('click', () => {
-    if (step >= STEPS.length - 1) step = -1;
-    else step += 1;
-    apply();
+    if (step >= STEPS.length - 1) {
+      step = -1;
+      apply();
+      startBtn.focus(); // Finish → tour closed, return to the (now visible) start button
+    } else {
+      step += 1;
+      apply();
+    }
   });
   prevBtn.addEventListener('click', () => {
     if (step > 0) step -= 1;
     apply();
+    if (prevBtn.disabled) nextBtn.focus(); // Back becomes disabled at step 0 → move focus off it
   });
   exitBtn.addEventListener('click', () => {
     step = -1;
     apply();
+    startBtn.focus();
   });
   apply();
 }

@@ -73,15 +73,21 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
     });
   });
 
+  // E3: a visually-hidden live region so screen-readers hear the result count change as the user types.
+  const searchLive = h('p', { class: 'visually-hidden', 'aria-live': 'polite', role: 'status' });
+  results.insertAdjacentElement('afterend', searchLive);
+
   function renderResults() {
     results.replaceChildren();
     const q = state.query;
     if (!q) {
       results.hidden = true;
+      searchLive.textContent = '';
       return;
     }
     results.hidden = false;
-    const hits = NODES.filter((n) => matches(n, q)).slice(0, 12);
+    const allHits = NODES.filter((n) => matches(n, q));
+    const hits = allHits.slice(0, 12);
     if (!hits.length) {
       results.append(
         h('p', { class: 'no-hit' }, [
@@ -91,8 +97,10 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
           ),
         ])
       );
+      searchLive.textContent = 'No matches in this snapshot.';
       return;
     }
+    searchLive.textContent = `${allHits.length} result${allHits.length === 1 ? '' : 's'}.`;
     const list = h('ul', { class: 'result-list' });
     for (const n of hits) {
       const onMap = n.coverage === 'featured';
@@ -107,7 +115,12 @@ export function initFilters({ legend, search, results, evidenceToggle, reset, st
             (onMap ? '' : ' · directory'),
         }),
       ]);
-      btn.addEventListener('click', () => setState({ view: 'explore', selection: n.id }));
+      btn.addEventListener('click', (e) => {
+        setState({ view: 'explore', selection: n.id });
+        // E2: move focus to the Inspector only for keyboard activation (Enter/Space → click.detail 0);
+        // a pointer/touch tap must not yank focus. The inspector renders synchronously on setState.
+        if (e.detail === 0) document.querySelector('.inspector-title')?.focus();
+      });
       list.append(h('li', {}, [btn]));
     }
     results.append(list);
