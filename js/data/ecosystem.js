@@ -139,6 +139,35 @@ export const NODES = [
     url: 'https://www.imda.gov.sg/',
     sources: ['imda-spectrum'],
   },
+  {
+    id: 'dsta',
+    name: 'Defence Science and Technology Agency',
+    aliases: ['DSTA'],
+    kind: 'organisation',
+    type: 'government',
+    scope: 'domestic',
+    coverage: 'featured',
+    status: 'active',
+    role: 'Defence procurement & systems agency; commissioned the DS-SAR radar-imaging satellite',
+    featuredReason:
+      'Government sponsor of national satellite imagery (DS-SAR, with ST Engineering).',
+    url: 'https://www.dsta.gov.sg/',
+    sources: ['dssar-2023'],
+  },
+  {
+    id: 'mss',
+    name: 'Meteorological Service Singapore',
+    aliases: ['MSS', 'NEA Meteorological Service'],
+    kind: 'organisation',
+    type: 'government',
+    scope: 'domestic',
+    coverage: 'featured',
+    status: 'active',
+    role: 'National weather authority (under NEA); receives & processes meteorological-satellite data (Himawari)',
+    featuredReason: 'A government space-data user operating satellite reception for weather.',
+    url: 'https://www.weather.gov.sg/',
+    sources: ['mss-satellite'],
+  },
 
   // ---- Academia & research (capability) ---------------------------------------------------
   {
@@ -1415,6 +1444,16 @@ export const EDGES = [
     pathway: 'direct',
     evidenceNote: "SpeQtral was founded by researchers from NUS's Centre for Quantum Technologies.",
   },
+  {
+    source: 'nuspace',
+    target: 'nus',
+    relation: 'spun-from',
+    sources: ['nuspace-nus-2018'],
+    confidence: 'documented',
+    pathway: 'direct',
+    evidenceNote:
+      'NuSpace is a 2018 NUS spin-off (founders from NUS Engineering; incubated under NUS GRIP; Galassia lineage).',
+  },
 
   // ---- Commercial supply (documented, direct) ---------------------------------------------
   {
@@ -1425,6 +1464,16 @@ export const EDGES = [
     confidence: 'documented',
     pathway: 'direct',
     evidenceNote: "Addvalue's IDRS was selected by Vast for deployment on its Haven-1 station.",
+  },
+  {
+    source: 'dsta',
+    target: 'st-satsys',
+    relation: 'partners',
+    sources: ['dssar-2023'],
+    confidence: 'documented',
+    pathway: 'direct',
+    evidenceNote:
+      'DSTA and ST Engineering jointly commissioned the DS-SAR radar satellite (ordered 2018, launched Jul 2023).',
   },
   {
     source: 'satoro',

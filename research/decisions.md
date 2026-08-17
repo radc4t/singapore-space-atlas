@@ -77,18 +77,41 @@ bounded stop rule, these stay edgeless and are recorded, not chased across the o
 
 ## Deliberate omissions (honest coverage, not oversight)
 
-- **DSTA, NEA/Meteorological Service** — named in the brief but no _space-specific_ activity was
-  captured from a citable source in this snapshot, so they are omitted rather than asserted. DSO
-  National Laboratories IS included (documented via X-SAT / the NUS STAR centre).
+- **DSTA, NEA/Meteorological Service** — _omitted in the 2026-08-15 snapshot_ (no space-specific
+  activity from a citable source); **both sourced and added 2026-08-17 (issue #11)** — see the §"Omitted
+  entities revisited" dispositions below.
 - **Aliena/ZES/SpeQtral spin-off lineages** — all three were upgraded from "inferred" to
   "documented" once primary NTU/EDB sources were found (`ntu-aliena-2022`, `ntu-zes-2020`,
   `edb-speqtral-2024`).
-- **NuSpace lineage** — commonly described as NUS-adjacent, but no primary spin-off source was
-  captured, so NO spin-off edge was drawn (an example of "no evidence found" ≠ "no relationship").
+- **NuSpace lineage** — _omitted in the 2026-08-15 snapshot_ (no primary spin-off source captured);
+  **sourced and added 2026-08-17 (issue #11)** as `nuspace → nus spun-from` — see below.
 - **Company↔NSAS support edges** — the national office's industry-development mandate is general;
   no per-company support relationship is drawn without a specific source. Companies connect via
   documented spin-off / supply / research edges only; otherwise they sit in their cluster ring.
   Their membership in the ecosystem is conveyed by _position_, not by a fabricated edge.
+
+## Omitted entities revisited — dispositions (2026-08-17, issue #11)
+
+The three 2026-08-15 omissions were re-researched. All three cleared the bar and were **added** (per-item;
+"still omitted" was an accepted outcome, but each found a qualifying space-specific source).
+
+- **DSTA — ADDED** as a `government` node (featured). Space-specific evidence: DSTA (a MINDEF statutory
+  board) and ST Engineering **jointly commissioned the DS-SAR radar-imaging satellite** from IAI (ordered
+  2018, launched 30 Jul 2023), supporting Singapore government satellite-imagery needs (`dssar-2023`,
+  Gunter's Space Page — authoritative secondary; no first-party page states it as plainly). Modelled as
+  `government` (procurement/systems agency), **not** `academia` — that role belongs to the defence _R&D
+  lab_ DSO, which is already modelled. A documented `dsta → st-satsys` (`partners`) edge records the DS-SAR
+  co-development (same source substantiates the specific relationship).
+- **NEA / Meteorological Service — ADDED** as `mss` (Meteorological Service Singapore, a division under NEA),
+  `government` node (featured). Space-specific evidence: MSS **receives and processes Himawari (JMA)
+  meteorological-satellite data** (`mss-satellite`, first-party weather.gov.sg). Modelled as a government
+  space **data-user**, like CAAS/MPA — the acceptance test (satellite/space-derived capability, not generic
+  weather forecasting) is met by the satellite-reception/processing role.
+- **NuSpace — ADDED** `nuspace → nus` (`spun-from`, documented). Formal spin-off evidence: NuSpace is a
+  **2018 NUS spin-off**, founded by NUS Faculty of Engineering researchers, **incubated under NUS GRIP**
+  (the NUS venture-creation programme), with the Galassia nanosatellite lineage (`nuspace-nus-2018`,
+  first-party). This clears the **formal-spin-off** bar (materially stronger than the alumni/staff-founded
+  cases that kept Atomionics/Bifrost edgeless).
 
 ## Coverage
 
