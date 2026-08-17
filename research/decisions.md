@@ -56,9 +56,52 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
 
 ## Coverage
 
-- 22 company nodes shown (of ~70 identified in public materials): 15 domestic + 7 international MNCs
-  with a Singapore presence. Featured = the strategically significant / best-documented anchors;
-  catalogued = included in the dataset but not necessarily drawn on the default map.
+- **2026-08-17 expansion (issue #9).** Company coverage grown from 22 to **62 of ~70** shown, over two
+  batches (25 + 15 additions): **27 domestic** (`type: company`) + **35 international** MNCs with a
+  Singapore presence (`type: international` + cluster). Featured = the strategically significant /
+  best-documented anchors (16 total; only 3 of the 40 additions were featured); catalogued = included in
+  the dataset but not necessarily drawn on the default map. This is a data refresh within schema 1.0; the
+  in-product Edition/`DATA_SNAPSHOT` label is advanced separately at release (Phase 1 track #14), so new
+  sources carry their real `accessed` date (`2026-08-17`) while the snapshot label still reads
+  `2026-08-15` until the release cut. The second batch (all catalogued, so no map-geometry change) added
+  the remaining clearly-space firms — VSAT/RF and satcom hardware (Amplus, Meds Technologies, Nera),
+  space-data/analytics and infrastructure (Liberatech, SpaceChain), and space-focused MNCs (Speedcast,
+  L3Harris, Cobham SATCOM, KVH, Comtech, Mitsubishi Electric, Mitsubishi Heavy Industries, SKY Perfect
+  JSAT, ABS, Applied Satellite Technology). The remaining gap to ~70 is general-industry component/
+  materials/electronics suppliers listed under space segments (Jabil, Flex, AMD, Nvidia, Microchip, …),
+  deliberately **not** added — the atlas counts space companies, not every supplier with a space line.
+
+### Method — how the batch was sourced
+
+- **Enumerator:** the OSTIn/AAIS 2025/26 Industry Directory (`dir-2025`) — its Alphabetical Listing
+  (pp.19–46) and Space Related Industries segment listings (pp.49–74) list each company with its
+  official website and space segment. `dir-2025` is sufficient citation for a **catalogued** node; it
+  does **not** by itself justify **featured** prominence.
+- **Segment → cluster mapping** used for the directory's eight segments:
+  Launch Service Providers → `launch`; Satellite Manufacturers / Space Exploration → `satellite-mfg`
+  (unless clearly propulsion/quantum/optical); Satellite Operations → `comms-ground` (operators) or
+  `geospatial` (EO operators); Space-Based Services / Space Infrastructure → `geospatial`, `comms-ground`
+  or `downstream` by activity; Supporting Services and Space R&D → **excluded** where they are
+  legal/finance/VC/insurance firms, polytechnics or universities (modelled elsewhere in the atlas, or
+  not space-technology companies).
+- **Tiering rule:** catalogued by default; promote to featured only where significance is reproducible
+  from a first-party primary beyond the directory (or a clear cluster-anchor role). Only **3** of 25
+  additions were featured — all domestic, each SG-anchored with an SG-institution primary:
+  `atomionics` (quantum; `cqt-atomionics-2021`), `bifrost` (geospatial; `nttdata-bifrost-2025`),
+  `galamad` (satellite-mfg; `ntu-galamad-2023`). The other 22 stayed catalogued — evidence the tiering
+  rule holds (go wide in the catalogue, stay selective on the plate).
+- **Considered but excluded on verification (mis-segmented in the directory):** `Skycom Satellite
+Systems` — "satellite" in the CATV/MATV/IPTV building-TV sense (hotel/condo TV distribution), not a
+  space company; `Wizlogix` — a general PCB design/fabrication house (some satellite PCB work for
+  DSO/NTU/ST, but an electronics-services enabler, not a space firm). Both live-checked and left out.
+- **Considered but deferred (not added):** `THISS Technologies` — listed under Satellite Manufacturers
+  but its space-specific role could not be verified beyond the directory listing; deferred rather than
+  assert an unverified role. Numerous directory entries were excluded as out-of-scope: law firms
+  (Allen & Gledhill, Rajah & Tann, WongPartnership, Bird & Bird, Clifford Chance, Drew & Napier, …),
+  VC/finance (Cap Vista, Seeds Capital, Elev8.VC, Incubate Fund, Pavilion, Wavemaker, EY, Marsh, Sompo),
+  and universities/polytechnics (NTU, NUS, SMU, SUTD, the polytechnics, Embry-Riddle) — the atlas models
+  academia and government as their own node types, and professional-services firms are not space-tech
+  companies. No entity was added solely to raise the count.
 
 ## Phase C.5 — layout stress test (evidence over prediction)
 
@@ -79,6 +122,14 @@ cluster wedge for companies **but spread evenly within the ring** (crowded clust
 so no collisions), and inner-ring nodes (agencies, academia, programmes, international) ordered to
 sit angularly near the nodes/clusters they connect to (reduces crossings without sacrificing the
 "where in the ecosystem / what capability" readability). The chosen geometry is deterministic.
+
+**Re-run after the 2026-08-17 expansion** (`npm run stress`; ring counts now **1/11/6/47/3**):
+concentric = 30 crossings / 0 collisions, packed = 28 / 58, hybrid = 33 / 0. The even-spread hybrid
+still resolves to **0 label-collisions**; only the packed variant collides, as before. Note the stress
+script counts _all_ nodes (ring 4 = 47), whereas the plate draws **featured-only**: featured companies
+grew 13 → 16 (+3: `atomionics`, `bifrost`, `galamad`), so on-plate crowding is modest and the behavioural
+review (below) confirms the ring stays legible. The bulk of the batch is catalogued (Directory-only) and
+does not touch the plate.
 
 ## Entity website links (`node.url`) — Directory
 
