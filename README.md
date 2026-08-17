@@ -34,6 +34,7 @@ does so **honestly**, showing what is documented, what is inferred, and how each
 - [Tech stack](#tech-stack)
 - [Accessibility](#accessibility)
 - [Versioning & editions](#versioning--editions)
+- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -195,6 +196,15 @@ Two independent axes:
   minor = new features or a data refresh within schema 1.0; major = a schema break or identity overhaul.
 - **Editorial edition:** the content version, shown in-product — **2026 Edition · research snapshot
   15 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
+
+## Roadmap
+
+The forward plan lives in **[`ROADMAP.md`](ROADMAP.md)** — the canonical sequencing and scope document,
+mirrored into GitHub [milestones](https://github.com/radc4t/singapore-space-atlas/milestones) and issues
+(which carry execution detail and status). It is evidence-led: the next Edition (`v1.1.0`) grows
+evidence-backed coverage toward the ~70-company universe, followed by mobile / guided-tour product depth
+(`v1.2.0`) and rolling engineering hardening. Deliberate non-goals — in-map zoom/pan, faceted filtering,
+on-map cluster labels — are recorded there as non-goals, not backlog.
 
 ## Contributing
 
