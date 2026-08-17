@@ -88,6 +88,13 @@ Split into six evidence-workflow tracks so no single mega-issue forms (each is i
 **Done when:** `npm run validate`, the unit tests, and the build are green; the Directory denominator readout
 reflects the new counts; the `research/` ledger is updated; and the Edition label is bumped.
 
+**Release gate.** Before the `v1.1.0` tag is cut, a **full sanity & regression pass** (`npm run
+release-check`, tracked as the release-gate issue) must be green: it runs the complete automated battery,
+adds permanent guards for the guiding invariants (strict CSP, zero runtime deps, Edition/snapshot sync,
+ledger↔data parity, rendered release surfaces), and records the remaining editorial judgments as explicit
+human checks. Publication (tag + release) happens only after that gate passes, the PR merges, and the
+maintainer approves.
+
 ## Phase 2 — Mobile interaction and layout depth
 
 **Target: `v1.2.0`. Primary axis: product.**

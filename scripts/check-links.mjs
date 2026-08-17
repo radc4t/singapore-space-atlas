@@ -3,11 +3,15 @@
 // Reads every node `url` from the corpus and checks it resolves, following redirects. It classifies
 // each link so a human can triage — it does NOT auto-decide. Network access + WAFs make liveness a
 // review signal, not a pass/fail: a 403 is usually a bot block on a live page, and a redirect may be
-// a legitimate move to a new official domain. So this stays out of CI (like the Playwright suite) and
-// always exits 0. `npm run check:links`.
+// a legitimate move to a new official domain. So this stays out of CI (like the Playwright suite).
 //
 // Classes: ok (2xx) · redirect (final URL differs — review, esp. cross-host) · blocked (401/403/405
 // or similar access-control) · dead (404/410/DNS/timeout/other). The raw status/error is always shown.
+//
+// Exit codes: `npm run check:links` is advisory and always exits 0. `npm run check:links -- --strict`
+// (used by the release gate, `npm run release-check`) exits non-zero ONLY on `dead` URLs. redirect,
+// blocked, and *wrong-entity* destinations stay human review states — HTTP liveness cannot decide
+// whether a URL points at the correct first-party page.
 
 import { NODES } from '../js/data/ecosystem.js';
 
@@ -105,9 +109,25 @@ async function run() {
   console.log(
     `\n  summary: ok ${tally.ok || 0} · redirect ${tally.redirect || 0} · blocked ${tally.blocked || 0} · dead ${tally.dead || 0}`
   );
-  console.log(
-    '  (review redirect/blocked/dead by hand — not an automatic verdict; this tool never fails CI)'
-  );
+
+  const strict = process.argv.includes('--strict');
+  const dead = tally.dead || 0;
+  if (strict) {
+    // Strict (release gate): fail on dead only. redirect/blocked/wrong-entity stay human review.
+    if (dead > 0) {
+      console.error(
+        `  --strict: ${dead} dead URL(s) — release gate FAILS. (redirect/blocked remain human review.)`
+      );
+      process.exit(1);
+    }
+    console.log(
+      '  --strict: 0 dead URLs — link liveness OK (review any redirect/blocked by hand).'
+    );
+  } else {
+    console.log(
+      '  (review redirect/blocked/dead by hand — not an automatic verdict; advisory, exits 0. Use --strict to fail on dead.)'
+    );
+  }
 }
 
 run();
