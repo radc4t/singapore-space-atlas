@@ -14,6 +14,10 @@ in-product). They are related but not synonymous — a minor version is not auto
 **This file is the canonical sequencing and scope document.** GitHub issues are execution records and may
 carry implementation detail, discussion, and status. When the two disagree, this file wins.
 
+> **Resuming mid-flight?** [`docs/HANDOFF.md`](docs/HANDOFF.md) is a self-contained execution brief — current
+> corpus state, the remaining v1.1.0 issues in detail, the per-issue workflow, the evidence rules, the data
+> model, and the verification gotchas — written so a fresh session can continue with no prior context.
+
 ## Guiding constraints
 
 Every phase must hold these invariants:
