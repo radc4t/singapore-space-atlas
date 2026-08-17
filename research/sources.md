@@ -32,3 +32,16 @@ publicly documented."** Absence of an edge is never a claim that no relationship
   relationship claims from aggregators were not treated as primary evidence for this snapshot.
 - **Company self-descriptions** — used to sanity-check activity wording, not as evidence of any
   inter-organisation relationship.
+
+## Coverage-batch additions (2026-08-17)
+
+Sources added for the company-coverage expansion (issue #9). Catalogued additions cite `dir-2025`
+(the directory's Alphabetical Listing pp.19–46 and Space Related Industries segment listings pp.49–74
+attest each company's existence, official website and space segment); the three featured additions
+carry an additional first-party primary below.
+
+| id                     | source                                              | first-party?           | what it substantiates                                                                                        | retrieval location     |
+| ---------------------- | --------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------- |
+| `cqt-atomionics-2021`  | CQT (NUS) highlight — Atomionics quantum sensors    | first-party (academia) | Atomionics builds cold-atom quantum sensors (gravity/navigation); backed by Enterprise Singapore & Cap Vista | highlight article body |
+| `nttdata-bifrost-2025` | NTT DATA insights — synthetic data for satellite AI | first-party (industry) | Bifrost's synthetic geospatial data trains satellite-imagery AI models (NTT DATA partnership)                | insights/focus article |
+| `ntu-galamad-2023`     | NTU CAS news — Galamad Aerospace satellite start-up | first-party (academia) | Galamad Aerospace designs/builds programmable, reusable small satellites (engineered in Singapore)           | news detail page       |

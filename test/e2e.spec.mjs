@@ -138,7 +138,7 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
   // structure
   await expect(page.locator('.cat-group')).toHaveCount(7);
   await expect(page.locator('.cat-group-head')).toHaveCount(7);
-  await expect(page.locator('.cat-item')).toHaveCount(47);
+  await expect(page.locator('.cat-item')).toHaveCount(NODES.length);
   await expect(page.locator('.cat-item .dot')).toHaveCount(0); // dots live only in headers
 
   // card names — DATA-DRIVEN: external link where the node has a url, inert text otherwise. Assert the
@@ -173,8 +173,8 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
     ['National space agency', '01'],
     ['Government agency', '07'],
     ['University / research', '06'],
-    ['Company', '15'],
-    ['International partner', '10'],
+    ['Company', '22'],
+    ['International partner', '28'],
     ['Supporting sector', '04'],
     ['Programme', '04'],
   ];
@@ -185,13 +185,13 @@ test('catalogue groups by type: structure, membership, meta contract, a11y', asy
   }
 
   // membership: each group holds exactly its cards
-  const expected = [1, 7, 6, 15, 10, 4, 4];
+  const expected = [1, 7, 6, 22, 28, 4, 4];
   const groups = page.locator('.cat-group');
   for (let i = 0; i < expected.length; i++)
     await expect(groups.nth(i).locator('.cat-item')).toHaveCount(expected[i]);
 
   // meta contract: no type label leaks into any card meta
-  await expect(page.locator('.cat-item .cat-meta')).toHaveCount(47);
+  await expect(page.locator('.cat-item .cat-meta')).toHaveCount(NODES.length);
   const metas = await page.locator('.cat-item .cat-meta').allTextContents();
   for (const m of metas)
     for (const label of Object.values(TYPE_LABELS))
