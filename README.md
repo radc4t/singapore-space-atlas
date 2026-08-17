@@ -133,17 +133,19 @@ npm run build && npm run preview
 
 ## Development
 
-| Command            | What it does                                                           |
-| ------------------ | ---------------------------------------------------------------------- |
-| `npm run dev`      | Build-free static server at <http://127.0.0.1:8000>                    |
-| `npm run build`    | Bundle + minify into `dist/` (self-contained)                          |
-| `npm run preview`  | Build, then serve `dist/`                                              |
-| `npm run validate` | Data-contract integrity: ontology + evidence rules                     |
-| `npm test`         | Unit tests (`node --test`) — the validator provably catches violations |
-| `npm run stress`   | Layout crossing/collision report                                       |
-| `npm run test:e2e` | Playwright: interaction, deep links, axe a11y, visual regression       |
-| `npm run lint`     | ESLint                                                                 |
-| `npm run format`   | Prettier (write) · `npm run format:check` to verify                    |
+| Command                 | What it does                                                            |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `npm run dev`           | Build-free static server at <http://127.0.0.1:8000>                     |
+| `npm run build`         | Bundle + minify into `dist/` (self-contained)                           |
+| `npm run preview`       | Build, then serve `dist/`                                               |
+| `npm run validate`      | Data-contract integrity: ontology + evidence rules                      |
+| `npm test`              | Unit tests (`node --test`) — the validator provably catches violations  |
+| `npm run stress`        | Layout crossing/collision report                                        |
+| `npm run check:links`   | URL liveness (manual; `-- --strict` fails on dead links)                |
+| `npm run test:e2e`      | Playwright: interaction, deep links, axe a11y, visual regression        |
+| `npm run release-check` | Full pre-release gate: the whole battery + a per-stage PASS/FAIL report |
+| `npm run lint`          | ESLint                                                                  |
+| `npm run format`        | Prettier (write) · `npm run format:check` to verify                     |
 
 CI (GitHub Actions) runs lint, format, validate, build, and the unit tests on every push and pull
 request; a separate workflow deploys `main` to GitHub Pages.
@@ -161,9 +163,9 @@ js/
   icons.js                      tiny inline-SVG icon set (Iconoir geometry, 1.5px stroke)
   router.js state.js            deep-link state ↔ shared store
   theme.js story.js app.js      theming · guided tour · bootstrap/controller
-scripts/  validate-data.mjs · layout-stress.mjs · build.mjs
+scripts/  validate-data.mjs · layout-stress.mjs · check-links.mjs · release-check.mjs · build.mjs · nocache_server.py
 research/ evidence ledger (sources.md, decisions.md, entities.csv, relationships.csv, references.md)
-test/     data.test.mjs (node --test) · e2e.spec.mjs (Playwright)
+test/     data.test.mjs · release.test.mjs · research-consistency.test.mjs (node --test) · e2e.spec.mjs (Playwright)
 design.md  the design constitution
 ROADMAP.md the forward plan (canonical; mirrored to GitHub milestones/issues)
 ```
@@ -193,8 +195,9 @@ Accessibility is a first-class constraint, not an afterthought:
 
 Two independent axes:
 
-- **Software (SemVer):** git-tagged releases. `v1.0.0` is the first public release. Patch = fixes;
-  minor = new features or a data refresh within schema 1.0; major = a schema break or identity overhaul.
+- **Software (SemVer):** git-tagged releases. `v1.0.0` was the first public release; **`v1.1.0`** (a data
+  refresh within schema 1.0) is the current release. Patch = fixes; minor = new features or a data refresh
+  within schema 1.0; major = a schema break or identity overhaul.
 - **Editorial edition:** the content version, shown in-product — **2026 Edition · research snapshot
   17 Aug 2026 · dataset schema 1.0**. A future data refresh is a new Edition (and a minor bump).
 
@@ -202,10 +205,10 @@ Two independent axes:
 
 The forward plan lives in **[`ROADMAP.md`](ROADMAP.md)** — the canonical sequencing and scope document,
 mirrored into GitHub [milestones](https://github.com/radc4t/singapore-space-atlas/milestones) and issues
-(which carry execution detail and status). It is evidence-led: the next Edition (`v1.1.0`) grows
-evidence-backed coverage toward the ~70-company universe, followed by mobile / guided-tour product depth
-(`v1.2.0`) and rolling engineering hardening. Deliberate non-goals — in-map zoom/pan, faceted filtering,
-on-map cluster labels — are recorded there as non-goals, not backlog.
+(which carry execution detail and status). It is evidence-led: **`v1.1.0` — the current 2026 Edition —
+grew evidence-backed coverage toward the ~70-company universe** (milestone #1, shipped); next is mobile /
+guided-tour product depth (`v1.2.0`) and rolling engineering hardening. Deliberate non-goals — in-map
+zoom/pan, faceted filtering, on-map cluster labels — are recorded there as non-goals, not backlog.
 
 ## Contributing
 
