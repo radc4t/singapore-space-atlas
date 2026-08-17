@@ -30,7 +30,7 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
 - **`partners` is used only twice** (CNES, ESA), each backed by an explicit MoU / letter of intent.
   All softer government links use `coordinates`; agency oversight uses `oversees`.
 
-## Inferred edges (3) — why each is inferred, not documented
+## Inferred edges — original snapshot rationale (2026-08-15)
 
 - `ntu → stdp`, `nus → stdp` (`participates`, programme-mediated): STDP eligibility explicitly
   includes local IHLs and both are core space IHLs, so participation is highly likely — but a
@@ -38,6 +38,42 @@ Snapshot 2026-08-15. Records the judgement calls behind the corpus, so curation 
   award, so these are inferred and hidden by default.
 - `nsas → unoosa` (`participates`, contextual): Singapore participates in COPUOS, but which office
   represents the state (NSAS/OSTIn vs MFA) is not disambiguated in captured sources.
+
+## Relationship sourcing & disambiguation — dispositions (2026-08-17, issue #10)
+
+Each of the three non-documented edges was researched to a primary source; per-edge outcomes differ.
+
+- **`ntu → stdp` — PROMOTED to documented.** NTU's Satellite Research Centre (SaRC) leads **three
+  projects under the Space Access Programme** (an STDP funding archetype run by OSTIn), launches
+  targeted 2026–2028 (`ntu-sap-2026`, first-party NTU). The `rationale` is dropped; pathway set to
+  `direct` (NTU is a direct participant). This is a specific award, not mere eligibility.
+- **`nus → stdp` — LEFT inferred (per-edge, deliberately).** No _primary_ NUS STDP award was found.
+  Secondary reporting describes the NUS-DSO STAR flagship as "STDP-supported"; that is noted in the
+  edge's `rationale` but does not clear the primary-source bar, so the edge stays inferred/hidden.
+  (NTU and NUS legitimately diverge — the whole point of treating them per-edge.)
+- **`nsas → unoosa` — DISAMBIGUATED and re-attached as documented `ostin → unoosa`.** The unresolved
+  question was _which office_ engages UNOOSA. A specific, documented relationship exists: **OSTIn and
+  UNOOSA agreed the "Space Law for New Space Actors" collaboration (29 Apr 2025)** with a Technical
+  Advisory Mission in Singapore (`ostin-unoosa-2025`, first-party OSTIn). The edge is re-cast as that
+  documented `partners` relationship (attached to `ostin`, matching the `ostin → cnes`/`esa` pattern;
+  `nsas → ostin` conveys inheritance). **Explicit modelling decision:** this edge now represents the
+  documented space-law collaboration, **not** a claim that OSTIn/NSAS is Singapore's COPUOS state
+  representative (national COPUOS statements are delivered by the diplomatic mission / MFA, which is
+  not modelled). It is re-attached, not silently removed, because a specific source substantiates it.
+
+### New-company relationships (bounded search, issue #10)
+
+The SAP consortium (`ntu-sap-2026`) yielded two documented **supplier** edges: `satoro → ntu` (Satoro
+builds the SaRC CubeSat) and `lighthaus → ntu` (LightHaus supplies the optical payload). Aliena also
+provides propulsion for a SAP satellite, but `aliena → ntu` is **already** modelled (`spun-from`); a
+second overlapping edge was **not** drawn (would double a curve between the same pair) — recorded here
+instead. Deliberate omissions (relationship real but not drawable): **Atomionics** — CQT-_staff_-
+founded (a founder was a CQT Research Fellow), **not a formal spin-off** (CQT lists it under "startups
+founded by staff/alumni"); its investors (Wavemaker, SGInnovate, Cap Vista) are not modelled — so no
+edge, same bar that keeps NuSpace edgeless. **Bifrost** — SUTD-alumni-founded (not a formal spin-off);
+its NTT Data partner and Cap Vista backer are not modelled nodes. **Galamad**, and the satcom/MNC
+additions — their documented counterparts (foreign customers, VCs) are outside the corpus. Per the
+bounded stop rule, these stay edgeless and are recorded, not chased across the open web.
 
 ## Deliberate omissions (honest coverage, not oversight)
 

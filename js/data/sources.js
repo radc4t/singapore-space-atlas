@@ -164,4 +164,22 @@ export const SOURCES = [
     accessed: '2026-08-17',
     kind: 'primary-live',
   },
+  {
+    id: 'ntu-sap-2026',
+    title: 'Three new space projects to test and validate new technologies',
+    publisher: 'Nanyang Technological University (NTU)',
+    url: 'https://www.ntu.edu.sg/news/detail/three-new-space-projects-to-test-and-validate-new-technologies',
+    published: '2026-02-02',
+    accessed: '2026-08-17',
+    kind: 'primary-live',
+  },
+  {
+    id: 'ostin-unoosa-2025',
+    title: 'OSTIn Partners UNOOSA on Space Law for New Space Actors',
+    publisher: 'Office for Space Technology & Industry, Singapore (space.gov.sg)',
+    url: 'https://www.space.gov.sg/ostin-partners-unoosa-on-space-law-for-new-space-actors/',
+    published: '2025-04-29',
+    accessed: '2026-08-17',
+    kind: 'primary-live',
+  },
 ];
